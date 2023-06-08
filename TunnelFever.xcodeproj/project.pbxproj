@@ -1,0 +1,677 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402C0352A250B7100E5D2AA /* OpenGLView.swift */; };
+		8402C0392A250BEF00E5D2AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8402C0382A250BEF00E5D2AA /* OpenGLES.framework */; };
+		843FFA37299BEF9D00813284 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8A299956F300B05CA9 /* Test.cpp */; };
+		8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */; };
+		8452C00E29869F500040E1D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00D29869F500040E1D6 /* ContentView.swift */; };
+		8452C01029869F510040E1D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C00F29869F510040E1D6 /* Assets.xcassets */; };
+		8452C01329869F510040E1D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C01229869F510040E1D6 /* Preview Assets.xcassets */; };
+		84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* test-wrapper.mm */; };
+		84D0E12B2A2FE52C00D23803 /* libBullet3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E0FF2A2FE3C400D23803 /* libBullet3Common.a */; };
+		84D0E12C2A2FE52C00D23803 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1012A2FE3C400D23803 /* libBulletCollision.a */; };
+		84D0E12D2A2FE52C00D23803 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1032A2FE3C400D23803 /* libBulletDynamics.a */; };
+		84D0E12E2A2FE52C00D23803 /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1052A2FE3C400D23803 /* libBulletInverseDynamics.a */; };
+		84D0E12F2A2FE52C00D23803 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1072A2FE3C400D23803 /* libBulletSoftBody.a */; };
+		84D0E1302A2FE52C00D23803 /* libgame.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E10B2A2FE3C400D23803 /* libgame.dylib */; };
+		84D0E1312A2FE52C00D23803 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E10D2A2FE3C400D23803 /* libglm.a */; };
+		84D0E1322A2FE52C00D23803 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1092A2FE3C400D23803 /* libLinearMath.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84D0E0FE2A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2724D8239DD04361AF84CEF4;
+			remoteInfo = Bullet3Common;
+		};
+		84D0E1002A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 40EA4750C4F14153B551A85D;
+			remoteInfo = BulletCollision;
+		};
+		84D0E1022A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BF153A3CACD43FA82DA8B48;
+			remoteInfo = BulletDynamics;
+		};
+		84D0E1042A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28A3EA8542FF4644BADB710E;
+			remoteInfo = BulletInverseDynamics;
+		};
+		84D0E1062A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D3726785E6D464F9485406D;
+			remoteInfo = BulletSoftBody;
+		};
+		84D0E1082A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AADFB3AF3E914851AAC3ADD9;
+			remoteInfo = LinearMath;
+		};
+		84D0E10A2A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A12104D367C14D4F84E6D8DB;
+			remoteInfo = game;
+		};
+		84D0E10C2A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 206E27F792D54DA8A2718B81;
+			remoteInfo = glm;
+		};
+		84D0E11B2A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2724D8239DD04361AF84CEF4;
+			remoteInfo = Bullet3Common;
+		};
+		84D0E11D2A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 40EA4750C4F14153B551A85D;
+			remoteInfo = BulletCollision;
+		};
+		84D0E11F2A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BF153A3CACD43FA82DA8B48;
+			remoteInfo = BulletDynamics;
+		};
+		84D0E1212A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28A3EA8542FF4644BADB710E;
+			remoteInfo = BulletInverseDynamics;
+		};
+		84D0E1232A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D3726785E6D464F9485406D;
+			remoteInfo = BulletSoftBody;
+		};
+		84D0E1252A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AADFB3AF3E914851AAC3ADD9;
+			remoteInfo = LinearMath;
+		};
+		84D0E1272A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A12104D367C14D4F84E6D8DB;
+			remoteInfo = game;
+		};
+		84D0E1292A2FE50000D23803 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 206E27F792D54DA8A2718B81;
+			remoteInfo = glm;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8402C0352A250B7100E5D2AA /* OpenGLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
+		8402C0382A250BEF00E5D2AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		8452C00829869F500040E1D6 /* TunnelFever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TunnelFever.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelFeverApp.swift; sourceTree = "<group>"; };
+		8452C00D29869F500040E1D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8452C00F29869F510040E1D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8452C01229869F510040E1D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8452C01429869F510040E1D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TunnelFever-Bridging-Header.h"; sourceTree = "<group>"; };
+		84C7BF8A299956F300B05CA9 /* Test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
+		84C7BF8B299956F300B05CA9 /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
+		84C7BF8E2999578F00B05CA9 /* test-wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-wrapper.h"; sourceTree = "<group>"; };
+		84C7BF8F299957B600B05CA9 /* test-wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "test-wrapper.mm"; sourceTree = "<group>"; };
+		84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = ../cpp/Project.xcodeproj; sourceTree = "<group>"; };
+		84D0E10E2A2FE50000D23803 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = ../cpp/Project.xcodeproj; sourceTree = "<group>"; };
+		84DAEF3B299CDB80000BCC60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		84DAEF3F299CF49C000BCC60 /* libegl-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "libegl-master"; path = "../../Downloads/libegl-master"; sourceTree = "<group>"; };
+		84DAEF43299CF5AE000BCC60 /* libegl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libegl.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8452C00529869F500040E1D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84D0E12B2A2FE52C00D23803 /* libBullet3Common.a in Frameworks */,
+				84D0E12C2A2FE52C00D23803 /* libBulletCollision.a in Frameworks */,
+				84D0E12D2A2FE52C00D23803 /* libBulletDynamics.a in Frameworks */,
+				84D0E12E2A2FE52C00D23803 /* libBulletInverseDynamics.a in Frameworks */,
+				84D0E12F2A2FE52C00D23803 /* libBulletSoftBody.a in Frameworks */,
+				84D0E1302A2FE52C00D23803 /* libgame.dylib in Frameworks */,
+				84D0E1312A2FE52C00D23803 /* libglm.a in Frameworks */,
+				84D0E1322A2FE52C00D23803 /* libLinearMath.a in Frameworks */,
+				8402C0392A250BEF00E5D2AA /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8452BFFF29869F500040E1D6 = {
+			isa = PBXGroup;
+			children = (
+				84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */,
+				84C7BF8F299957B600B05CA9 /* test-wrapper.mm */,
+				84C7BF8E2999578F00B05CA9 /* test-wrapper.h */,
+				84C7BF8A299956F300B05CA9 /* Test.cpp */,
+				84C7BF8B299956F300B05CA9 /* Test.hpp */,
+				8452C00A29869F500040E1D6 /* TunnelFever */,
+				8452C00929869F500040E1D6 /* Products */,
+				84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */,
+				84DAEF3A299CDB80000BCC60 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8452C00929869F500040E1D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8452C00829869F500040E1D6 /* TunnelFever.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8452C00A29869F500040E1D6 /* TunnelFever */ = {
+			isa = PBXGroup;
+			children = (
+				8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */,
+				8452C00D29869F500040E1D6 /* ContentView.swift */,
+				8402C0352A250B7100E5D2AA /* OpenGLView.swift */,
+				8452C00F29869F510040E1D6 /* Assets.xcassets */,
+				8452C01429869F510040E1D6 /* Info.plist */,
+				8452C01129869F510040E1D6 /* Preview Content */,
+			);
+			path = TunnelFever;
+			sourceTree = "<group>";
+		};
+		8452C01129869F510040E1D6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8452C01229869F510040E1D6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		84D0E0F22A2FE3C400D23803 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84D0E0FF2A2FE3C400D23803 /* libBullet3Common.a */,
+				84D0E1012A2FE3C400D23803 /* libBulletCollision.a */,
+				84D0E1032A2FE3C400D23803 /* libBulletDynamics.a */,
+				84D0E1052A2FE3C400D23803 /* libBulletInverseDynamics.a */,
+				84D0E1072A2FE3C400D23803 /* libBulletSoftBody.a */,
+				84D0E1092A2FE3C400D23803 /* libLinearMath.a */,
+				84D0E10B2A2FE3C400D23803 /* libgame.dylib */,
+				84D0E10D2A2FE3C400D23803 /* libglm.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84D0E10F2A2FE50000D23803 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84D0E11C2A2FE50000D23803 /* libBullet3Common.a */,
+				84D0E11E2A2FE50000D23803 /* libBulletCollision.a */,
+				84D0E1202A2FE50000D23803 /* libBulletDynamics.a */,
+				84D0E1222A2FE50000D23803 /* libBulletInverseDynamics.a */,
+				84D0E1242A2FE50000D23803 /* libBulletSoftBody.a */,
+				84D0E1262A2FE50000D23803 /* libLinearMath.a */,
+				84D0E1282A2FE50000D23803 /* libgame.dylib */,
+				84D0E12A2A2FE50000D23803 /* libglm.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84DAEF3A299CDB80000BCC60 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84D0E10E2A2FE50000D23803 /* Project.xcodeproj */,
+				8402C0382A250BEF00E5D2AA /* OpenGLES.framework */,
+				84DAEF43299CF5AE000BCC60 /* libegl.a */,
+				84DAEF3F299CF49C000BCC60 /* libegl-master */,
+				84DAEF3B299CDB80000BCC60 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8452C00729869F500040E1D6 /* TunnelFever */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8452C01729869F510040E1D6 /* Build configuration list for PBXNativeTarget "TunnelFever" */;
+			buildPhases = (
+				8452C00429869F500040E1D6 /* Sources */,
+				8452C00529869F500040E1D6 /* Frameworks */,
+				8452C00629869F500040E1D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TunnelFever;
+			productName = TunnelFever;
+			productReference = 8452C00829869F500040E1D6 /* TunnelFever.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8452C00029869F500040E1D6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1230;
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					8452C00729869F500040E1D6 = {
+						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
+					};
+				};
+			};
+			buildConfigurationList = 8452C00329869F500040E1D6 /* Build configuration list for PBXProject "TunnelFever" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8452BFFF29869F500040E1D6;
+			productRefGroup = 8452C00929869F500040E1D6 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 84D0E0F22A2FE3C400D23803 /* Products */;
+					ProjectRef = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+				},
+				{
+					ProductGroup = 84D0E10F2A2FE50000D23803 /* Products */;
+					ProjectRef = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8452C00729869F500040E1D6 /* TunnelFever */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		84D0E0FF2A2FE3C400D23803 /* libBullet3Common.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBullet3Common.a;
+			remoteRef = 84D0E0FE2A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1012A2FE3C400D23803 /* libBulletCollision.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletCollision.a;
+			remoteRef = 84D0E1002A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1032A2FE3C400D23803 /* libBulletDynamics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletDynamics.a;
+			remoteRef = 84D0E1022A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1052A2FE3C400D23803 /* libBulletInverseDynamics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletInverseDynamics.a;
+			remoteRef = 84D0E1042A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1072A2FE3C400D23803 /* libBulletSoftBody.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletSoftBody.a;
+			remoteRef = 84D0E1062A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1092A2FE3C400D23803 /* libLinearMath.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libLinearMath.a;
+			remoteRef = 84D0E1082A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E10B2A2FE3C400D23803 /* libgame.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libgame.dylib;
+			remoteRef = 84D0E10A2A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E10D2A2FE3C400D23803 /* libglm.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libglm.a;
+			remoteRef = 84D0E10C2A2FE3C400D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E11C2A2FE50000D23803 /* libBullet3Common.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBullet3Common.a;
+			remoteRef = 84D0E11B2A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E11E2A2FE50000D23803 /* libBulletCollision.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletCollision.a;
+			remoteRef = 84D0E11D2A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1202A2FE50000D23803 /* libBulletDynamics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletDynamics.a;
+			remoteRef = 84D0E11F2A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1222A2FE50000D23803 /* libBulletInverseDynamics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletInverseDynamics.a;
+			remoteRef = 84D0E1212A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1242A2FE50000D23803 /* libBulletSoftBody.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBulletSoftBody.a;
+			remoteRef = 84D0E1232A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1262A2FE50000D23803 /* libLinearMath.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libLinearMath.a;
+			remoteRef = 84D0E1252A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E1282A2FE50000D23803 /* libgame.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libgame.dylib;
+			remoteRef = 84D0E1272A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		84D0E12A2A2FE50000D23803 /* libglm.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libglm.a;
+			remoteRef = 84D0E1292A2FE50000D23803 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8452C00629869F500040E1D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8452C01329869F510040E1D6 /* Preview Assets.xcassets in Resources */,
+				8452C01029869F510040E1D6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8452C00429869F500040E1D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				843FFA37299BEF9D00813284 /* Test.cpp in Sources */,
+				84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */,
+				8452C00E29869F500040E1D6 /* ContentView.swift in Sources */,
+				8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */,
+				8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8452C01529869F510040E1D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8452C01629869F510040E1D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8452C01829869F510040E1D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"TunnelFever/Preview Content\"";
+				DEVELOPMENT_TEAM = 9STG586372;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TunnelFever/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joy-joyholdings.TunnelFever";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TunnelFever-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8452C01929869F510040E1D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"TunnelFever/Preview Content\"";
+				DEVELOPMENT_TEAM = 9STG586372;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TunnelFever/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joy-joyholdings.TunnelFever";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TunnelFever-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8452C00329869F500040E1D6 /* Build configuration list for PBXProject "TunnelFever" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8452C01529869F510040E1D6 /* Debug */,
+				8452C01629869F510040E1D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8452C01729869F510040E1D6 /* Build configuration list for PBXNativeTarget "TunnelFever" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8452C01829869F510040E1D6 /* Debug */,
+				8452C01929869F510040E1D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8452C00029869F500040E1D6 /* Project object */;
+}
