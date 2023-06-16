@@ -12,7 +12,7 @@ struct OpenGLView: UIViewRepresentable {
     @Binding var gestureLocation: CGPoint
     
     func makeUIView(context: Context) -> OpenGLUIView {
-        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:800,height:800), gestureLocation: $gestureLocation)
+        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:700,height:700), gestureLocation: $gestureLocation)
         // Create and configure your OpenGL view here
         view.gestureLocation = gestureLocation
         return view
@@ -51,6 +51,7 @@ class OpenGLUIView: UIView{
             _test.setupGraphics()
             startRenderLoop()
         }
+         transform = CGAffineTransform(rotationAngle: .pi / 2)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -114,8 +115,9 @@ class OpenGLUIView: UIView{
       
         let scaledDeltaX=Int32(gestureLocation.x)
         let scaledDeltaY=Int32(gestureLocation.y)
-       // _test.renderFrame(scaledDeltaX,and: scaledDeltaY)
+   // _test.renderFrame(scaledDeltaX,and: scaledDeltaY)
         _test.nativeEngine()
+        _test.inputfunc(scaledDeltaX, and: scaledDeltaY)
         // Add your OpenGL rendering code here
         
         context?.presentRenderbuffer(Int(GL_RENDERBUFFER))

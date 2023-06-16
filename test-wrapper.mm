@@ -9,6 +9,8 @@
 #import "test-wrapper.h"
 #include "Test.hpp"
 #include "native_engine.hpp"
+//#include "input_util.hpp"
+
 
 @implementation testWrapper
 
@@ -54,5 +56,15 @@ NativeEngine *_nativeEngine = new NativeEngine();
     
     
 }
-@end
 
+-(void)  inputfunc:(int)a and:(int)b {
+    
+    AInputEvent event;
+    event.motionX=a/100;
+    event.motionY=b/100;
+   // event.type="COOKED_EVENT_TYPE_JOY";
+    // PlayScene _scene;
+   // _nativeEngine->
+    _nativeEngine->HandleInputProxy(&event);
+}
+@end

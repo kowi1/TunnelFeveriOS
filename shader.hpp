@@ -16,7 +16,7 @@
 #ifndef endlesstunnel_shader_hpp
 #define endlesstunnel_shader_hpp
 
-#include "glm/glm.hpp"
+#include "glm.hpp"
 #include "simplegeom.hpp"
 
 class VertexBuf;

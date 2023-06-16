@@ -44,9 +44,25 @@ struct CookedEvent {
     // for key events
     int keyCode;
 };
+struct AInputEvent {
+    int type;
 
-//typedef bool (*CookedEventCallback)(struct CookedEvent *event);
-//bool CookEvent(AInputEvent *event, CookedEventCallback callback);
+    // for joystick events:
+    float joyX, joyY;
+
+    // for pointer events
+    int motionPointerId;
+    bool motionIsOnScreen;
+    float motionX, motionY;
+    float motionMinX, motionMaxX;
+    float motionMinY, motionMaxY;
+
+    // for key events
+    int keyCode;
+};
+
+typedef bool (*CookedEventCallback)(struct CookedEvent *event);
+bool CookEvent(AInputEvent *event, CookedEventCallback callback);
 
 #endif
 

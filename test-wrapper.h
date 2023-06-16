@@ -14,6 +14,7 @@
 -(void)renderFrame:(int)a and:(int)b;
 -(void)setupGraphics;
 -(void)nativeEngine;
+-(void)inputfunc:(int)a and:(int)b;
 @end
 
 #endif /* test_wrapper_h */

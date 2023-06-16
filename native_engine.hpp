@@ -17,8 +17,10 @@
 #define endlesstunnel_native_engine_hpp
 
 #include "common.hpp"
+#include "input_util.hpp"
 
 struct NativeEngineSavedState {};
+
 
 class NativeEngine {
     public:
@@ -28,12 +30,12 @@ class NativeEngine {
 
         // runs application until it dies
         void GameLoop();
-
+        
         // returns the JNI environment
-      //  JNIEnv *GetJniEnv();
+         //  JNIEnv *GetJniEnv();
 
         // returns the Android app object
-      //  android_app* GetAndroidApp();
+        //  android_app* GetAndroidApp();
 
         // returns the (singleton) instance
         static NativeEngine* GetInstance();
@@ -100,8 +102,10 @@ class NativeEngine {
     public:
         // these are public for simplicity because we have internal static callbacks
         void HandleCommand(int32_t cmd);
-       // bool HandleInput();
+        void HandleInputProxy(struct AInputEvent* event);
+   
 };
 
 #endif
+
 

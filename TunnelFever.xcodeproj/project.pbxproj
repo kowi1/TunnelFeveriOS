@@ -14,72 +14,72 @@
 		8452C00E29869F500040E1D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00D29869F500040E1D6 /* ContentView.swift */; };
 		8452C01029869F510040E1D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C00F29869F510040E1D6 /* Assets.xcassets */; };
 		8452C01329869F510040E1D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C01229869F510040E1D6 /* Preview Assets.xcassets */; };
+		849984C82A3CEC0500091843 /* libBullet3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984B92A3CEBD200091843 /* libBullet3Common.a */; };
+		849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BB2A3CEBD200091843 /* libBulletCollision.a */; };
+		849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BD2A3CEBD200091843 /* libBulletDynamics.a */; };
+		849984CB2A3CEC0500091843 /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BF2A3CEBD200091843 /* libBulletInverseDynamics.a */; };
+		849984CC2A3CEC0500091843 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C12A3CEBD200091843 /* libBulletSoftBody.a */; };
+		849984CD2A3CEC0500091843 /* libgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C52A3CEBD200091843 /* libgame.a */; };
+		849984CE2A3CEC0500091843 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C72A3CEBD200091843 /* libglm.a */; };
+		849984CF2A3CEC0500091843 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C32A3CEBD200091843 /* libLinearMath.a */; };
 		84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* test-wrapper.mm */; };
-		84D0E12B2A2FE52C00D23803 /* libBullet3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E0FF2A2FE3C400D23803 /* libBullet3Common.a */; };
-		84D0E12C2A2FE52C00D23803 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1012A2FE3C400D23803 /* libBulletCollision.a */; };
-		84D0E12D2A2FE52C00D23803 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1032A2FE3C400D23803 /* libBulletDynamics.a */; };
-		84D0E12E2A2FE52C00D23803 /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1052A2FE3C400D23803 /* libBulletInverseDynamics.a */; };
-		84D0E12F2A2FE52C00D23803 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1072A2FE3C400D23803 /* libBulletSoftBody.a */; };
-		84D0E1302A2FE52C00D23803 /* libgame.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E10B2A2FE3C400D23803 /* libgame.dylib */; };
-		84D0E1312A2FE52C00D23803 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E10D2A2FE3C400D23803 /* libglm.a */; };
-		84D0E1322A2FE52C00D23803 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D0E1092A2FE3C400D23803 /* libLinearMath.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		84D0E0FE2A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984B82A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 2724D8239DD04361AF84CEF4;
+			remoteGlobalIDString = 57DA55D4414542879A955EC3;
 			remoteInfo = Bullet3Common;
 		};
-		84D0E1002A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984BA2A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 40EA4750C4F14153B551A85D;
+			remoteGlobalIDString = 3FA810FD3D374D58AC4542E2;
 			remoteInfo = BulletCollision;
 		};
-		84D0E1022A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984BC2A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5BF153A3CACD43FA82DA8B48;
+			remoteGlobalIDString = 193DED85D9BB4F1EB3D6B2BB;
 			remoteInfo = BulletDynamics;
 		};
-		84D0E1042A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984BE2A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 28A3EA8542FF4644BADB710E;
+			remoteGlobalIDString = E39E67F966344DB98D90A5ED;
 			remoteInfo = BulletInverseDynamics;
 		};
-		84D0E1062A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984C02A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4D3726785E6D464F9485406D;
+			remoteGlobalIDString = D069BC973ADE4DC1AC0FADD9;
 			remoteInfo = BulletSoftBody;
 		};
-		84D0E1082A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984C22A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = AADFB3AF3E914851AAC3ADD9;
+			remoteGlobalIDString = DF3199B7AEC24091B490A486;
 			remoteInfo = LinearMath;
 		};
-		84D0E10A2A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984C42A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = A12104D367C14D4F84E6D8DB;
+			remoteGlobalIDString = B9EB7B2EE80D4EC6A6BD7ED0;
 			remoteInfo = game;
 		};
-		84D0E10C2A2FE3C400D23803 /* PBXContainerItemProxy */ = {
+		849984C62A3CEBD200091843 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
+			containerPortal = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 206E27F792D54DA8A2718B81;
+			remoteGlobalIDString = C31A859000D34B31BEAA83FD;
 			remoteInfo = glm;
 		};
 		84D0E11B2A2FE50000D23803 /* PBXContainerItemProxy */ = {
@@ -149,12 +149,13 @@
 		8452C00F29869F510040E1D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8452C01229869F510040E1D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8452C01429869F510040E1D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849984842A3CE85D00091843 /* native_engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = native_engine.hpp; sourceTree = "<group>"; };
+		849984AB2A3CEBD200091843 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = cpp/build/Project.xcodeproj; sourceTree = "<group>"; };
 		84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TunnelFever-Bridging-Header.h"; sourceTree = "<group>"; };
 		84C7BF8A299956F300B05CA9 /* Test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
 		84C7BF8B299956F300B05CA9 /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
 		84C7BF8E2999578F00B05CA9 /* test-wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-wrapper.h"; sourceTree = "<group>"; };
 		84C7BF8F299957B600B05CA9 /* test-wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "test-wrapper.mm"; sourceTree = "<group>"; };
-		84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = ../cpp/Project.xcodeproj; sourceTree = "<group>"; };
 		84D0E10E2A2FE50000D23803 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = ../cpp/Project.xcodeproj; sourceTree = "<group>"; };
 		84DAEF3B299CDB80000BCC60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84DAEF3F299CF49C000BCC60 /* libegl-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "libegl-master"; path = "../../Downloads/libegl-master"; sourceTree = "<group>"; };
@@ -166,14 +167,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D0E12B2A2FE52C00D23803 /* libBullet3Common.a in Frameworks */,
-				84D0E12C2A2FE52C00D23803 /* libBulletCollision.a in Frameworks */,
-				84D0E12D2A2FE52C00D23803 /* libBulletDynamics.a in Frameworks */,
-				84D0E12E2A2FE52C00D23803 /* libBulletInverseDynamics.a in Frameworks */,
-				84D0E12F2A2FE52C00D23803 /* libBulletSoftBody.a in Frameworks */,
-				84D0E1302A2FE52C00D23803 /* libgame.dylib in Frameworks */,
-				84D0E1312A2FE52C00D23803 /* libglm.a in Frameworks */,
-				84D0E1322A2FE52C00D23803 /* libLinearMath.a in Frameworks */,
+				849984C82A3CEC0500091843 /* libBullet3Common.a in Frameworks */,
+				849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */,
+				849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */,
+				849984CB2A3CEC0500091843 /* libBulletInverseDynamics.a in Frameworks */,
+				849984CC2A3CEC0500091843 /* libBulletSoftBody.a in Frameworks */,
+				849984CD2A3CEC0500091843 /* libgame.a in Frameworks */,
+				849984CE2A3CEC0500091843 /* libglm.a in Frameworks */,
+				849984CF2A3CEC0500091843 /* libLinearMath.a in Frameworks */,
 				8402C0392A250BEF00E5D2AA /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,7 +185,8 @@
 		8452BFFF29869F500040E1D6 = {
 			isa = PBXGroup;
 			children = (
-				84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */,
+				849984AB2A3CEBD200091843 /* Project.xcodeproj */,
+				849984842A3CE85D00091843 /* native_engine.hpp */,
 				84C7BF8F299957B600B05CA9 /* test-wrapper.mm */,
 				84C7BF8E2999578F00B05CA9 /* test-wrapper.h */,
 				84C7BF8A299956F300B05CA9 /* Test.cpp */,
@@ -225,17 +227,17 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		84D0E0F22A2FE3C400D23803 /* Products */ = {
+		849984AC2A3CEBD200091843 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84D0E0FF2A2FE3C400D23803 /* libBullet3Common.a */,
-				84D0E1012A2FE3C400D23803 /* libBulletCollision.a */,
-				84D0E1032A2FE3C400D23803 /* libBulletDynamics.a */,
-				84D0E1052A2FE3C400D23803 /* libBulletInverseDynamics.a */,
-				84D0E1072A2FE3C400D23803 /* libBulletSoftBody.a */,
-				84D0E1092A2FE3C400D23803 /* libLinearMath.a */,
-				84D0E10B2A2FE3C400D23803 /* libgame.dylib */,
-				84D0E10D2A2FE3C400D23803 /* libglm.a */,
+				849984B92A3CEBD200091843 /* libBullet3Common.a */,
+				849984BB2A3CEBD200091843 /* libBulletCollision.a */,
+				849984BD2A3CEBD200091843 /* libBulletDynamics.a */,
+				849984BF2A3CEBD200091843 /* libBulletInverseDynamics.a */,
+				849984C12A3CEBD200091843 /* libBulletSoftBody.a */,
+				849984C32A3CEBD200091843 /* libLinearMath.a */,
+				849984C52A3CEBD200091843 /* libgame.a */,
+				849984C72A3CEBD200091843 /* libglm.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,7 +251,7 @@
 				84D0E1222A2FE50000D23803 /* libBulletInverseDynamics.a */,
 				84D0E1242A2FE50000D23803 /* libBulletSoftBody.a */,
 				84D0E1262A2FE50000D23803 /* libLinearMath.a */,
-				84D0E1282A2FE50000D23803 /* libgame.dylib */,
+				84D0E1282A2FE50000D23803 /* libgame.a */,
 				84D0E12A2A2FE50000D23803 /* libglm.a */,
 			);
 			name = Products;
@@ -315,12 +317,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 84D0E0F22A2FE3C400D23803 /* Products */;
-					ProjectRef = 84D0E0F12A2FE3C400D23803 /* Project.xcodeproj */;
-				},
-				{
 					ProductGroup = 84D0E10F2A2FE50000D23803 /* Products */;
 					ProjectRef = 84D0E10E2A2FE50000D23803 /* Project.xcodeproj */;
+				},
+				{
+					ProductGroup = 849984AC2A3CEBD200091843 /* Products */;
+					ProjectRef = 849984AB2A3CEBD200091843 /* Project.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -331,60 +333,60 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		84D0E0FF2A2FE3C400D23803 /* libBullet3Common.a */ = {
+		849984B92A3CEBD200091843 /* libBullet3Common.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libBullet3Common.a;
-			remoteRef = 84D0E0FE2A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984B82A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E1012A2FE3C400D23803 /* libBulletCollision.a */ = {
+		849984BB2A3CEBD200091843 /* libBulletCollision.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libBulletCollision.a;
-			remoteRef = 84D0E1002A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984BA2A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E1032A2FE3C400D23803 /* libBulletDynamics.a */ = {
+		849984BD2A3CEBD200091843 /* libBulletDynamics.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libBulletDynamics.a;
-			remoteRef = 84D0E1022A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984BC2A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E1052A2FE3C400D23803 /* libBulletInverseDynamics.a */ = {
+		849984BF2A3CEBD200091843 /* libBulletInverseDynamics.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libBulletInverseDynamics.a;
-			remoteRef = 84D0E1042A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984BE2A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E1072A2FE3C400D23803 /* libBulletSoftBody.a */ = {
+		849984C12A3CEBD200091843 /* libBulletSoftBody.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libBulletSoftBody.a;
-			remoteRef = 84D0E1062A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984C02A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E1092A2FE3C400D23803 /* libLinearMath.a */ = {
+		849984C32A3CEBD200091843 /* libLinearMath.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libLinearMath.a;
-			remoteRef = 84D0E1082A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984C22A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E10B2A2FE3C400D23803 /* libgame.dylib */ = {
+		849984C52A3CEBD200091843 /* libgame.a */ = {
 			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = libgame.dylib;
-			remoteRef = 84D0E10A2A2FE3C400D23803 /* PBXContainerItemProxy */;
+			fileType = archive.ar;
+			path = libgame.a;
+			remoteRef = 849984C42A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E10D2A2FE3C400D23803 /* libglm.a */ = {
+		849984C72A3CEBD200091843 /* libglm.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libglm.a;
-			remoteRef = 84D0E10C2A2FE3C400D23803 /* PBXContainerItemProxy */;
+			remoteRef = 849984C62A3CEBD200091843 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		84D0E11C2A2FE50000D23803 /* libBullet3Common.a */ = {
@@ -429,10 +431,10 @@
 			remoteRef = 84D0E1252A2FE50000D23803 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		84D0E1282A2FE50000D23803 /* libgame.dylib */ = {
+		84D0E1282A2FE50000D23803 /* libgame.a */ = {
 			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = libgame.dylib;
+			fileType = archive.ar;
+			path = libgame.a;
 			remoteRef = 84D0E1272A2FE50000D23803 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

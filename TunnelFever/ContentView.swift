@@ -12,7 +12,7 @@ struct ContentView: View {
        var body: some View {
        // Text(_test.runTest())
         //    .padding()
-           OpenGLView(gestureLocation: $gestureLocation).frame(width: 800, height: 800).gesture(
+           OpenGLView(gestureLocation: $gestureLocation).frame(width: 600, height: 600).gesture(
             DragGesture()
                 .onChanged { value in
                     gestureLocation = value.location
