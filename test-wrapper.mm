@@ -57,12 +57,17 @@ NativeEngine *_nativeEngine = new NativeEngine();
     
 }
 
--(void)  inputfunc:(int)a and:(int)b {
+-(void)  inputfunc:(int)a and:(int)b;{
     
     AInputEvent event;
-    event.motionX=a/100;
-    event.motionY=b/100;
-   // event.type="COOKED_EVENT_TYPE_JOY";
+    event.motionX=a/30;
+    event.motionY=b/30;
+    event.motionMinX=0;
+    event.motionMaxX=700;
+    event.motionMaxY=700;
+    event.motionMinY=0;
+    event.type=0;//"COOKED_EVENT_TYPE_JOY";
+    event.motionIsOnScreen=true;
     // PlayScene _scene;
    // _nativeEngine->
     _nativeEngine->HandleInputProxy(&event);

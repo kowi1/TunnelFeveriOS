@@ -178,6 +178,16 @@ void SceneManager::OnResume() {
         mCurScene->OnResume();
     }
 }
+bool SceneManager::IsMenu() {
+    //if (mHasGraphics && mCurScene) {
+      return  mCurScene->IsMenu();
+   // }
+}
+bool SceneManager::UseMove() {
+    //if (mHasGraphics && mCurScene) {
+      return  mCurScene->UseMove();
+   // }
+}
 
 
 

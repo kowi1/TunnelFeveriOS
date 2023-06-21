@@ -48,13 +48,16 @@ class PlayScene : public Scene {
         virtual void OnJoy(float joyX, float joyY);
         virtual void OnKeyDown(int keyCode);
         virtual void OnPause();
+        virtual bool IsMenu();
+    virtual bool UseMove();
         Hello *hello;
 
     protected:
         // shaders
         OurShader *mOurShader;
         TrivialShader *mTrivialShader;
-
+        bool mIsmenu;
+    bool mUseMove;
         // the wall texture
         Texture *mWallTexture;
 
@@ -224,7 +227,7 @@ class PlayScene : public Scene {
 
         // renders the HUD (score, lives, etc)
         void RenderHUD();
-
+    bool mIsMenu;
         // renders the currently active menu
         void RenderMenu();
          bool BuyLifeInit();

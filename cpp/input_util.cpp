@@ -29,8 +29,9 @@ struct DeviceMotionRange {
 /*struct DeviceMotionRange _motion_range_cache[MOTION_RANGE_CACHE_MAX];
 int _motion_range_cache_items = 0;
 
-static bool _init_done = false;
+static bool _init_done = false;*/
 static bool _key_state[OURKEY_COUNT] = {0};
+/*
 static _getAxisValue_sig _getAxisValue = NULL;
 
 static void _init() {
@@ -74,7 +75,7 @@ static int _translate_keycode(int code) {
             return -1;
     }
 }
-
+*/
 static void _report_key_state(int keyCode, bool state, CookedEventCallback callback) {
     bool wentDown = !_key_state[keyCode] && state;
     bool wentUp = _key_state[keyCode] && !state;
@@ -85,7 +86,7 @@ static void _report_key_state(int keyCode, bool state, CookedEventCallback callb
     ev.keyCode = keyCode;
 
     if (wentUp) {
-        ev.type = COOKED_EVENT_TYPE_KEY_UP;
+        ev.type = COOKED_EVENT_TYPE_KEY_DOWN;//COOKED_EVENT_TYPE_KEY_UP;
         callback(&ev);
     } else if (wentDown) {
         ev.type = COOKED_EVENT_TYPE_KEY_DOWN;
@@ -94,43 +95,43 @@ static void _report_key_state(int keyCode, bool state, CookedEventCallback callb
 }
 
 static void _report_key_states_from_axes(float x, float y, CookedEventCallback callback) {
-    _report_key_state(OURKEY_LEFT, x < -0.5f, callback);
+    _report_key_state(OURKEY_DOWN, x < -0.5f, callback);
     _report_key_state(OURKEY_RIGHT, x > 0.5f, callback);
     _report_key_state(OURKEY_UP, y < -0.5f, callback);
     _report_key_state(OURKEY_DOWN, y > 0.5f, callback);
 }
 
 static bool _process_keys(bool isJoy, AInputEvent *event, CookedEventCallback callback) {
-    if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_KEY) {
-        int action = AKeyEvent_getAction(event);
-        int code = _translate_keycode(AKeyEvent_getKeyCode(event));
-        bool handled = code >= 0;
-        if (code >= 0 && action == AKEY_EVENT_ACTION_DOWN) {
-            _report_key_state(code, true, callback);
-        } else if (code >= 0 && action == AKEY_EVENT_ACTION_UP) {
-            _report_key_state(code, false, callback);
-        }
-        return handled;
-    } else if (isJoy) {
+   // if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_KEY) {
+    //    int action = AKeyEvent_getAction(event);
+    //    int code = _translate_keycode(AKeyEvent_getKeyCode(event));
+     //   bool handled = code >= 0;
+   //     if (code >= 0 && action == AKEY_EVENT_ACTION_DOWN) {
+    //        _report_key_state(code, true, callback);
+     //   } else if (code >= 0 && action == AKEY_EVENT_ACTION_UP) {
+   //         _report_key_state(code, false, callback);
+    //    }
+   //     return handled;
+  //  } else if (isJoy) {
         // use joystick axes to emulate directional key events (we could leave this
         // up to the platform, but joystick-to-dpad conversion doesn't work
         // on NDK on older devices,  so we implement manually for maximum compatibility)
-        float x = AMotionEvent_getX(event, 0);
-        float y = AMotionEvent_getY(event, 0);
-        if (_getAxisValue) {
+        //float x = AMotionEvent_getX(event, 0);
+      //  float y = AMotionEvent_getY(event, 0);
+       /* if (_getAxisValue) {
             // take the hat switches into account too, so that either the
             // regular axes or the hat axes can be used to navigate UIs
             x += _getAxisValue(event, AXIS_HAT_X, 0);
             y += _getAxisValue(event, AXIS_HAT_Y, 0);
             x = Clamp(x, -1.0f, 1.0f);
             y = Clamp(y, -1.0f, 1.0f);
-        }
-        _report_key_states_from_axes(x, y, callback);
+        }*/
+        _report_key_states_from_axes(event->motionX, event->motionX, callback);
         return true;
     }
-    return false;
-}
-
+  //  return false;
+//}
+/*
 static void _look_up_motion_range(int deviceId, int source,
         float *outMinX, float *outMaxX, float *outMinY, float *outMaxY) {
     int i;
@@ -211,12 +212,23 @@ static bool CookEvent_Motion(AInputEvent *event, CookedEventCallback callback) {
     } else {
         ev.type = COOKED_EVENT_TYPE_POINTER_MOVE;
     }*/
-    ev.type =  COOKED_EVENT_TYPE_JOY;//COOKED_EVENT_TYPE_POINTER_DOWN;
+    switch(event->type){
+        case 0 :
+            ev.type = COOKED_EVENT_TYPE_POINTER_MOVE;
+            break;
+        case 1 :
+            ev.type = COOKED_EVENT_TYPE_POINTER_DOWN;
+            break;
+        default:
+            break;
+            
+    }
+   // ev.type = COOKED_EVENT_TYPE_POINTER_MOVE;//COOKED_EVENT_TYPE_JOY;//COOKED_EVENT_TYPE_POINTER_DOWN;
     
     ev.motionPointerId =0; //AMotionEvent_getPointerId(event, ptrIndex);
-    ev.motionIsOnScreen = true ;//(src == AINPUT_SOURCE_TOUCHSCREEN);
-    ev.motionX = 0.0f;//AMotionEvent_getX(event, ptrIndex);
-    ev.motionY = 0.0f;//AMotionEvent_getY(event, ptrIndex);
+    ev.motionIsOnScreen = event->motionIsOnScreen ;//(src == AINPUT_SOURCE_TOUCHSCREEN);
+    ev.motionX = event->motionY;//0.0f;//AMotionEvent_getX(event, ptrIndex);
+    ev.motionY = event->motionY;//0.0f;//AMotionEvent_getY(event, ptrIndex);
 
     if (ev.motionIsOnScreen) {
         // use screen size as the motion range
@@ -276,7 +288,13 @@ bool CookEvent(AInputEvent *event, CookedEventCallback callback) {
         // handle DPAD keys as indicated in _process_keys.
         return handled;
     } else if (type == AINPUT_EVENT_TYPE_MOTION) {*/
+    if(event->keyCode==0){
         return CookEvent_Motion(event, callback);
+    }else{
+        _process_keys(true,event, callback);
+        return true;
+    }
+       
     //}
 
    // return false;

@@ -73,7 +73,8 @@ static const char* TONE_BONUS[] = {
 PlayScene::PlayScene() : Scene() {
     hello= new Hello();
     mOurShader = NULL;
-
+    mUseMove=true;
+    mIsmenu=false;
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
@@ -153,7 +154,9 @@ PlayScene::PlayScene() : Scene() {
 PlayScene::PlayScene(struct android_app* app) : Scene() {
     hello= new Hello();
     mApp=app;
+    mUseMove=true;
     mOurShader = NULL;
+    mIsmenu=false;
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
@@ -391,7 +394,7 @@ void PlayScene::DoFrame() {
     
     float deltaT = mFrameClock.ReadDelta();
     float previousY = mPlayerPos.y;
-
+    mIsmenu=false;
     // clear screen
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_DEPTH_TEST);
@@ -468,7 +471,7 @@ void PlayScene::DoFrame() {
     // move player
     if (mLives > 0) {
         float steerX = mFilteredSteerX, steerZ = mFilteredSteerZ;
-        if (mSteering == STEERING_TOUCH) {
+        if (true){//mSteering == STEERING_TOUCH) {
             // touch steering
             mPlayerPos.x = Approach(mPlayerPos.x, steerX, PLAYER_MAX_LAT_SPEED * deltaT);
             mPlayerPos.z = Approach(mPlayerPos.z, steerZ, PLAYER_MAX_LAT_SPEED * deltaT);
@@ -742,8 +745,8 @@ void PlayScene::OnPointerMove(int pointerId, const struct PointerCoords *coords)
     if (mMenu && mMenuTouchActive) {
         UpdateMenuSelFromTouch(x, y);
     }
-    else if (mSteering == STEERING_TOUCH && pointerId == mPointerId) {
-        float deltaX = (x - mPointerAnchorX) * TOUCH_CONTROL_SENSIVITY / rangeY;
+    else if (true){//(mSteering == STEERING_TOUCH && pointerId == mPointerId) {
+        float deltaX =(x - mPointerAnchorX) * TOUCH_CONTROL_SENSIVITY / rangeY;
         float deltaY = -(y - mPointerAnchorY) * TOUCH_CONTROL_SENSIVITY / rangeY;
         float rotatedDx = cos(mRollAngle) * deltaX - sin(mRollAngle) * deltaY;
         float rotatedDy = sin(mRollAngle) * deltaX + cos(mRollAngle) * deltaY;
@@ -810,6 +813,7 @@ void PlayScene::RenderMenu() {
     float aspect = SceneManager::GetInstance()->GetScreenAspect();
     glm::mat4 modelMat;
     glm::mat4 mat;
+    mIsmenu=true;
 
     glDisable(GL_DEPTH_TEST);
 
@@ -941,6 +945,14 @@ bool PlayScene::OnBackKeyPressed() {
     return true;
 }
 
+bool PlayScene::IsMenu() {
+    
+    return mIsmenu;
+}
+bool PlayScene::UseMove() {
+    
+    return mUseMove;
+}
 bool PlayScene::BuyLifeInit() {
     if (mMenu) {
         // reset frame clock so that the animation doesn't jump:
@@ -981,9 +993,11 @@ void PlayScene::OnKeyDown(int keyCode) {
     if (mMenu) {
         if (keyCode == OURKEY_UP) {
             mMenuSel = mMenuSel > 0 ? mMenuSel - 1 : mMenuSel;
+            HandleMenu(mMenuItems[mMenuSel]);
         }
         else if (keyCode == OURKEY_DOWN) {
             mMenuSel = mMenuSel + 1 < mMenuItemCount ? mMenuSel + 1 : mMenuSel;
+            HandleMenu(mMenuItems[mMenuSel]);
         }
         else if (keyCode == OURKEY_ENTER) {
             HandleMenu(mMenuItems[mMenuSel]);

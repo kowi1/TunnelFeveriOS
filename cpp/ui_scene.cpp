@@ -180,6 +180,7 @@ void UiScene::OnPointerDown(int pointerId, const struct PointerCoords *coords) {
         mPointerDown = true;
         UpdateTouchFocus(coords);
     }
+    OnPointerUp(pointerId,coords);
 }
 
 void UiScene::OnPointerMove(int pointerId, const struct PointerCoords *coords) {

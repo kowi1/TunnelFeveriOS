@@ -86,12 +86,12 @@ void WelcomeScene::DoFrame() {
 
 void WelcomeScene::UpdateWidgetStates() {
     // Build navigation
-   // AddNav(mPlayButtonId, UI_DIR_LEFT, mStoryButtonId);
-   // AddNav(mPlayButtonId, UI_DIR_RIGHT, mAboutButtonId);
+    AddNav(mPlayButtonId, UI_DIR_LEFT, mStoryButtonId);
+    AddNav(mPlayButtonId, UI_DIR_RIGHT, mAboutButtonId);
 
-   // AddNav(mStoryButtonId, UI_DIR_RIGHT, mPlayButtonId);
+    AddNav(mStoryButtonId, UI_DIR_RIGHT, mPlayButtonId);
 
-  //  AddNav(mAboutButtonId, UI_DIR_LEFT, mPlayButtonId);
+    AddNav(mAboutButtonId, UI_DIR_LEFT, mPlayButtonId);
 
 }
 

@@ -70,7 +70,9 @@ class Scene {
 
         // Called when game is resumed (e.g. onResumed())
         virtual void OnResume();
-
+        
+       virtual bool IsMenu();
+    virtual bool UseMove();
         // Destructor
         virtual ~Scene();
 };

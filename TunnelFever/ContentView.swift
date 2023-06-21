@@ -9,24 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var gestureLocation: CGPoint = .zero
-       var body: some View {
-       // Text(_test.runTest())
+    @State private var tapGestureState: CGPoint = .zero
+    var body: some View {
+        // Text(_test.runTest())
         //    .padding()
-           OpenGLView(gestureLocation: $gestureLocation).frame(width: 600, height: 600).gesture(
+        OpenGLView(gestureLocation: $gestureLocation).frame(width:630, height:630).gesture(
             DragGesture()
                 .onChanged { value in
                     gestureLocation = value.location
                 }
                 .onEnded { _ in
-                    gestureLocation = .zero
-                }
-        )
-           
+          //          gestureLocation = .zero
+                })
         
         
     }
+    
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

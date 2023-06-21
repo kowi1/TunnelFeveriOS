@@ -262,6 +262,18 @@ static bool HandleInput(struct AInputEvent *event) {
 
 void NativeEngine::HandleInputProxy(struct AInputEvent* event) {
  //  NativeEngine *engine = (NativeEngine*) app->userData;
+    SceneManager *mgr = SceneManager::GetInstance();
+    
+    if(mgr->UseMove()){
+        event->type=0;
+    }else{
+        event->type=1;
+    }
+    if(mgr->IsMenu()){
+        event->keyCode=1;
+    }else{
+        event->keyCode=0;
+    }
     HandleInput(event);
 }
 /*bool NativeEngine::InitDisplay() {
@@ -530,7 +542,7 @@ void NativeEngine::DoFrame() {
     // if this is the first frame, install the welcome scene
     if (mIsFirstFrame) {
         mIsFirstFrame = false;
-        mgr->RequestNewScene(new PlayScene());
+        mgr->RequestNewScene(new WelcomeScene());
     }
 
     // render!

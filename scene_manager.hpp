@@ -96,7 +96,8 @@ class SceneManager {
 
         // Reports that the game was resumed (e.g. Activity got an onResume())
         void OnResume();
-
+         bool IsMenu();
+    bool UseMove();
         // Requests that a new scene be installed, replacing the currently active
         // scene. The new scene will be installed on the next DoFrame() call.
         void RequestNewScene(Scene *newScene);

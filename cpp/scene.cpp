@@ -33,5 +33,7 @@ void Scene::OnJoy(float x, float y) {}
 void Scene::OnScreenResized(int width, int height) {}
 void Scene::OnPause() {}
 void Scene::OnResume() {}
+bool Scene::IsMenu() {}
+bool Scene::UseMove() {}
      Scene::~Scene() {}
 

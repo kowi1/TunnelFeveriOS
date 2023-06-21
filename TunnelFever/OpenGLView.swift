@@ -11,16 +11,18 @@ struct OpenGLView: UIViewRepresentable {
 
     @Binding var gestureLocation: CGPoint
     
+    
     func makeUIView(context: Context) -> OpenGLUIView {
         let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:700,height:700), gestureLocation: $gestureLocation)
         // Create and configure your OpenGL view here
-        view.gestureLocation = gestureLocation
+//view.gestureLocation = gestureLocation
         return view
     }
-    
     func updateUIView(_ uiView: OpenGLUIView, context: Context) {
-        // Update the OpenGL view if needed
-    }
+          //  uiView.gestureLocation = gestureLocation
+           
+        }
+   
 }
 
 
@@ -34,6 +36,7 @@ class OpenGLUIView: UIView{
     private var scaledDeltaX :Int32=0
     private var scaledDeltaY :Int32=0
     @Binding var gestureLocation: CGPoint
+ 
     
    
 
@@ -112,12 +115,16 @@ class OpenGLUIView: UIView{
       glClearColor(0.0, 0.0, 0.0, 1.0)
             
       glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-      
-        let scaledDeltaX=Int32(gestureLocation.x)
-        let scaledDeltaY=Int32(gestureLocation.y)
+         
+         scaledDeltaX=Int32(gestureLocation.x-300)
+         scaledDeltaY=Int32(gestureLocation.y-300)
    // _test.renderFrame(scaledDeltaX,and: scaledDeltaY)
         _test.nativeEngine()
+       
+            
         _test.inputfunc(scaledDeltaX, and: scaledDeltaY)
+        scaledDeltaX=Int32(0)
+        scaledDeltaY=Int32(0)
         // Add your OpenGL rendering code here
         
         context?.presentRenderbuffer(Int(GL_RENDERBUFFER))
