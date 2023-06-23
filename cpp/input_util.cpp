@@ -76,29 +76,30 @@ static int _translate_keycode(int code) {
     }
 }
 */
-static void _report_key_state(int keyCode, bool state, CookedEventCallback callback) {
-    bool wentDown = !_key_state[keyCode] && state;
-    bool wentUp = _key_state[keyCode] && !state;
-    _key_state[keyCode] = state;
+static void _report_key_state(int keyCode,float x,float y, bool state, CookedEventCallback callback) {
+    //bool wentDown = !_key_state[keyCode] && state;
+    //bool wentUp = _key_state[keyCode] && !state;
+   // _key_state[keyCode] = state;
 
-    struct CookedEvent ev;
-    memset(&ev, 0, sizeof(struct CookedEvent));
+    struct CookedEvent ev;    memset(&ev, 0, sizeof(struct CookedEvent));
     ev.keyCode = keyCode;
-
-    if (wentUp) {
-        ev.type = COOKED_EVENT_TYPE_KEY_DOWN;//COOKED_EVENT_TYPE_KEY_UP;
+    ev.motionX=x;
+    ev.motionY=y;
+    //if (wentUp) {
+    ev.type = COOKED_EVENT_TYPE_POINTER_DOWN;
+    //COOKED_EVENT_TYPE_KEY_DOWN;//COOKED_EVENT_TYPE_KEY_UP;
         callback(&ev);
-    } else if (wentDown) {
-        ev.type = COOKED_EVENT_TYPE_KEY_DOWN;
-        callback(&ev);
-    }
+   // } else if (wentDown) {
+     //   ev.type = COOKED_EVENT_TYPE_KEY_DOWN;
+      //  callback(&ev);
+   // }
 }
 
 static void _report_key_states_from_axes(float x, float y, CookedEventCallback callback) {
-    _report_key_state(OURKEY_DOWN, x < -0.5f, callback);
-    _report_key_state(OURKEY_RIGHT, x > 0.5f, callback);
-    _report_key_state(OURKEY_UP, y < -0.5f, callback);
-    _report_key_state(OURKEY_DOWN, y > 0.5f, callback);
+    _report_key_state(OURKEY_DOWN,x,y,true, callback);
+    //_report_key_state(OURKEY_RIGHT,x,y, x > 1.0f, callback);
+    //_report_key_state(OURKEY_UP,x,y, y < 0.0f, callback);
+    //_report_key_state(OURKEY_DOWN,x,y, y >1.0f, callback);
 }
 
 static bool _process_keys(bool isJoy, AInputEvent *event, CookedEventCallback callback) {
@@ -126,7 +127,7 @@ static bool _process_keys(bool isJoy, AInputEvent *event, CookedEventCallback ca
             x = Clamp(x, -1.0f, 1.0f);
             y = Clamp(y, -1.0f, 1.0f);
         }*/
-        _report_key_states_from_axes(event->motionX, event->motionX, callback);
+        _report_key_states_from_axes(event->motionX, event->motionY, callback);
         return true;
     }
   //  return false;
@@ -233,9 +234,9 @@ static bool CookEvent_Motion(AInputEvent *event, CookedEventCallback callback) {
     if (ev.motionIsOnScreen) {
         // use screen size as the motion range
         ev.motionMinX = 0.0f;
-        ev.motionMaxX = SceneManager::GetInstance()->GetScreenWidth();
+        ev.motionMaxX =2.0f;//SceneManager::GetInstance()->GetScreenWidth();
         ev.motionMinY = 0.0f;
-        ev.motionMaxY = SceneManager::GetInstance()->GetScreenHeight();
+        ev.motionMaxY = 0.0f;//SceneManager::GetInstance()->GetScreenHeight();
     } /*else {
         // look up motion range for this device
         _look_up_motion_range((int) AInputEvent_getDeviceId(event),
@@ -288,9 +289,16 @@ bool CookEvent(AInputEvent *event, CookedEventCallback callback) {
         // handle DPAD keys as indicated in _process_keys.
         return handled;
     } else if (type == AINPUT_EVENT_TYPE_MOTION) {*/
-    if(event->keyCode==0){
+    if(event->keyCode==0 && event->type==0){
         return CookEvent_Motion(event, callback);
-    }else{
+    }else if(event->keyCode==1 && event->type==1)
+    {
+        _process_keys(true,event, callback);
+        return true;
+    }else if (event->keyCode==0 && event->type==1){
+        _process_keys(true,event, callback);
+        return true;
+    }else if (event->keyCode==1 && event->type==0){
         _process_keys(true,event, callback);
         return true;
     }

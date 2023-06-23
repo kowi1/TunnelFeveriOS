@@ -19,7 +19,7 @@ struct ContentView: View {
                     gestureLocation = value.location
                 }
                 .onEnded { _ in
-          //          gestureLocation = .zero
+               //    gestureLocation = .zero
                 })
         
         

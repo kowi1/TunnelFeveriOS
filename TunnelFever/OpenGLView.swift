@@ -35,6 +35,8 @@ class OpenGLUIView: UIView{
     private var _test=testWrapper()
     private var scaledDeltaX :Int32=0
     private var scaledDeltaY :Int32=0
+    private var prevscaledDeltaX :Int32=0
+    private var prevscaledDeltaY :Int32=0
     @Binding var gestureLocation: CGPoint
  
     
@@ -116,9 +118,11 @@ class OpenGLUIView: UIView{
             
       glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
          
+        scaledDeltaX=Int32(0)
+        scaledDeltaY=Int32(0)
          scaledDeltaX=Int32(gestureLocation.x-300)
          scaledDeltaY=Int32(gestureLocation.y-300)
-   // _test.renderFrame(scaledDeltaX,and: scaledDeltaY)
+   // _test.renderFrame(scaledDeltaX,and: )
         _test.nativeEngine()
        
             

@@ -228,7 +228,7 @@ static bool _cooked_event_callback(struct CookedEvent *event) {
     coords.maxX = event->motionMaxX;
     coords.minY = event->motionMinY;
     coords.maxY = event->motionMaxY;
-    coords.isScreen = event->motionIsOnScreen;
+    coords.isScreen = true;//event->motionIsOnScreen;
 
     switch (event->type) {
         case COOKED_EVENT_TYPE_JOY:
@@ -524,8 +524,8 @@ void NativeEngine::DoFrame() {
     // how big is the surface? We query every frame because it's cheap, and some
     // strange devices out there change the surface size without calling any callbacks...
     int width, height;
-    width=10;
-    height=10;
+    width=2;
+    height=2;
     //eglQuerySurface(mEglDisplay, mEglSurface, EGL_WIDTH, &width);
     //eglQuerySurface(mEglDisplay, mEglSurface, EGL_HEIGHT, &height);
 

@@ -128,7 +128,7 @@ void WelcomeScene::OnCreateWidgets() {
             ->SetTransition(UiWidget::TRANS_FROM_RIGHT)->GetId();
 
     // "Play" button is the default button
-    SetDefaultButton(mPlayButtonId);
+  //  SetDefaultButton(mPlayButtonId);
 
     // enable/disable widgets as appropriate to signed in state
     UpdateWidgetStates();

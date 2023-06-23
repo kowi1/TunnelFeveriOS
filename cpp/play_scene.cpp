@@ -69,12 +69,12 @@ static const char* TONE_BONUS[] = {
     "d70 f550. f650. f750. f850."
 };
 
-
+bool pointerDown=false;
 PlayScene::PlayScene() : Scene() {
     hello= new Hello();
     mOurShader = NULL;
-    mUseMove=true;
-    mIsmenu=false;
+    mUseMove=false;
+    mIsmenu=true;
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
@@ -144,17 +144,22 @@ PlayScene::PlayScene() : Scene() {
     LoadProgress();
 
     if (mSavedCheckpoint) {
+        mUseMove=false;
+        mIsmenu=true;
         // start with the menu that asks whether or not to start from the saved level
         // or start over from scratch
         ShowMenu(MENU_LEVEL);
-    }
+    }else{
+        mUseMove=true;
+        mIsmenu=false;}
 }
 
 
 PlayScene::PlayScene(struct android_app* app) : Scene() {
     hello= new Hello();
     mApp=app;
-    mUseMove=true;
+    mUseMove=false;
+    mIsmenu=true;
     mOurShader = NULL;
     mIsmenu=false;
     mTrivialShader = NULL;
@@ -230,10 +235,14 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     LoadProgress();*/
 
     if (mSavedCheckpoint) {
+        mUseMove=false;
+        mIsmenu=true;
         // start with the menu that asks whether or not to start from the saved level
         // or start over from scratch
         ShowMenu(MENU_LEVEL);
-    }
+    }else{
+        mUseMove=true;
+        mIsmenu=false;}
 }
 
 
@@ -394,7 +403,7 @@ void PlayScene::DoFrame() {
     
     float deltaT = mFrameClock.ReadDelta();
     float previousY = mPlayerPos.y;
-    mIsmenu=false;
+    
     // clear screen
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_DEPTH_TEST);
@@ -422,8 +431,11 @@ void PlayScene::DoFrame() {
     if (mMenu) {
         RenderMenu();
         // nothing more to do
+       
+       // mIsmenu=true;
         return;
     }
+    mUseMove=true;
 
     // render HUD (lives, score, etc)
     RenderHUD();
@@ -714,7 +726,10 @@ void PlayScene::OnPointerDown(int pointerId, const struct PointerCoords *coords)
     if (mMenu) {
         if (coords->isScreen) {
             UpdateMenuSelFromTouch(x, y);
-            mMenuTouchActive = true;
+            if(pointerDown){
+              //   mMenuTouchActive = true;
+            }
+            OnPointerUp(pointerId, coords);
         }
     } else if (mSteering != STEERING_TOUCH) {
         mPointerId = pointerId;
@@ -727,6 +742,11 @@ void PlayScene::OnPointerDown(int pointerId, const struct PointerCoords *coords)
 }
 
 void PlayScene::OnPointerUp(int pointerId, const struct PointerCoords *coords) {
+    
+    if (!pointerDown) {
+        pointerDown=true;
+        return;
+    }
     if (mMenu && mMenuTouchActive) {
         if (coords->isScreen) {
             mMenuTouchActive = false;
@@ -746,8 +766,8 @@ void PlayScene::OnPointerMove(int pointerId, const struct PointerCoords *coords)
         UpdateMenuSelFromTouch(x, y);
     }
     else if (true){//(mSteering == STEERING_TOUCH && pointerId == mPointerId) {
-        float deltaX =(x - mPointerAnchorX) * TOUCH_CONTROL_SENSIVITY / rangeY;
-        float deltaY = -(y - mPointerAnchorY) * TOUCH_CONTROL_SENSIVITY / rangeY;
+        float deltaX =(x - mPointerAnchorX) * (TOUCH_CONTROL_SENSIVITY / rangeY)*1.0;
+        float deltaY =-(y - mPointerAnchorY) * (TOUCH_CONTROL_SENSIVITY / rangeY)*1.3;
         float rotatedDx = cos(mRollAngle) * deltaX - sin(mRollAngle) * deltaY;
         float rotatedDy = sin(mRollAngle) * deltaX + cos(mRollAngle) * deltaY;
 
@@ -866,8 +886,11 @@ void PlayScene::DetectCollisions(float previousY) {
         if (mLives > 0) {
             ShowSign(S_OUCH, SIGN_DURATION);
            // SfxMan::GetInstance()->PlayTone(TONE_CRASHED);
+            
         } else {
             //say "Game Over"
+            mIsmenu=true;
+            mUseMove=false;
             ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
            // SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
             mGameOverExpire = Clock() + GAME_OVER_EXPIRE;
@@ -1033,6 +1056,8 @@ void PlayScene::HandleMenu(int menuItem) {
             break;
         case MENUITEM_UNPAUSE:
             ShowMenu(MENU_NONE);
+            mUseMove=true;
+            mIsmenu=false;
             break;
         case MENUITEM_RESUME:
             // resume from saved level
@@ -1041,10 +1066,14 @@ void PlayScene::HandleMenu(int menuItem) {
             mObstacleGen.SetDifficulty(mDifficulty);
             ShowLevelSign();
             ShowMenu(MENU_NONE);
+            mUseMove=true;
+            mIsmenu=false;
             break;
         case MENUITEM_START_OVER:
             // start over from scratch
             ShowMenu(MENU_NONE);
+            mUseMove=true;
+            mIsmenu=false;
             break;
     }
 }
