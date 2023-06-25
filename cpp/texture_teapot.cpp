@@ -23,7 +23,9 @@
 
 #define MODULE_NAME "Teapot::Texture"
 #include "android_debug.hpp"
-
+#include <iostream>
+#include <fstream>
+#include <vector>
 /**
  * Cubemap and Texture2d implementations for Class Texture.
  */
@@ -67,6 +69,33 @@ static const std::string supportedTextureTypes = "GL_TEXTURE_2D(0x0DE1) GL_TEXTU
 /**
  * Interface implementations
  */
+std::vector<uint8_t> readTextureFile(const std::string& filePath) {
+   std::vector<uint8_t> fileBits;
+   
+   std::ifstream file(filePath, std::ios::binary);
+   if (!file) {
+       std::cerr << "Failed to open file: " << filePath << std::endl;
+       return fileBits;
+   }
+   
+   // Get the file size
+   file.seekg(0, std::ios::end);
+   std::streampos fileSize = file.tellg();
+   file.seekg(0, std::ios::beg);
+   
+   // Read the file contents into the vector
+   fileBits.resize(fileSize);
+   if (!file.read(reinterpret_cast<char*>(fileBits.data()), fileSize)) {
+       std::cerr << "Failed to read file: " << filePath << std::endl;
+       fileBits.clear();
+   }
+   
+   // Close the file
+   file.close();
+   
+   return fileBits;
+}
+
 TeapotTexture::TeapotTexture() {}
 TeapotTexture::~TeapotTexture() {}
 /**
@@ -162,7 +191,7 @@ TextureCubemap::TextureCubemap(std::vector<std::string> &files,
     for(GLuint i = 0; i < 6; i++) {
         fileBits.clear();
       //  AssetReadFile(mgr, files[i], fileBits);
-
+        fileBits = readTextureFile(files[i]);
         // tga/bmp files are saved as vertical mirror images ( at least more than half ).
         stbi_set_flip_vertically_on_load(1);
 
@@ -238,6 +267,7 @@ Texture2d::Texture2d(std::string& fileName, AAssetManager* assetManager)  {
     }
 
    // AssetReadFile(assetManager, texName, fileBits);
+    fileBits = readTextureFile(texName);
 
     // tga/bmp files are saved as vertical mirror images ( at least more than half ).
     stbi_set_flip_vertically_on_load(1);
@@ -296,3 +326,6 @@ GLuint Texture2d::GetTexType() {
 GLuint Texture2d::GetTexId() {
     return texId_;
 }
+
+
+ 

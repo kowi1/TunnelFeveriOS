@@ -34,7 +34,7 @@
 #define WALL_TEXTURE_SIZE 64
 
 
-
+bool firsttouch=true;
 static GLfloat TEAPOT_GEOM[240];
 static GLushort TEAPOT_GEOM_INDICES[24];
 static const int TEAPOT_GEOM_COLOR_OFFSET = 6 * sizeof(GLfloat);
@@ -69,8 +69,9 @@ static const char* TONE_BONUS[] = {
     "d70 f550. f650. f750. f850."
 };
 
-bool pointerDown=false;
+
 PlayScene::PlayScene() : Scene() {
+    AAssetManager* assMgr;
     hello= new Hello();
     mOurShader = NULL;
     mUseMove=false;
@@ -78,7 +79,8 @@ PlayScene::PlayScene() : Scene() {
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
-    mTeapotRenderer= new TexturedTeapotRender();
+    mTeapotRenderer = new TexturedTeapotRender();
+    //mTeapotRenderer->Init(assMgr);
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
@@ -156,6 +158,7 @@ PlayScene::PlayScene() : Scene() {
 
 
 PlayScene::PlayScene(struct android_app* app) : Scene() {
+    AAssetManager* assMgr;
     hello= new Hello();
     mApp=app;
     mUseMove=false;
@@ -166,7 +169,7 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
     mTeapotRenderer= new TexturedTeapotRender();
-    //mTeapotRenderer->Init(mApp->activity->assetManager);
+   // mTeapotRenderer->Init(assMgr);
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
@@ -475,14 +478,15 @@ void PlayScene::DoFrame() {
     mPlayerSpeed = Approach(mPlayerSpeed, targetSpeed, deltaT * accel);
 
     // apply noise filter on steering
-    mFilteredSteerX = (mFilteredSteerX * (NOISE_FILTER_SAMPLES - 1) + mShipSteerX)
-            / NOISE_FILTER_SAMPLES;
-    mFilteredSteerZ = (mFilteredSteerZ * (NOISE_FILTER_SAMPLES - 1) + mShipSteerZ)
-            / NOISE_FILTER_SAMPLES;
+    mFilteredSteerX = /*(mFilteredSteerX * (NOISE_FILTER_SAMPLES - 1) + */mShipSteerX;
+            /// NOISE_FILTER_SAMPLES;
+    mFilteredSteerZ =/* (mFilteredSteerZ * (NOISE_FILTER_SAMPLES - 1) + */mShipSteerZ;
+          ///  / NOISE_FILTER_SAMPLES;
 
     // move player
     if (mLives > 0) {
         float steerX = mFilteredSteerX, steerZ = mFilteredSteerZ;
+        //float steerX = 0.0f, steerZ = 0.0f;
         if (true){//mSteering == STEERING_TOUCH) {
             // touch steering
             mPlayerPos.x = Approach(mPlayerPos.x, steerX, PLAYER_MAX_LAT_SPEED * deltaT);
@@ -492,6 +496,7 @@ void PlayScene::DoFrame() {
             mPlayerPos.x += deltaT * steerX;
             mPlayerPos.z += deltaT * steerZ;
         }
+        steerX = 0.0f, steerZ = 0.0f;
     }
     mPlayerPos.y += deltaT * mPlayerSpeed;
 
@@ -499,6 +504,7 @@ void PlayScene::DoFrame() {
     mPlayerPos.x = Clamp(mPlayerPos.x, PLAYER_MIN_X, PLAYER_MAX_X);
     mPlayerPos.z = Clamp(mPlayerPos.z, PLAYER_MIN_Z, PLAYER_MAX_Z);
 
+    float steerX = 0.0f, steerZ = 0.0f;
     // shift sections if needed
     ShiftIfNeeded();
 
@@ -726,9 +732,9 @@ void PlayScene::OnPointerDown(int pointerId, const struct PointerCoords *coords)
     if (mMenu) {
         if (coords->isScreen) {
             UpdateMenuSelFromTouch(x, y);
-            if(pointerDown){
-              //   mMenuTouchActive = true;
-            }
+            
+            mMenuTouchActive = true;
+            
             OnPointerUp(pointerId, coords);
         }
     } else if (mSteering != STEERING_TOUCH) {
@@ -743,10 +749,7 @@ void PlayScene::OnPointerDown(int pointerId, const struct PointerCoords *coords)
 
 void PlayScene::OnPointerUp(int pointerId, const struct PointerCoords *coords) {
     
-    if (!pointerDown) {
-        pointerDown=true;
-        return;
-    }
+    
     if (mMenu && mMenuTouchActive) {
         if (coords->isScreen) {
             mMenuTouchActive = false;
@@ -758,21 +761,32 @@ void PlayScene::OnPointerUp(int pointerId, const struct PointerCoords *coords) {
 }
 
 void PlayScene::OnPointerMove(int pointerId, const struct PointerCoords *coords) {
-    float rangeY = coords->isScreen ? SceneManager::GetInstance()->GetScreenHeight() :
-            (coords->maxY - coords->minY);
-    float x = coords->x, y = coords->y;
-
-    if (mMenu && mMenuTouchActive) {
-        UpdateMenuSelFromTouch(x, y);
-    }
-    else if (true){//(mSteering == STEERING_TOUCH && pointerId == mPointerId) {
-        float deltaX =(x - mPointerAnchorX) * (TOUCH_CONTROL_SENSIVITY / rangeY)*1.0;
-        float deltaY =-(y - mPointerAnchorY) * (TOUCH_CONTROL_SENSIVITY / rangeY)*1.3;
-        float rotatedDx = cos(mRollAngle) * deltaX - sin(mRollAngle) * deltaY;
-        float rotatedDy = sin(mRollAngle) * deltaX + cos(mRollAngle) * deltaY;
-
-        mShipSteerX = mShipAnchorX + rotatedDx;
-        mShipSteerZ = mShipAnchorZ + rotatedDy;
+    if(firsttouch){
+        mPointerId = pointerId;
+        mPointerAnchorX = coords->x;
+        mPointerAnchorY = coords->y;
+        mShipAnchorX = mPlayerPos.x;
+        mShipAnchorZ = mPlayerPos.z;
+        mSteering = STEERING_TOUCH;
+        firsttouch=false;
+    }else{
+        float rangeY = coords->isScreen ? SceneManager::GetInstance()->GetScreenWidth() :
+        (coords->maxY - coords->minY);
+        float x = (coords->x), y = (coords->y);
+        
+        if (mMenu && mMenuTouchActive) {
+            UpdateMenuSelFromTouch(x, y);
+        }
+        else if (true){//(mSteering == STEERING_TOUCH && pointerId == mPointerId) {
+            float deltaX =(x - mPointerAnchorX) * (TOUCH_CONTROL_SENSIVITY / rangeY)*1.0;
+            float deltaY =(y - mPointerAnchorY) * (TOUCH_CONTROL_SENSIVITY / rangeY)*1.0;
+            float rotatedDx = cos(mRollAngle) * deltaX - sin(mRollAngle) * deltaY;
+            float rotatedDy = sin(mRollAngle) * deltaX + cos(mRollAngle) * deltaY;
+            
+            mShipSteerX = (mShipAnchorX + rotatedDx);
+            mShipSteerZ = (mShipAnchorZ + rotatedDy);
+            firsttouch=true;
+        }
     }
 }
 

@@ -39,7 +39,7 @@ class TexturedTeapotRender :public TeapotRenderer {
     // the rest of the code looks this function to decide
     // what to render.
     virtual GLint GetTextureType(void);
-    virtual void Init(AAssetManager* amgr);
+    virtual void Init(AAssetManager* assetManager);
     virtual void Render(glm::mat4 mViewMat, glm::mat4 mProjMat);
     virtual void Unload();
 };

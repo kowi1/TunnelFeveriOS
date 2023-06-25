@@ -599,10 +599,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"TunnelFever/Preview Content\"";
 				DEVELOPMENT_TEAM = 9STG586372;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TunnelFever/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -612,6 +614,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joy-joyholdings.TunnelFever";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -630,10 +633,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_ASSET_PATHS = "\"TunnelFever/Preview Content\"";
 				DEVELOPMENT_TEAM = 9STG586372;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TunnelFever/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -643,6 +648,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joy-joyholdings.TunnelFever";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

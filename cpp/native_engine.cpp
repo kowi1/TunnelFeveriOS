@@ -95,8 +95,10 @@ bool NativeEngine::IsAnimating() {
     return mHasFocus && mIsVisible && mHasWindow;
 }
 
-void NativeEngine::GameLoop()
+void NativeEngine::GameLoop(int a,int b)
 {
+    mSurfWidth=a;
+    mSurfHeight=b;
    // mApp->userData = this;
     //mApp->onAppCmd = _handle_cmd_proxy;
    // mApp->onInputEvent = _handle_input_proxy;
@@ -523,21 +525,21 @@ void NativeEngine::DoFrame() {
 
     // how big is the surface? We query every frame because it's cheap, and some
     // strange devices out there change the surface size without calling any callbacks...
-    int width, height;
-    width=2;
-    height=2;
+    //int width, height;
+   // width=2;
+   // height=2;
     //eglQuerySurface(mEglDisplay, mEglSurface, EGL_WIDTH, &width);
     //eglQuerySurface(mEglDisplay, mEglSurface, EGL_HEIGHT, &height);
 
-    if (width != mSurfWidth || height != mSurfHeight) {
+   // if (width != mSurfWidth || height != mSurfHeight) {
         // notify scene manager that the surface has changed size
-        LOGD("NativeEngine: surface changed size %dx%d --> %dx%d", mSurfWidth, mSurfHeight,
-                width, height);
-        mSurfWidth = width;
-        mSurfHeight = height;
+    //    LOGD("NativeEngine: surface changed size %dx%d --> %dx%d", mSurfWidth, mSurfHeight,
+    //            width, height);
+      //  mSurfWidth = width;
+   //     mSurfHeight = height;
         mgr->SetScreenSize(mSurfWidth, mSurfHeight);
         glViewport(0, 0, mSurfWidth, mSurfHeight);
-    }
+    //}
 
     // if this is the first frame, install the welcome scene
     if (mIsFirstFrame) {

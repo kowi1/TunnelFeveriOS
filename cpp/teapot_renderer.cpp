@@ -197,7 +197,7 @@ void TeapotRenderer::Render() {
   glUniform3f(shader_param_.light0_, 100.f, -200.f, -600.f);
 
   glDrawElements(GL_TRIANGLES, num_indices_, GL_UNSIGNED_SHORT,
-                 BUFFER_OFFSET(0));
+                BUFFER_OFFSET(0));
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -217,7 +217,7 @@ bool TeapotRenderer::LoadShaders(SHADER_PARAMS* params, const char* strVsh,
                                          strVsh)) {
   //  print("Failed to compile vertex shader");
     glDeleteProgram(program);
-    assert(false);
+  //  assert(false);
     return false;
   }
 
@@ -226,7 +226,7 @@ bool TeapotRenderer::LoadShaders(SHADER_PARAMS* params, const char* strVsh,
                                          strFsh)) {
   //  LOGI("Failed to compile fragment shader");
     glDeleteProgram(program);
-    assert(false);
+  //  assert(false);
     return false;
   }
 

@@ -71,7 +71,7 @@ GLint TexturedTeapotRender::GetTextureType(void) {
  *  - configure samplerObj in fragment shader
  * @param assetMgr android assetManager from java side
  */
-void TexturedTeapotRender::Init(AAssetManager* assetMgr) {
+void TexturedTeapotRender::Init(AAssetManager* assetManager) {
     // initialize the basic things from TeapotRenderer, no change
     TeapotRenderer::Init();
 
@@ -130,8 +130,8 @@ void TexturedTeapotRender::Init(AAssetManager* assetMgr) {
     if(type == GL_TEXTURE_2D) {
         textures[0] = std::string("Textures/front.tga");
     }
-
-    texObj_ = TeapotTexture::Create(type, textures, assetMgr);
+    AAssetManager* assMgr;
+    texObj_ = TeapotTexture::Create(type, textures, assMgr);
     assert(texObj_);
 
     std::vector<std::string> samplers;

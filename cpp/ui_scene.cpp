@@ -159,8 +159,8 @@ void UiScene::OnButtonClicked(int buttonId) {
 void UiScene::UpdateTouchFocus(const struct PointerCoords *coords) {
     // translate to our coordinate system
     float h = SceneManager::GetInstance()->GetScreenHeight();
-    float x = (coords->x)/2; /// h;
-    float y = /*(h - */(coords->y)/2;//); / h;
+    float x = coords->x / h;
+    float y =  coords->y / h;
 
     int i;
     mFocusWidget = -1;

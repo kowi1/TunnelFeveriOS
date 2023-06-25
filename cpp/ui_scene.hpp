@@ -271,7 +271,7 @@ class UiWidget {
         bool PointBelongs(float x, float y) {
             float dx = fabsf(x - mCenterX);
             float dy = fabsf(y - mCenterY);
-            return dx < 0.5f  && dy < 0.5f ;
+            return dx < 0.5f * mWidth && dy < 0.5f * mHeight;
         }
 
         bool IsClickableButton() {

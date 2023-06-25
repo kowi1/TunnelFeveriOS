@@ -228,15 +228,15 @@ static bool CookEvent_Motion(AInputEvent *event, CookedEventCallback callback) {
     
     ev.motionPointerId =0; //AMotionEvent_getPointerId(event, ptrIndex);
     ev.motionIsOnScreen = event->motionIsOnScreen ;//(src == AINPUT_SOURCE_TOUCHSCREEN);
-    ev.motionX = event->motionY;//0.0f;//AMotionEvent_getX(event, ptrIndex);
+    ev.motionX = event->motionX;//0.0f;//AMotionEvent_getX(event, ptrIndex);
     ev.motionY = event->motionY;//0.0f;//AMotionEvent_getY(event, ptrIndex);
 
     if (ev.motionIsOnScreen) {
         // use screen size as the motion range
         ev.motionMinX = 0.0f;
-        ev.motionMaxX =2.0f;//SceneManager::GetInstance()->GetScreenWidth();
+        ev.motionMaxX =SceneManager::GetInstance()->GetScreenWidth();
         ev.motionMinY = 0.0f;
-        ev.motionMaxY = 0.0f;//SceneManager::GetInstance()->GetScreenHeight();
+        ev.motionMaxY = SceneManager::GetInstance()->GetScreenHeight();
     } /*else {
         // look up motion range for this device
         _look_up_motion_range((int) AInputEvent_getDeviceId(event),

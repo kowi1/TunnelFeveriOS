@@ -10,10 +10,10 @@ struct OpenGLView: UIViewRepresentable {
     typealias UIViewType = OpenGLUIView
 
     @Binding var gestureLocation: CGPoint
-    
+    let mtestWrapper: testWrapper
     
     func makeUIView(context: Context) -> OpenGLUIView {
-        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:700,height:700), gestureLocation: $gestureLocation)
+        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.height,height:UIScreen.main.bounds.width), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
         // Create and configure your OpenGL view here
 //view.gestureLocation = gestureLocation
         return view
@@ -22,21 +22,33 @@ struct OpenGLView: UIViewRepresentable {
           //  uiView.gestureLocation = gestureLocation
            
         }
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+            if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                delegate.orientationLock = orientation
+            }
+        }
    
 }
 
+class AppDelegate: UIResponder, UIApplicationDelegate {
+      var window: UIWindow?
+       var orientationLock = UIInterfaceOrientationMask.all
+
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+           return orientationLock
+       }
+}
 
 class OpenGLUIView: UIView{
+    
     private var context: EAGLContext?
     private var renderBuffer: GLuint = 0
     private var frameBuffer: GLuint = 0
     private var displayLink: CADisplayLink?
     
-    private var _test=testWrapper()
-    private var scaledDeltaX :Int32=0
-    private var scaledDeltaY :Int32=0
-    private var prevscaledDeltaX :Int32=0
-    private var prevscaledDeltaY :Int32=0
+    private var _test:testWrapper
+ 
+
     @Binding var gestureLocation: CGPoint
  
     
@@ -46,8 +58,9 @@ class OpenGLUIView: UIView{
         return CAEAGLLayer.self
     }
     
-     init(frame: CGRect,gestureLocation: Binding<CGPoint>) {
+    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper) {
          self._gestureLocation = gestureLocation
+        self._test=mtestWrapper
         super.init(frame: frame)
          
         if setupOpenGLContext() {
@@ -118,17 +131,11 @@ class OpenGLUIView: UIView{
             
       glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
          
-        scaledDeltaX=Int32(0)
-        scaledDeltaY=Int32(0)
-         scaledDeltaX=Int32(gestureLocation.x-300)
-         scaledDeltaY=Int32(gestureLocation.y-300)
-   // _test.renderFrame(scaledDeltaX,and: )
-        _test.nativeEngine()
        
-            
-        _test.inputfunc(scaledDeltaX, and: scaledDeltaY)
-        scaledDeltaX=Int32(0)
-        scaledDeltaY=Int32(0)
+  
+        _test.nativeEngine(Int32(UIScreen.main.bounds.height),and: Int32(UIScreen.main.bounds.width))
+       
+    
         // Add your OpenGL rendering code here
         
         context?.presentRenderbuffer(Int(GL_RENDERBUFFER))

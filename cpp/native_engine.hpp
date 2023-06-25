@@ -29,7 +29,7 @@ class NativeEngine {
         ~NativeEngine();
 
         // runs application until it dies
-        void GameLoop();
+        void GameLoop(int a, int b);
         
         // returns the JNI environment
          //  JNIEnv *GetJniEnv();

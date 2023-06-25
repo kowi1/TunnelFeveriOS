@@ -46,25 +46,25 @@ NativeEngine *_nativeEngine = new NativeEngine();
     
     
 }
--(void)  nativeEngine{
+-(void)  nativeEngine:(int)a and:(int)b{
     
    
   //  PlayScene _scene;
     
     
-   _nativeEngine->GameLoop();
+   _nativeEngine->GameLoop(a,b);
     
     
 }
 
--(void)  inputfunc:(int)a and:(int)b;{
+-(void)  inputfunc:(int)a and:(int)b and:(int)width and:(int)height;{
     
     AInputEvent event;
-    event.motionX=(a/200.0f)+1;
-    event.motionY=(b/350.0f)+1;
+    event.motionX=(b);
+    event.motionY=(a);
     event.motionMinX=0.0f;
-    event.motionMaxX=2.0f;
-    event.motionMaxY=2.0f;
+    event.motionMaxX=1.0f;
+    event.motionMaxY=1.0f;
     event.motionMinY=0.0f;
     event.type=6;//"COOKED_EVENT_TYPE_JOY";
     event.motionIsOnScreen=true;

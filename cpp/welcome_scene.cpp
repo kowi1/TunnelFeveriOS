@@ -63,7 +63,7 @@ void WelcomeScene::OnButtonClicked(int id) {
     SceneManager *mgr = SceneManager::GetInstance();
 
     if (id == mPlayButtonId) {
-        mgr->RequestNewScene(new PlayScene(mApp));
+        mgr->RequestNewScene(new PlayScene());
     } else if (id == mStoryButtonId) {
         mgr->RequestNewScene((new DialogScene())->SetText(BLURB_STORY)->SetSingleButton(S_OK,
                 DialogScene::ACTION_RETURN));
@@ -128,7 +128,7 @@ void WelcomeScene::OnCreateWidgets() {
             ->SetTransition(UiWidget::TRANS_FROM_RIGHT)->GetId();
 
     // "Play" button is the default button
-  //  SetDefaultButton(mPlayButtonId);
+    SetDefaultButton(mPlayButtonId);
 
     // enable/disable widgets as appropriate to signed in state
     UpdateWidgetStates();
