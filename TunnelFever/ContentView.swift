@@ -16,10 +16,10 @@ struct ContentView: View {
         
         OpenGLView(gestureLocation: $gestureLocation,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
             .onAppear {
-                                OpenGLView.lockOrientation(.portrait) // Lock to portrait mode
+                                OpenGLView.lockOrientation(.portrait)
                             }
                             .onDisappear {
-                                OpenGLView.lockOrientation(.all) // Reset orientation lock
+                                OpenGLView.lockOrientation(.all)
                             }
             .gesture(
             DragGesture()
