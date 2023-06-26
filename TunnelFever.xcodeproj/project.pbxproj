@@ -14,6 +14,7 @@
 		8452C00E29869F500040E1D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00D29869F500040E1D6 /* ContentView.swift */; };
 		8452C01029869F510040E1D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C00F29869F510040E1D6 /* Assets.xcassets */; };
 		8452C01329869F510040E1D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C01229869F510040E1D6 /* Preview Assets.xcassets */; };
+		84872FEC2A497E29001781A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84872FEB2A497E29001781A3 /* AppDelegate.swift */; };
 		849984C82A3CEC0500091843 /* libBullet3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984B92A3CEBD200091843 /* libBullet3Common.a */; };
 		849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BB2A3CEBD200091843 /* libBulletCollision.a */; };
 		849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BD2A3CEBD200091843 /* libBulletDynamics.a */; };
@@ -149,6 +150,7 @@
 		8452C00F29869F510040E1D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8452C01229869F510040E1D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8452C01429869F510040E1D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84872FEB2A497E29001781A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		849984842A3CE85D00091843 /* native_engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = native_engine.hpp; sourceTree = "<group>"; };
 		849984AB2A3CEBD200091843 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = cpp/build/Project.xcodeproj; sourceTree = "<group>"; };
 		84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TunnelFever-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */,
 				8452C00D29869F500040E1D6 /* ContentView.swift */,
 				8402C0352A250B7100E5D2AA /* OpenGLView.swift */,
+				84872FEB2A497E29001781A3 /* AppDelegate.swift */,
 				8452C00F29869F510040E1D6 /* Assets.xcassets */,
 				8452C01429869F510040E1D6 /* Info.plist */,
 				8452C01129869F510040E1D6 /* Preview Content */,
@@ -464,6 +467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84872FEC2A497E29001781A3 /* AppDelegate.swift in Sources */,
 				843FFA37299BEF9D00813284 /* Test.cpp in Sources */,
 				84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */,
 				8452C00E29869F500040E1D6 /* ContentView.swift in Sources */,

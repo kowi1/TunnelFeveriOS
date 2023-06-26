@@ -15,26 +15,14 @@ struct ContentView: View {
     var body: some View {
         
         OpenGLView(gestureLocation: $gestureLocation,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
-            .onAppear {
-                                OpenGLView.lockOrientation(.portrait)
-                            }
-                            .onDisappear {
-                                OpenGLView.lockOrientation(.all)
-                            }
-            .gesture(
-            DragGesture()
-                .onChanged { value in
-                    gestureLocation = value.location
-                    mtestWrapper.inputfunc(Int32(gestureLocation.x), and: Int32(gestureLocation.y), and:Int32(UIScreen.main.bounds.width),and:Int32(UIScreen.main.bounds.height))
-                }
-                .onEnded { _ in
-        //           gestureLocation = .zero
-                })
-        
-        
+            .onTouch(perform: updateLocation)
     }
+    func updateLocation(_ location: CGPoint) {
+        mtestWrapper.inputfunc(Int32(location.x), and: Int32(location.y), and:Int32(UIScreen.main.bounds.width),and:Int32(UIScreen.main.bounds.height))
+       }
     
 }
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
