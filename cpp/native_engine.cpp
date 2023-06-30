@@ -96,9 +96,17 @@ bool NativeEngine::IsAnimating() {
 }
 
 void NativeEngine::GameLoop(int a,int b)
-{
-    mSurfWidth=a;
-    mSurfHeight=b;
+{   //float c = (float)a / (float)b;
+
+    //if (c>1.0f){
+    //    mSurfWidth=a;
+      //  mSurfHeight=b;
+    //}
+    //else{
+        mSurfWidth=a;
+        mSurfHeight=b;
+    //}
+  
    // mApp->userData = this;
     //mApp->onAppCmd = _handle_cmd_proxy;
    // mApp->onInputEvent = _handle_input_proxy;

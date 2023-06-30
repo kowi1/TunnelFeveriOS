@@ -51,6 +51,7 @@ WelcomeScene::WelcomeScene() {
 
 WelcomeScene::WelcomeScene(struct android_app *app){
 mApp=app;
+mPrevCenter=0;
 }
 WelcomeScene::~WelcomeScene() {
 }
@@ -79,7 +80,13 @@ void WelcomeScene::DoFrame() {
 
     // if the sign in or cloud save process is in progress, show a wait screen. Otherwise, not:
     SetWaitScreen(false);
-
+    float n=SceneManager::GetInstance()->GetScreenAspect();
+    if (!(mPrevCenter==SceneManager::GetInstance()->GetScreenAspect()))
+    {
+        mWidgetCount = mWidgetCount - 4;
+        OnCreateWidgets();
+        
+    }
     // draw the UI
     UiScene::DoFrame();
 }
@@ -92,7 +99,8 @@ void WelcomeScene::UpdateWidgetStates() {
     AddNav(mStoryButtonId, UI_DIR_RIGHT, mPlayButtonId);
 
     AddNav(mAboutButtonId, UI_DIR_LEFT, mPlayButtonId);
-
+    //mWidgetCount=mWidgetCount-4;
+    //OnCreateWidgets();
 }
 
 void WelcomeScene::OnStartGraphics() {
@@ -100,40 +108,45 @@ void WelcomeScene::OnStartGraphics() {
 }
 
 void WelcomeScene::OnCreateWidgets() {
-
+    
     // create widgets
-    float maxX = SceneManager::GetInstance()->GetScreenAspect();
-    float center = 0.5f * maxX;
+        float maxX = SceneManager::GetInstance()->GetScreenAspect();
+    if(!(mPrevCenter==maxX)){
+        float center = 0.5f * maxX;
+     
+      //  mPrevCenter = SceneManager::GetInstance()->GetScreenAspect();
 
-    // create the static title
-    NewWidget()->SetText(S_TITLE)->SetCenter(TITLE_POS)->SetTextColor(TITLE_COLOR)
-            ->SetFontScale(TITLE_FONT_SCALE)->SetTransition(UiWidget::TRANS_FROM_TOP);
-
-      // create the "play" button
-    mPlayButtonId = NewWidget()->SetText(S_PLAY)->SetTextColor(BUTTON_COLOR)
-            ->SetCenter(BUTTON_PLAY_POS)->SetSize(BUTTON_PLAY_SIZE)
-            ->SetFontScale(BUTTON_PLAY_FONT_SCALE)->SetIsButton(true)
-            ->SetTransition(UiWidget::TRANS_SCALE)->GetId();
-
+        // create the static title
+        NewWidget()->SetText(S_TITLE)->SetCenter(TITLE_POS)->SetTextColor(TITLE_COLOR)
+        ->SetFontScale(TITLE_FONT_SCALE)->SetTransition(UiWidget::TRANS_FROM_TOP);
+        
+        // create the "play" button
+        mPlayButtonId = NewWidget()->SetText(S_PLAY)->SetTextColor(BUTTON_COLOR)
+        ->SetCenter(BUTTON_PLAY_POS)->SetSize(BUTTON_PLAY_SIZE)
+        ->SetFontScale(BUTTON_PLAY_FONT_SCALE)->SetIsButton(true)
+        ->SetTransition(UiWidget::TRANS_SCALE)->GetId();
+        
         // story button
-    mStoryButtonId = NewWidget()->SetTextColor(BUTTON_COLOR)->SetText(S_STORY)
-            ->SetCenter(BUTTON_STORY_POS)->SetSize(BUTTON_SIDEBUTTON_SIZE)
-            ->SetFontScale(BUTTON_FONT_SCALE)->SetIsButton(true)
-            ->SetTransition(UiWidget::TRANS_FROM_RIGHT)->GetId();
-
-    // about button
-    mAboutButtonId = NewWidget()->SetTextColor(BUTTON_COLOR)->SetText(S_ABOUT)
-            ->SetCenter(BUTTON_ABOUT_POS)->SetSize(BUTTON_SIDEBUTTON_SIZE)
-            ->SetFontScale(BUTTON_FONT_SCALE)->SetIsButton(true)
-            ->SetTransition(UiWidget::TRANS_FROM_RIGHT)->GetId();
-
-    // "Play" button is the default button
-    SetDefaultButton(mPlayButtonId);
-
-    // enable/disable widgets as appropriate to signed in state
-    UpdateWidgetStates();
+        mStoryButtonId = NewWidget()->SetTextColor(BUTTON_COLOR)->SetText(S_STORY)
+        ->SetCenter(BUTTON_STORY_POS)->SetSize(BUTTON_SIDEBUTTON_SIZE)
+        ->SetFontScale(BUTTON_FONT_SCALE)->SetIsButton(true)
+        ->SetTransition(UiWidget::TRANS_FROM_RIGHT)->GetId();
+        
+        // about button
+        mAboutButtonId = NewWidget()->SetTextColor(BUTTON_COLOR)->SetText(S_ABOUT)
+        ->SetCenter(BUTTON_ABOUT_POS)->SetSize(BUTTON_SIDEBUTTON_SIZE)
+        ->SetFontScale(BUTTON_FONT_SCALE)->SetIsButton(true)
+        ->SetTransition(UiWidget::TRANS_FROM_RIGHT)->GetId();
+        
+        // "Play" button is the default button
+        SetDefaultButton(mPlayButtonId);
+        
+        // enable/disable widgets as appropriate to signed in state
+        UpdateWidgetStates();
+       mPrevCenter=SceneManager::GetInstance()->GetScreenAspect();
+    }
+    
 }
-
 void WelcomeScene::OnKillGraphics() {
     UiScene::OnKillGraphics();
 }

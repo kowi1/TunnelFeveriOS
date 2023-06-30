@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402C0352A250B7100E5D2AA /* OpenGLView.swift */; };
 		8402C0392A250BEF00E5D2AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8402C0382A250BEF00E5D2AA /* OpenGLES.framework */; };
+		841CCF852A4E237D0084B732 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841CCF7A2A4E237D0084B732 /* StoreKit.framework */; };
 		843FFA37299BEF9D00813284 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8A299956F300B05CA9 /* Test.cpp */; };
 		8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */; };
 		8452C00E29869F500040E1D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00D29869F500040E1D6 /* ContentView.swift */; };
@@ -144,6 +145,8 @@
 /* Begin PBXFileReference section */
 		8402C0352A250B7100E5D2AA /* OpenGLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		8402C0382A250BEF00E5D2AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		841CCF7A2A4E237D0084B732 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		841CCF862A4E238A0084B732 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
 		8452C00829869F500040E1D6 /* TunnelFever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TunnelFever.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelFeverApp.swift; sourceTree = "<group>"; };
 		8452C00D29869F500040E1D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841CCF852A4E237D0084B732 /* StoreKit.framework in Frameworks */,
 				849984C82A3CEC0500091843 /* libBullet3Common.a in Frameworks */,
 				849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */,
 				849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */,
@@ -263,6 +267,8 @@
 		84DAEF3A299CDB80000BCC60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				841CCF862A4E238A0084B732 /* StoreKitTest.framework */,
+				841CCF7A2A4E237D0084B732 /* StoreKit.framework */,
 				84D0E10E2A2FE50000D23803 /* Project.xcodeproj */,
 				8402C0382A250BEF00E5D2AA /* OpenGLES.framework */,
 				84DAEF43299CF5AE000BCC60 /* libegl.a */,

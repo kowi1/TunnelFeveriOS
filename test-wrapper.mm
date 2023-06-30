@@ -46,13 +46,13 @@ NativeEngine *_nativeEngine = new NativeEngine();
     
     
 }
--(void)  nativeEngine:(int)a and:(int)b{
+-(void)  nativeEngine:(int)height and:(int)width{
     
    
   //  PlayScene _scene;
     
     
-   _nativeEngine->GameLoop(a,b);
+   _nativeEngine->GameLoop(height,width);
     
     
 }

@@ -13,7 +13,7 @@ struct OpenGLView: UIViewRepresentable {
     let mtestWrapper: testWrapper
     
     func makeUIView(context: Context) -> OpenGLUIView {
-        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.height,height:UIScreen.main.bounds.width), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
         // Create and configure your OpenGL view here
         //view.gestureLocation = gestureLocation
         return view
@@ -156,10 +156,11 @@ class OpenGLUIView: UIView{
     @Binding var gestureLocation: CGPoint
  
 
-
     override class var layerClass: AnyClass {
         return CAEAGLLayer.self
     }
+    
+    
     
     init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper) {
          self._gestureLocation = gestureLocation
@@ -247,7 +248,7 @@ class OpenGLUIView: UIView{
     override func layoutSubviews() {
             super.layoutSubviews()
                         // Update the viewport and other OpenGL settings
-            glViewport(0, 0, GLsizei(frame.width), GLsizei(frame.height))
+        glViewport(0, 0, GLsizei(frame.width), GLsizei(frame.height))
             
             // Call the render method to trigger OpenGL rendering
             render()
