@@ -84,6 +84,7 @@ class PlayScene : public Scene {
 
         // current difficulty level
         int mDifficulty;
+   
 
         // should we use cloud save? If not, we will save progress to local data only.
         bool mUseCloudSave;

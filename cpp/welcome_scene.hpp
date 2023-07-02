@@ -30,7 +30,7 @@ class WelcomeScene : public UiScene {
         int mPlayButtonId;
         int mStoryButtonId;
         int mAboutButtonId;
-
+        float mPrevCenter;
         virtual void RenderBackground();
         virtual void OnButtonClicked(int id);
 

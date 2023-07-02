@@ -23,8 +23,8 @@ SceneManager::SceneManager() {
     mCurScene = NULL;
 
     // start with non-bogus (though not accurate) values
-    mScreenWidth = 320;
-    mScreenHeight = 240;
+    mScreenWidth = 0;//320;
+    mScreenHeight =0;// 240;
 
     mSceneToInstall = NULL;
 
