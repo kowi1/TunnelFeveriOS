@@ -10,6 +10,7 @@
 		8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402C0352A250B7100E5D2AA /* OpenGLView.swift */; };
 		8402C0392A250BEF00E5D2AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8402C0382A250BEF00E5D2AA /* OpenGLES.framework */; };
 		843FFA37299BEF9D00813284 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8A299956F300B05CA9 /* Test.cpp */; };
+		844AB4772A4F11F500D0824D /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AB4762A4F11F500D0824D /* UIDevice.swift */; };
 		8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */; };
 		8452C00E29869F500040E1D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00D29869F500040E1D6 /* ContentView.swift */; };
 		8452C01029869F510040E1D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C00F29869F510040E1D6 /* Assets.xcassets */; };
@@ -24,6 +25,19 @@
 		849984CE2A3CEC0500091843 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C72A3CEBD200091843 /* libglm.a */; };
 		849984CF2A3CEC0500091843 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C32A3CEBD200091843 /* libLinearMath.a */; };
 		84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* test-wrapper.mm */; };
+		84FC56252A4FDF5500FFBA4D /* Cubemap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */; };
+		84FC56262A4FDF5500FFBA4D /* Cubemap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */; };
+		84FC56272A4FDF5500FFBA4D /* 2DTexture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56212A4FDF5400FFBA4D /* 2DTexture.vsh */; };
+		84FC56282A4FDF5500FFBA4D /* 2DTexture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56222A4FDF5400FFBA4D /* 2DTexture.fsh */; };
+		84FC56292A4FDF5500FFBA4D /* ShaderPlain.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56232A4FDF5500FFBA4D /* ShaderPlain.fsh */; };
+		84FC562A2A4FDF5500FFBA4D /* VS_ShaderPlain.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56242A4FDF5500FFBA4D /* VS_ShaderPlain.vsh */; };
+		84FC56322A4FDF7B00FFBA4D /* bottom.tga in Resources */ = {isa = PBXBuildFile; fileRef = 84FC562B2A4FDF7A00FFBA4D /* bottom.tga */; };
+		84FC56332A4FDF7B00FFBA4D /* front.tga in Resources */ = {isa = PBXBuildFile; fileRef = 84FC562C2A4FDF7A00FFBA4D /* front.tga */; };
+		84FC56342A4FDF7B00FFBA4D /* right.tga in Resources */ = {isa = PBXBuildFile; fileRef = 84FC562D2A4FDF7A00FFBA4D /* right.tga */; };
+		84FC56352A4FDF7B00FFBA4D /* back.tga in Resources */ = {isa = PBXBuildFile; fileRef = 84FC562E2A4FDF7A00FFBA4D /* back.tga */; };
+		84FC56362A4FDF7C00FFBA4D /* top.tga in Resources */ = {isa = PBXBuildFile; fileRef = 84FC562F2A4FDF7B00FFBA4D /* top.tga */; };
+		84FC56372A4FDF7C00FFBA4D /* left.tga in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56302A4FDF7B00FFBA4D /* left.tga */; };
+		84FC56382A4FDF7C00FFBA4D /* android_pie.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56312A4FDF7B00FFBA4D /* android_pie.bmp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +158,7 @@
 /* Begin PBXFileReference section */
 		8402C0352A250B7100E5D2AA /* OpenGLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		8402C0382A250BEF00E5D2AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		844AB4762A4F11F500D0824D /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		8452C00829869F500040E1D6 /* TunnelFever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TunnelFever.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelFeverApp.swift; sourceTree = "<group>"; };
 		8452C00D29869F500040E1D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -162,6 +177,21 @@
 		84DAEF3B299CDB80000BCC60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84DAEF3F299CF49C000BCC60 /* libegl-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "libegl-master"; path = "../../Downloads/libegl-master"; sourceTree = "<group>"; };
 		84DAEF43299CF5AE000BCC60 /* libegl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libegl.a; sourceTree = "<group>"; };
+		84FC55C12A4F604E00FFBA4D /* libFileReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFileReader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		84FC55CB2A4F614400FFBA4D /* libFileReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFileReader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Cubemap.fsh; path = assets/Shaders/Cubemap.fsh; sourceTree = "<group>"; };
+		84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Cubemap.vsh; path = assets/Shaders/Cubemap.vsh; sourceTree = "<group>"; };
+		84FC56212A4FDF5400FFBA4D /* 2DTexture.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = 2DTexture.vsh; path = assets/Shaders/2DTexture.vsh; sourceTree = "<group>"; };
+		84FC56222A4FDF5400FFBA4D /* 2DTexture.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = 2DTexture.fsh; path = assets/Shaders/2DTexture.fsh; sourceTree = "<group>"; };
+		84FC56232A4FDF5500FFBA4D /* ShaderPlain.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = ShaderPlain.fsh; path = assets/Shaders/ShaderPlain.fsh; sourceTree = "<group>"; };
+		84FC56242A4FDF5500FFBA4D /* VS_ShaderPlain.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = VS_ShaderPlain.vsh; path = assets/Shaders/VS_ShaderPlain.vsh; sourceTree = "<group>"; };
+		84FC562B2A4FDF7A00FFBA4D /* bottom.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = bottom.tga; path = assets/Textures/bottom.tga; sourceTree = "<group>"; };
+		84FC562C2A4FDF7A00FFBA4D /* front.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = front.tga; path = assets/Textures/front.tga; sourceTree = "<group>"; };
+		84FC562D2A4FDF7A00FFBA4D /* right.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = right.tga; path = assets/Textures/right.tga; sourceTree = "<group>"; };
+		84FC562E2A4FDF7A00FFBA4D /* back.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = back.tga; path = assets/Textures/back.tga; sourceTree = "<group>"; };
+		84FC562F2A4FDF7B00FFBA4D /* top.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = top.tga; path = assets/Textures/top.tga; sourceTree = "<group>"; };
+		84FC56302A4FDF7B00FFBA4D /* left.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = left.tga; path = assets/Textures/left.tga; sourceTree = "<group>"; };
+		84FC56312A4FDF7B00FFBA4D /* android_pie.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = android_pie.bmp; path = assets/Textures/android_pie.bmp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +217,19 @@
 		8452BFFF29869F500040E1D6 = {
 			isa = PBXGroup;
 			children = (
+				84FC56312A4FDF7B00FFBA4D /* android_pie.bmp */,
+				84FC562E2A4FDF7A00FFBA4D /* back.tga */,
+				84FC562B2A4FDF7A00FFBA4D /* bottom.tga */,
+				84FC562C2A4FDF7A00FFBA4D /* front.tga */,
+				84FC56302A4FDF7B00FFBA4D /* left.tga */,
+				84FC562D2A4FDF7A00FFBA4D /* right.tga */,
+				84FC562F2A4FDF7B00FFBA4D /* top.tga */,
+				84FC56222A4FDF5400FFBA4D /* 2DTexture.fsh */,
+				84FC56212A4FDF5400FFBA4D /* 2DTexture.vsh */,
+				84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */,
+				84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */,
+				84FC56232A4FDF5500FFBA4D /* ShaderPlain.fsh */,
+				84FC56242A4FDF5500FFBA4D /* VS_ShaderPlain.vsh */,
 				849984AB2A3CEBD200091843 /* Project.xcodeproj */,
 				849984842A3CE85D00091843 /* native_engine.hpp */,
 				84C7BF8F299957B600B05CA9 /* test-wrapper.mm */,
@@ -215,6 +258,7 @@
 				8452C00D29869F500040E1D6 /* ContentView.swift */,
 				8402C0352A250B7100E5D2AA /* OpenGLView.swift */,
 				84872FEB2A497E29001781A3 /* AppDelegate.swift */,
+				844AB4762A4F11F500D0824D /* UIDevice.swift */,
 				8452C00F29869F510040E1D6 /* Assets.xcassets */,
 				8452C01429869F510040E1D6 /* Info.plist */,
 				8452C01129869F510040E1D6 /* Preview Content */,
@@ -263,6 +307,8 @@
 		84DAEF3A299CDB80000BCC60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84FC55CB2A4F614400FFBA4D /* libFileReader.a */,
+				84FC55C12A4F604E00FFBA4D /* libFileReader.a */,
 				84D0E10E2A2FE50000D23803 /* Project.xcodeproj */,
 				8402C0382A250BEF00E5D2AA /* OpenGLES.framework */,
 				84DAEF43299CF5AE000BCC60 /* libegl.a */,
@@ -455,6 +501,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FC56322A4FDF7B00FFBA4D /* bottom.tga in Resources */,
+				84FC56332A4FDF7B00FFBA4D /* front.tga in Resources */,
+				84FC56342A4FDF7B00FFBA4D /* right.tga in Resources */,
+				84FC56352A4FDF7B00FFBA4D /* back.tga in Resources */,
+				84FC56362A4FDF7C00FFBA4D /* top.tga in Resources */,
+				84FC56372A4FDF7C00FFBA4D /* left.tga in Resources */,
+				84FC56382A4FDF7C00FFBA4D /* android_pie.bmp in Resources */,
+				84FC56252A4FDF5500FFBA4D /* Cubemap.fsh in Resources */,
+				84FC56262A4FDF5500FFBA4D /* Cubemap.vsh in Resources */,
+				84FC56272A4FDF5500FFBA4D /* 2DTexture.vsh in Resources */,
+				84FC56282A4FDF5500FFBA4D /* 2DTexture.fsh in Resources */,
+				84FC56292A4FDF5500FFBA4D /* ShaderPlain.fsh in Resources */,
+				84FC562A2A4FDF5500FFBA4D /* VS_ShaderPlain.vsh in Resources */,
 				8452C01329869F510040E1D6 /* Preview Assets.xcassets in Resources */,
 				8452C01029869F510040E1D6 /* Assets.xcassets in Resources */,
 			);
@@ -473,6 +532,7 @@
 				8452C00E29869F500040E1D6 /* ContentView.swift in Sources */,
 				8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */,
 				8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */,
+				844AB4772A4F11F500D0824D /* UIDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

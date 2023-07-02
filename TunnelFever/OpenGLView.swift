@@ -172,7 +172,10 @@ class OpenGLUIView: UIView{
             _test.setupGraphics()
             startRenderLoop()
         }
-         transform = CGAffineTransform(rotationAngle: .pi / 2)
+       // if(Int32(UIScreen.main.bounds.height) > Int32(UIScreen.main.bounds.width))
+         //  {
+            transform = CGAffineTransform(rotationAngle: .pi / 2)
+       // }
       //  AppDelegate.lockOrientation(.portrait)
     }
     
@@ -237,9 +240,9 @@ class OpenGLUIView: UIView{
          
        
   
-        _test.nativeEngine(Int32(UIScreen.main.bounds.height),and: Int32(UIScreen.main.bounds.width))
+        _test.nativeEngine(Int32(UIScreen.main.bounds.height),and: Int32(UIScreen.main.bounds.width),and:Bundle.main.url(forResource: "right", withExtension: "tga")?.absoluteString.replacingOccurrences(of: "right.tga", with: "").replacingOccurrences(of: "file://", with: ""))
        
-    
+
         // Add your OpenGL rendering code here
         
         context?.presentRenderbuffer(Int(GL_RENDERBUFFER))

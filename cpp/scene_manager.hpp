@@ -41,9 +41,10 @@ class SceneManager {
         bool mHasGraphics;
         Scene *mSceneToInstall;
         void InstallScene(Scene *newScene);
-
+        
     public:
         SceneManager();
+        std::string mBundlePath;
         void SetScreenSize(int width, int height);
         void KillGraphics();
         void StartGraphics();

@@ -29,14 +29,14 @@ class NativeEngine {
         ~NativeEngine();
 
         // runs application until it dies
-        void GameLoop(int a,int b);
+        void GameLoop(int a,int b,std::string BundlePath);
         
         // returns the JNI environment
          //  JNIEnv *GetJniEnv();
 
         // returns the Android app object
         //  android_app* GetAndroidApp();
-
+       std::string mBundlePath;
         // returns the (singleton) instance
         static NativeEngine* GetInstance();
 
@@ -49,7 +49,7 @@ class NativeEngine {
 
         // android API version (0 if not yet queried)
         int mApiVersion;
-
+        
         // EGL stuff
         
        // EGLDisplay mEglDisplay;

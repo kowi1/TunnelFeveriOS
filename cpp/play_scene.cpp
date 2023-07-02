@@ -80,7 +80,7 @@ PlayScene::PlayScene() : Scene() {
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
     mTeapotRenderer = new TexturedTeapotRender();
-    //mTeapotRenderer->Init(assMgr);
+    mTeapotRenderer->Init(assMgr);
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
@@ -169,7 +169,7 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
     mTeapotRenderer= new TexturedTeapotRender();
-   // mTeapotRenderer->Init(assMgr);
+    mTeapotRenderer->Init(assMgr);
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward

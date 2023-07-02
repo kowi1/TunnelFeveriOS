@@ -44,6 +44,7 @@ class SceneManager {
 
     public:
         SceneManager();
+        std::string mBundlePath;
         void SetScreenSize(int width, int height);
         void KillGraphics();
         void StartGraphics();

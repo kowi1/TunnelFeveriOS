@@ -95,10 +95,24 @@ bool NativeEngine::IsAnimating() {
     return mHasFocus && mIsVisible && mHasWindow;
 }
 
-void NativeEngine::GameLoop(int a,int b)
+void NativeEngine::GameLoop(int a,int b,std::string BundlePath)
 {
-    mSurfWidth=a;
-    mSurfHeight=b;
+    //mSurfWidth=a;
+    //mSurfHeight=b;
+    mBundlePath=BundlePath;
+    
+      float c = (float)a / (float)b;
+
+        if (c>1.0f){
+            mSurfWidth=a;
+            mSurfHeight=b;
+        }
+        else{
+            mSurfWidth=b;
+            mSurfHeight=a;
+        }
+      
+
    // mApp->userData = this;
     //mApp->onAppCmd = _handle_cmd_proxy;
    // mApp->onInputEvent = _handle_input_proxy;
@@ -522,6 +536,7 @@ void NativeEngine::DoFrame() {
     }
 
     SceneManager *mgr = SceneManager::GetInstance();
+    mgr->mBundlePath=mBundlePath;
 
     // how big is the surface? We query every frame because it's cheap, and some
     // strange devices out there change the surface size without calling any callbacks...

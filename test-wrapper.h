@@ -13,7 +13,7 @@
 -(NSString*) runTest;
 -(void)renderFrame:(int)a and:(int)b;
 -(void)setupGraphics;
--(void)nativeEngine:(int)a and:(int)b;
+-(void)nativeEngine:(int)a and:(int)b and:(NSString *)c;
 -(void)inputfunc:(int)a and:(int)b and:(int)width and:(int)height;
 @end
 

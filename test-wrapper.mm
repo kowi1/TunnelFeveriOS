@@ -46,13 +46,13 @@ NativeEngine *_nativeEngine = new NativeEngine();
     
     
 }
--(void)  nativeEngine:(int)a and:(int)b{
+-(void)  nativeEngine:(int)a and:(int)b and:(NSString *)c{
     
    
   //  PlayScene _scene;
     
     
-   _nativeEngine->GameLoop(a,b);
+    _nativeEngine->GameLoop(a,b,[c UTF8String]);
     
     
 }

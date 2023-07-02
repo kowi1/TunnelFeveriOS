@@ -49,14 +49,14 @@ void TeapotRenderer::Init() {
   // Load shader
   GLint type = GetTextureType();
   if(type == GL_TEXTURE_CUBE_MAP) {
-      LoadShaders(&shader_param_, "Shaders/Cubemap.vsh",
-                  "Shaders/Cubemap.fsh");
+      LoadShaders(&shader_param_, "Cubemap.vsh",
+                  "Cubemap.fsh");
   } else if(type == GL_TEXTURE_2D) {
-      LoadShaders(&shader_param_, "Shaders/2DTexture.vsh",
-                  "Shaders/2DTexture.fsh");
+      LoadShaders(&shader_param_, "2DTexture.vsh",
+                  "2DTexture.fsh");
   } else {
-      LoadShaders(&shader_param_, "Shaders/VS_ShaderPlain.vsh",
-                 "Shaders/ShaderPlain.fsh");
+      LoadShaders(&shader_param_, "VS_ShaderPlain.vsh",
+                 "ShaderPlain.fsh");
   }
   // Create Index buffer
 

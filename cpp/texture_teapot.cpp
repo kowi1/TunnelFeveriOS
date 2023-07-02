@@ -22,10 +22,15 @@
 #include "asset_util.hpp"
 
 #define MODULE_NAME "Teapot::Texture"
-#include "android_debug.hpp"
+//#include "android_debug.hpp"
+#include "common.hpp"
+#include "scene_manager.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "ObjectiveCInterface.h"
+#include <string>
+
 /**
  * Cubemap and Texture2d implementations for Class Texture.
  */
@@ -113,8 +118,8 @@ TeapotTexture* TeapotTexture::Create( GLuint type, std::vector<std::string>& tex
         return dynamic_cast<TeapotTexture*>(new TextureCubemap(texFiles, assetManager));
     }
 
-    LOGE("Unknow texture type %x to created", type);
-    LOGE("Supported Texture Types: %s", supportedTextureTypes.c_str());
+  //  LOGE("Unknow texture type %x to created", type);
+  //  LOGE("Supported Texture Types: %s", supportedTextureTypes.c_str());
     assert(false);
     return nullptr;
 }
@@ -141,7 +146,7 @@ void TeapotTexture::Delete(TeapotTexture* obj) {
      //       ASSERT(false, "Unknown obj type to %s", __FUNCTION__);
         }
     } else {
-        LOGE("Supported Texture Types: %s", supportedTextureTypes.c_str());
+     //   LOGE("Supported Texture Types: %s", supportedTextureTypes.c_str());
     //    ASSERT(false, "Unknow texture type %x to delete", type);
     }
 }
@@ -190,8 +195,26 @@ TextureCubemap::TextureCubemap(std::vector<std::string> &files,
 
     for(GLuint i = 0; i < 6; i++) {
         fileBits.clear();
+       // char *home = getenv("HOME");
+      //  NativeEngine * mEngine=NativeEngine().GetInstance();
+      //  char *subdir = "/Library/Caches/assets/";
+        SceneManager *mgr = SceneManager::GetInstance();
+        fileBits = readTextureFile(std::string(mgr->mBundlePath)+std::string(files[i]));
       //  AssetReadFile(mgr, files[i], fileBits);
-        fileBits = readTextureFile(files[i]);
+      /*  const char* filePath = files[i].c_str();//"path/to/your/file";
+            uint8_t* data;
+            size_t dataSize;
+
+            readFileData(filePath, &data, &dataSize);
+        if (data) {
+                std::vector<uint8_t> fileBits(data, data + dataSize);
+                
+                // Use the file contents vector as needed
+                
+                delete[] data; // Remember to free the allocated memory
+            } else {
+                std::cout << "Error reading file." << std::endl;
+            }*/
         // tga/bmp files are saved as vertical mirror images ( at least more than half ).
         stbi_set_flip_vertically_on_load(1);
 
@@ -267,7 +290,27 @@ Texture2d::Texture2d(std::string& fileName, AAssetManager* assetManager)  {
     }
 
    // AssetReadFile(assetManager, texName, fileBits);
-    fileBits = readTextureFile(texName);
+ /*   const char* filePath = texName.c_str();//"path/to/your/file";
+        uint8_t* data;
+        size_t dataSize;
+
+        readFileData(filePath, &data, &dataSize);
+    
+    if (data) {
+            std::vector<uint8_t> fileBits(data, data + dataSize);
+            
+            // Use the file contents vector as needed
+            
+            delete[] data; // Remember to free the allocated memory
+        } else {
+            std::cout << "Error reading file." << std::endl;
+        }*/
+    
+    //char *home = getenv("HOME");
+    //NativeEngine * mEngine=NativeEngine().GetInstance();
+    //char *subdir = "/Library/Caches/assets/";
+    SceneManager *mgr = SceneManager::GetInstance();
+    fileBits = readTextureFile(std::string(mgr->mBundlePath)+std::string(texName));
 
     // tga/bmp files are saved as vertical mirror images ( at least more than half ).
     stbi_set_flip_vertically_on_load(1);

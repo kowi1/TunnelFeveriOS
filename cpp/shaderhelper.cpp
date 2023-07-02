@@ -18,11 +18,44 @@
 #include <OpenGLES/ES2/gl.h>
 
 #include "shaderhelper.h"
-//#include "JNIHelper.h"
+#include "scene_manager.hpp"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include "ObjectiveCInterface.h"
+#include <string>
 
 namespace ndk_helper {
 
 #define DEBUG (1)
+
+std::vector<uint8_t> readTextureFile(const std::string& filePath) {
+   std::vector<uint8_t> fileBits;
+   
+   std::ifstream file(filePath, std::ios::binary);
+   if (!file) {
+       std::cerr << "Failed to open file: " << filePath << std::endl;
+       return fileBits;
+   }
+   
+   // Get the file size
+   file.seekg(0, std::ios::end);
+   std::streampos fileSize = file.tellg();
+   file.seekg(0, std::ios::beg);
+   
+   // Read the file contents into the vector
+   fileBits.resize(fileSize);
+   if (!file.read(reinterpret_cast<char*>(fileBits.data()), fileSize)) {
+       std::cerr << "Failed to read file: " << filePath << std::endl;
+       fileBits.clear();
+   }
+   
+   // Close the file
+   file.close();
+   
+   return fileBits;
+}
+
 
 bool shader::CompileShader(GLuint *shader, const GLenum type, const char *str_file_name,const std::map<std::string, std::string> &map_parameters)
 {
@@ -112,6 +145,12 @@ bool shader::CompileShader(GLuint *shader, const GLenum type,
                            const char *strFileName) {
   std::vector<uint8_t> data;
  // bool b = JNIHelper::GetInstance()->ReadFile(strFileName, &data);
+    
+    //char *home = getenv("HOME");
+    //char *subdir = "/Library/Caches/assets/";
+    SceneManager *mgr = SceneManager::GetInstance();
+    data = readTextureFile(std::string(mgr->mBundlePath)+std::string(strFileName));
+    
   if (false) {
    // LOGI("Can not open a file:%s", strFileName);
     return false;

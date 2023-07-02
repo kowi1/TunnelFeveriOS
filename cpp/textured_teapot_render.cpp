@@ -119,16 +119,16 @@ void TexturedTeapotRender::Init(AAssetManager* assetManager) {
 
     // Need flip Y, so as top/bottom image
     std::vector<std::string> textures {
-            std::string("Textures/right.tga"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_X
-            std::string("Textures/left.tga"),   // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-            std::string("Textures/bottom.tga"), // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-            std::string("Textures/top.tga"),    // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-            std::string("Textures/front.tga"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-            std::string("Textures/back.tga")    // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+            std::string("right.tga"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_X
+            std::string("left.tga"),   // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+            std::string("bottom.tga"), // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+            std::string("top.tga"),    // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+            std::string("front.tga"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+            std::string("back.tga")    // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
     };
 
     if(type == GL_TEXTURE_2D) {
-        textures[0] = std::string("Textures/front.tga");
+        textures[0] = std::string("front.tga");
     }
     AAssetManager* assMgr;
     texObj_ = TeapotTexture::Create(type, textures, assMgr);
