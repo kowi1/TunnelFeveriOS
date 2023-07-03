@@ -80,13 +80,7 @@ void WelcomeScene::DoFrame() {
 
     // if the sign in or cloud save process is in progress, show a wait screen. Otherwise, not:
     SetWaitScreen(false);
-    float n=SceneManager::GetInstance()->GetScreenAspect();
-    if (!(mPrevCenter==SceneManager::GetInstance()->GetScreenAspect()))
-    {
-        mWidgetCount = mWidgetCount - 4;
-        OnCreateWidgets();
-        
-    }
+   
     // draw the UI
     UiScene::DoFrame();
 }
@@ -111,11 +105,10 @@ void WelcomeScene::OnCreateWidgets() {
     
     // create widgets
         float maxX = SceneManager::GetInstance()->GetScreenAspect();
-    if(!(mPrevCenter==maxX)){
+
         float center = 0.5f * maxX;
      
-      //  mPrevCenter = SceneManager::GetInstance()->GetScreenAspect();
-
+    
         // create the static title
         NewWidget()->SetText(S_TITLE)->SetCenter(TITLE_POS)->SetTextColor(TITLE_COLOR)
         ->SetFontScale(TITLE_FONT_SCALE)->SetTransition(UiWidget::TRANS_FROM_TOP);
@@ -144,7 +137,7 @@ void WelcomeScene::OnCreateWidgets() {
         // enable/disable widgets as appropriate to signed in state
         UpdateWidgetStates();
        mPrevCenter=SceneManager::GetInstance()->GetScreenAspect();
-    }
+    
     
 }
 void WelcomeScene::OnKillGraphics() {

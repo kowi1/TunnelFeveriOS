@@ -11,8 +11,8 @@ import SwiftUI
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
       var window: UIWindow?
-    var orientationLockIPhone = UIInterfaceOrientationMask.portraitUpsideDown
-     var orientationLockIPad = UIInterfaceOrientationMask.landscape
+    var orientationLockIPhone = UIInterfaceOrientationMask.all
+     var orientationLockIPad = UIInterfaceOrientationMask.all
    
     
     
@@ -27,15 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             return orientationLockIPhone
         }
-        //if deviceType.lowercaseString.rangeOfString("iphone 4") != nil {
-          //     print("iPhone 4 or iphone 4s")
-            //}
-            //else if deviceType.lowercaseString.rangeOfString("iphone 5") != nil {
-              //  print("iPhone 5 or iphone 5s or iphone 5c")
-            //}
-           //else if deviceType.lowercaseString.rangeOfString("iphone 6") != nil {
-             //   print("iPhone 6 Series")
-           //  return orientationLockIPhone
            }
 
 }

@@ -2,6 +2,7 @@ import UIKit
 import OpenGLES
 import SwiftUI
 
+
 protocol GestureDelegate: AnyObject {
     func handleSwipe(deltaX: CGFloat, deltaY: CGFloat)
 }
@@ -13,14 +14,20 @@ struct OpenGLView: UIViewRepresentable {
     let mtestWrapper: testWrapper
     
     func makeUIView(context: Context) -> OpenGLUIView {
-        let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+        if(UIScreen.main.bounds.height<UIScreen.main.bounds.width){
+            let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+            return view
+        }
+        else{
+            let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.height,height:UIScreen.main.bounds.width), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+            return view
+        }
         // Create and configure your OpenGL view here
         //view.gestureLocation = gestureLocation
-        return view
+        
     }
     func updateUIView(_ uiView: OpenGLUIView, context: Context) {
           //  uiView.gestureLocation = gestureLocation
-      
         }
     static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
         
@@ -30,118 +37,8 @@ struct OpenGLView: UIViewRepresentable {
 }
 
 
-struct TouchLocatingView: UIViewRepresentable {
-    // The types of touches users want to be notified about
-    struct TouchType: OptionSet {
-        let rawValue: Int
 
-        static let started = TouchType(rawValue: 1 << 0)
-        static let moved = TouchType(rawValue: 1 << 1)
-        static let ended = TouchType(rawValue: 1 << 2)
-        static let all: TouchType = [.started, .moved, .ended]
-    }
 
-    // A closure to call when touch data has arrived
-    var onUpdate: (CGPoint) -> Void
-
-    // The list of touch types to be notified of
-    var types = TouchType.all
-
-    // Whether touch information should continue after the user's finger has left the view
-    var limitToBounds = true
-
-    func makeUIView(context: Context) -> TouchLocatingUIView {
-        // Create the underlying UIView, passing in our configuration
-        let view = TouchLocatingUIView()
-        view.onUpdate = onUpdate
-        view.touchTypes = types
-        view.limitToBounds = limitToBounds
-        return view
-    }
-
-    func updateUIView(_ uiView: TouchLocatingUIView, context: Context) {
-    }
-
-    // The internal UIView responsible for catching taps
-    class TouchLocatingUIView: UIView {
-        // Internal copies of our settings
-        var onUpdate: ((CGPoint) -> Void)?
-        var touchTypes: TouchLocatingView.TouchType = .all
-        var limitToBounds = true
-
-        // Our main initializer, making sure interaction is enabled.
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            isUserInteractionEnabled = true
-        }
-
-        // Just in case you're using storyboards!
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            isUserInteractionEnabled = true
-        }
-
-        // Triggered when a touch starts.
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            guard let touch = touches.first else { return }
-            let location = touch.location(in: self)
-            send(location, forEvent: .started)
-        }
-
-        // Triggered when an existing touch moves.
-        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-            guard let touch = touches.first else { return }
-            let location = touch.location(in: self)
-            send(location, forEvent: .moved)
-        }
-
-        // Triggered when the user lifts a finger.
-        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-            guard let touch = touches.first else { return }
-            let location = touch.location(in: self)
-            send(location, forEvent: .ended)
-        }
-
-        // Triggered when the user's touch is interrupted, e.g. by a low battery alert.
-        override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-            guard let touch = touches.first else { return }
-            let location = touch.location(in: self)
-            send(location, forEvent: .ended)
-        }
-
-        // Send a touch location only if the user asked for it
-        func send(_ location: CGPoint, forEvent event: TouchLocatingView.TouchType) {
-            guard touchTypes.contains(event) else {
-                return
-            }
-
-            if limitToBounds == false || bounds.contains(location) {
-                onUpdate?(CGPoint(x: round(location.x), y: round(location.y)))
-            }
-        }
-    }
-}
-
-// A custom SwiftUI view modifier that overlays a view with our UIView subclass.
-struct TouchLocater: ViewModifier {
-    var type: TouchLocatingView.TouchType = .all
-    var limitToBounds = true
-    let perform: (CGPoint) -> Void
-
-    func body(content: Content) -> some View {
-        content
-            .overlay(
-                TouchLocatingView(onUpdate: perform, types: type, limitToBounds: limitToBounds)
-            )
-    }
-}
-
-// A new method on View that makes it easier to apply our touch locater view.
-extension View {
-    func onTouch(type: TouchLocatingView.TouchType = .all, limitToBounds: Bool = true, perform: @escaping (CGPoint) -> Void) -> some View {
-        self.modifier(TouchLocater(type: type, limitToBounds: limitToBounds, perform: perform))
-    }
-}
 
 class OpenGLUIView: UIView{
     
@@ -166,26 +63,31 @@ class OpenGLUIView: UIView{
          self._gestureLocation = gestureLocation
         self._test=mtestWrapper
         super.init(frame: frame)
-         
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
         if setupOpenGLContext() {
             setupRenderBuffer()
             setupFrameBuffer()
             _test.setupGraphics()
             startRenderLoop()
         }
-       // if(Int32(UIScreen.main.bounds.height) > Int32(UIScreen.main.bounds.width))
-         //  {
-            transform = CGAffineTransform(rotationAngle: .pi / 2)
+        //if(UIScreen.main.bounds.height>UIScreen.main.bounds.width){
+         //   transform = CGAffineTransform(rotationAngle: .pi / 2)
+            
        // }
-      //  AppDelegate.lockOrientation(.portrait)
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
    
-    
+    deinit {
+           // Unregister from orientation change notifications
+           NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+       }
+
     private func setupOpenGLContext() -> Bool {
         guard let eaglLayer = self.layer as? CAEAGLLayer else {
             print("Failed to get CAEAGLLayer")
@@ -239,8 +141,9 @@ class OpenGLUIView: UIView{
             
       glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
          
-       
-  
+        
+        
+
         _test.nativeEngine(Int32(UIScreen.main.bounds.height),and: Int32(UIScreen.main.bounds.width),and:Bundle.main.url(forResource: "right", withExtension: "tga")?.absoluteString.replacingOccurrences(of: "right.tga", with: "").replacingOccurrences(of: "file://", with: ""))
        
 
@@ -261,6 +164,28 @@ class OpenGLUIView: UIView{
         displayLink = CADisplayLink(target: self, selector: #selector(renderLoop))
         displayLink?.add(to: .current, forMode: .default)
     }
+    override func didMoveToWindow() {
+           super.didMoveToWindow()
+
+           // Get the initial device orientation
+           let currentOrientation = UIDevice.current.orientation
+           print("Initial device orientation: \(currentOrientation)")
+       }
+
+       @objc func orientationDidChange() {
+           let currentOrientation = UIDevice.current.orientation
+           print("Device orientation changed: \(currentOrientation)")
+          // if (UIDevice.current.orientation.isPortrait){
+           //    transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+         //  }
+           
+           transform = CGAffineTransform(rotationAngle: .pi )
+           transform = CGAffineTransform(rotationAngle: .pi )
+           transform = CGAffineTransform(rotationAngle: .pi/2 )
+         //  }
+           // Perform actions in response to orientation changes
+           // Update your UI, layout, or apply any necessary changes
+       }
     
     @objc private func renderLoop() {
         guard let context = context else {

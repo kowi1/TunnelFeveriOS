@@ -97,20 +97,22 @@ bool NativeEngine::IsAnimating() {
 
 void NativeEngine::GameLoop(int a,int b,std::string BundlePath)
 {
-    //mSurfWidth=a;
-    //mSurfHeight=b;
+    
     mBundlePath=BundlePath;
     
       float c = (float)a / (float)b;
 
-        if (c>1.0f){
+        if (c>1.0f && c<2.0f){
             mSurfWidth=a;
             mSurfHeight=b;
-        }
+    }else if(c>2.0f)
+    {
+        return;
+    }
         else{
             mSurfWidth=b;
             mSurfHeight=a;
-        }
+      }
       
 
    // mApp->userData = this;

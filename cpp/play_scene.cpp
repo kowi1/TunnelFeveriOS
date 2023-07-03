@@ -504,7 +504,7 @@ void PlayScene::DoFrame() {
     mPlayerPos.x = Clamp(mPlayerPos.x, PLAYER_MIN_X, PLAYER_MAX_X);
     mPlayerPos.z = Clamp(mPlayerPos.z, PLAYER_MIN_Z, PLAYER_MAX_Z);
 
-    float steerX = 0.0f, steerZ = 0.0f;
+   // float steerX = 0.0f, steerZ = 0.0f;
     // shift sections if needed
     ShiftIfNeeded();
 
@@ -536,7 +536,7 @@ void PlayScene::DoFrame() {
     int soundPoint = (int)floor(mPlayerPos.y / (TUNNEL_SECTION_LENGTH/3));
     if (soundPoint % 3 != 0 && soundPoint > mLastAmbientBeepEmitted) {
         mLastAmbientBeepEmitted = soundPoint;
-     //   SfxMan::GetInstance()->PlayTone(soundPoint % 2 ? TONE_AMBIENT_0 : TONE_AMBIENT_1);
+     //  SfxMan::GetInstance()->PlayTone(soundPoint % 2 ? TONE_AMBIENT_0 : TONE_AMBIENT_1);
     }
 }
 

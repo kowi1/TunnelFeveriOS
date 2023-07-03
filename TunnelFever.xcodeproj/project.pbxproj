@@ -16,7 +16,6 @@
 		8452C01029869F510040E1D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C00F29869F510040E1D6 /* Assets.xcassets */; };
 		8452C01329869F510040E1D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452C01229869F510040E1D6 /* Preview Assets.xcassets */; };
 		84872FEC2A497E29001781A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84872FEB2A497E29001781A3 /* AppDelegate.swift */; };
-		849984C82A3CEC0500091843 /* libBullet3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984B92A3CEBD200091843 /* libBullet3Common.a */; };
 		849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BB2A3CEBD200091843 /* libBulletCollision.a */; };
 		849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BD2A3CEBD200091843 /* libBulletDynamics.a */; };
 		849984CB2A3CEC0500091843 /* libBulletInverseDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984BF2A3CEBD200091843 /* libBulletInverseDynamics.a */; };
@@ -24,6 +23,10 @@
 		849984CD2A3CEC0500091843 /* libgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C52A3CEBD200091843 /* libgame.a */; };
 		849984CE2A3CEC0500091843 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C72A3CEBD200091843 /* libglm.a */; };
 		849984CF2A3CEC0500091843 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C32A3CEBD200091843 /* libLinearMath.a */; };
+		84A9AAEF2A5272DE00FB2F8A /* TouchLocatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */; };
+		84A9AAFB2A52E59F00FB2F8A /* Tone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9AAFA2A52E59F00FB2F8A /* Tone.swift */; };
+		84A9AB042A52F35700FB2F8A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A9AB002A52F0A400FB2F8A /* AudioToolbox.framework */; };
+		84A9AB062A52F35700FB2F8A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A9AB052A52F35700FB2F8A /* CoreAudio.framework */; };
 		84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* test-wrapper.mm */; };
 		84FC56252A4FDF5500FFBA4D /* Cubemap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */; };
 		84FC56262A4FDF5500FFBA4D /* Cubemap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */; };
@@ -168,6 +171,12 @@
 		84872FEB2A497E29001781A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		849984842A3CE85D00091843 /* native_engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = native_engine.hpp; sourceTree = "<group>"; };
 		849984AB2A3CEBD200091843 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = cpp/build/Project.xcodeproj; sourceTree = "<group>"; };
+		84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchLocatingView.swift; sourceTree = "<group>"; };
+		84A9AAFA2A52E59F00FB2F8A /* Tone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tone.swift; sourceTree = "<group>"; };
+		84A9AAFC2A52F01A00FB2F8A /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		84A9AAFF2A52F0A400FB2F8A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		84A9AB002A52F0A400FB2F8A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		84A9AB052A52F35700FB2F8A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TunnelFever-Bridging-Header.h"; sourceTree = "<group>"; };
 		84C7BF8A299956F300B05CA9 /* Test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
 		84C7BF8B299956F300B05CA9 /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
@@ -199,7 +208,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849984C82A3CEC0500091843 /* libBullet3Common.a in Frameworks */,
+				84A9AB062A52F35700FB2F8A /* CoreAudio.framework in Frameworks */,
+				84A9AB042A52F35700FB2F8A /* AudioToolbox.framework in Frameworks */,
 				849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */,
 				849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */,
 				849984CB2A3CEC0500091843 /* libBulletInverseDynamics.a in Frameworks */,
@@ -259,6 +269,8 @@
 				8402C0352A250B7100E5D2AA /* OpenGLView.swift */,
 				84872FEB2A497E29001781A3 /* AppDelegate.swift */,
 				844AB4762A4F11F500D0824D /* UIDevice.swift */,
+				84A9AAFA2A52E59F00FB2F8A /* Tone.swift */,
+				84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */,
 				8452C00F29869F510040E1D6 /* Assets.xcassets */,
 				8452C01429869F510040E1D6 /* Info.plist */,
 				8452C01129869F510040E1D6 /* Preview Content */,
@@ -307,6 +319,10 @@
 		84DAEF3A299CDB80000BCC60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84A9AB052A52F35700FB2F8A /* CoreAudio.framework */,
+				84A9AB002A52F0A400FB2F8A /* AudioToolbox.framework */,
+				84A9AAFF2A52F0A400FB2F8A /* AVFoundation.framework */,
+				84A9AAFC2A52F01A00FB2F8A /* AudioUnit.framework */,
 				84FC55CB2A4F614400FFBA4D /* libFileReader.a */,
 				84FC55C12A4F604E00FFBA4D /* libFileReader.a */,
 				84D0E10E2A2FE50000D23803 /* Project.xcodeproj */,
@@ -527,10 +543,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				84872FEC2A497E29001781A3 /* AppDelegate.swift in Sources */,
+				84A9AAEF2A5272DE00FB2F8A /* TouchLocatingView.swift in Sources */,
 				843FFA37299BEF9D00813284 /* Test.cpp in Sources */,
 				84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */,
 				8452C00E29869F500040E1D6 /* ContentView.swift in Sources */,
 				8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */,
+				84A9AAFB2A52E59F00FB2F8A /* Tone.swift in Sources */,
 				8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */,
 				844AB4772A4F11F500D0824D /* UIDevice.swift in Sources */,
 			);
