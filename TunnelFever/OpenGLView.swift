@@ -16,28 +16,25 @@ struct OpenGLView: UIViewRepresentable {
     func makeUIView(context: Context) -> OpenGLUIView {
         if(UIScreen.main.bounds.height<UIScreen.main.bounds.width){
             let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+            
             return view
         }
         else{
             let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.height,height:UIScreen.main.bounds.width), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+          
             return view
         }
         // Create and configure your OpenGL view here
         //view.gestureLocation = gestureLocation
         
+      
     }
     func updateUIView(_ uiView: OpenGLUIView, context: Context) {
           //  uiView.gestureLocation = gestureLocation
         }
-    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
-        
-        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-        UIViewController.attemptRotationToDeviceOrientation()
-        }
+    
+   
 }
-
-
-
 
 
 class OpenGLUIView: UIView{
@@ -57,13 +54,14 @@ class OpenGLUIView: UIView{
         return CAEAGLLayer.self
     }
     
-    
+   
     
     init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper) {
          self._gestureLocation = gestureLocation
         self._test=mtestWrapper
         super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
         if setupOpenGLContext() {
             setupRenderBuffer()
             setupFrameBuffer()
@@ -164,6 +162,7 @@ class OpenGLUIView: UIView{
         displayLink = CADisplayLink(target: self, selector: #selector(renderLoop))
         displayLink?.add(to: .current, forMode: .default)
     }
+    
     override func didMoveToWindow() {
            super.didMoveToWindow()
 

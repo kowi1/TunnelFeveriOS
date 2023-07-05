@@ -18,14 +18,21 @@ struct ContentView: View {
             OpenGLView(gestureLocation: $gestureLocation,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
                 .onTouch(perform: updateLocation)
                 .rotationEffect(.degrees(-90))
-                .scaleEffect(0.7)
+                .scaleEffect(1.0)
+                .onAppear {
+                       AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeLeft)
+                   }
+                
              
         }
         else{
             OpenGLView(gestureLocation: $gestureLocation,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.height, height:UIScreen.main.bounds.width)
                 .onTouch(perform: updateLocation)
                 .rotationEffect(.degrees(-90))
-                .scaleEffect(0.7)
+                .scaleEffect(1.0)
+                .onAppear {
+                       AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeLeft)
+                   }
         }
            //
             
