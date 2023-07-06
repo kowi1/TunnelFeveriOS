@@ -11,44 +11,31 @@ import SwiftUI
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
       var window: UIWindow?
-     var orientationLockIPhone = UIInterfaceOrientationMask.landscape
-     var orientationLockIPad = UIInterfaceOrientationMask.landscape
+     var orientationLock = UIInterfaceOrientationMask.landscape
+     
    
     
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        
-        let deviceType = UIDevice.modelName
-        if deviceType.contains("iPhone"){
-            return orientationLockIPhone
-        }else if deviceType.contains("iPad"){
-            return orientationLockIPad
-        }else{
-            return orientationLockIPhone
-        }
+            return self.orientationLock
            }
+    
     struct AppUtility {
         static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
             if let delegate = UIApplication.shared.delegate as? AppDelegate {
-                delegate.orientationLockIPad = orientation
-                delegate.orientationLockIPhone = orientation
+                delegate.orientationLock = orientation
+                
             }
         }
             
         static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
-            let deviceType = UIDevice.modelName
-            if deviceType.contains("iPhone"){
-                self.lockOrientation(UIInterfaceOrientationMask.landscape)
-                UIDevice.current.setValue(UIInterfaceOrientationMask.landscape, forKey: "orientation")
-            }else if deviceType.contains("iPad"){
-                self.lockOrientation(UIInterfaceOrientationMask.landscape)
-                UIDevice.current.setValue(UIInterfaceOrientationMask.landscape, forKey: "orientation")
-            }else{
-                self.lockOrientation(UIInterfaceOrientationMask.landscape)
-                UIDevice.current.setValue(UIInterfaceOrientationMask.landscape, forKey: "orientation")
+            
+                self.lockOrientation(orientation)
+                UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+                UINavigationController.attemptRotationToDeviceOrientation()
             }
            
-        }
+        
     }
 
 }

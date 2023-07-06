@@ -15,7 +15,7 @@
  */
 #define BLURB_ABOUT \
     "ABOUT THIS GAME\n\n" \
-    "Adapted with the help of google\n" \
+    "Endless Running 2023\n" \
     
 
 #define BLURB_STORY \

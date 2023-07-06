@@ -24,9 +24,6 @@
 		849984CE2A3CEC0500091843 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C72A3CEBD200091843 /* libglm.a */; };
 		849984CF2A3CEC0500091843 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849984C32A3CEBD200091843 /* libLinearMath.a */; };
 		84A9AAEF2A5272DE00FB2F8A /* TouchLocatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */; };
-		84A9AAFB2A52E59F00FB2F8A /* Tone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9AAFA2A52E59F00FB2F8A /* Tone.swift */; };
-		84A9AB042A52F35700FB2F8A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A9AB002A52F0A400FB2F8A /* AudioToolbox.framework */; };
-		84A9AB062A52F35700FB2F8A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A9AB052A52F35700FB2F8A /* CoreAudio.framework */; };
 		84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* test-wrapper.mm */; };
 		84FC56252A4FDF5500FFBA4D /* Cubemap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */; };
 		84FC56262A4FDF5500FFBA4D /* Cubemap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */; };
@@ -172,11 +169,6 @@
 		849984842A3CE85D00091843 /* native_engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = native_engine.hpp; sourceTree = "<group>"; };
 		849984AB2A3CEBD200091843 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = cpp/build/Project.xcodeproj; sourceTree = "<group>"; };
 		84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchLocatingView.swift; sourceTree = "<group>"; };
-		84A9AAFA2A52E59F00FB2F8A /* Tone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tone.swift; sourceTree = "<group>"; };
-		84A9AAFC2A52F01A00FB2F8A /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
-		84A9AAFF2A52F0A400FB2F8A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		84A9AB002A52F0A400FB2F8A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		84A9AB052A52F35700FB2F8A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TunnelFever-Bridging-Header.h"; sourceTree = "<group>"; };
 		84C7BF8A299956F300B05CA9 /* Test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
 		84C7BF8B299956F300B05CA9 /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
@@ -184,10 +176,6 @@
 		84C7BF8F299957B600B05CA9 /* test-wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "test-wrapper.mm"; sourceTree = "<group>"; };
 		84D0E10E2A2FE50000D23803 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = ../cpp/Project.xcodeproj; sourceTree = "<group>"; };
 		84DAEF3B299CDB80000BCC60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		84DAEF3F299CF49C000BCC60 /* libegl-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "libegl-master"; path = "../../Downloads/libegl-master"; sourceTree = "<group>"; };
-		84DAEF43299CF5AE000BCC60 /* libegl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libegl.a; sourceTree = "<group>"; };
-		84FC55C12A4F604E00FFBA4D /* libFileReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFileReader.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		84FC55CB2A4F614400FFBA4D /* libFileReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFileReader.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Cubemap.fsh; path = assets/Shaders/Cubemap.fsh; sourceTree = "<group>"; };
 		84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Cubemap.vsh; path = assets/Shaders/Cubemap.vsh; sourceTree = "<group>"; };
 		84FC56212A4FDF5400FFBA4D /* 2DTexture.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = 2DTexture.vsh; path = assets/Shaders/2DTexture.vsh; sourceTree = "<group>"; };
@@ -208,8 +196,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84A9AB062A52F35700FB2F8A /* CoreAudio.framework in Frameworks */,
-				84A9AB042A52F35700FB2F8A /* AudioToolbox.framework in Frameworks */,
 				849984C92A3CEC0500091843 /* libBulletCollision.a in Frameworks */,
 				849984CA2A3CEC0500091843 /* libBulletDynamics.a in Frameworks */,
 				849984CB2A3CEC0500091843 /* libBulletInverseDynamics.a in Frameworks */,
@@ -269,7 +255,6 @@
 				8402C0352A250B7100E5D2AA /* OpenGLView.swift */,
 				84872FEB2A497E29001781A3 /* AppDelegate.swift */,
 				844AB4762A4F11F500D0824D /* UIDevice.swift */,
-				84A9AAFA2A52E59F00FB2F8A /* Tone.swift */,
 				84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */,
 				8452C00F29869F510040E1D6 /* Assets.xcassets */,
 				8452C01429869F510040E1D6 /* Info.plist */,
@@ -319,16 +304,8 @@
 		84DAEF3A299CDB80000BCC60 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84A9AB052A52F35700FB2F8A /* CoreAudio.framework */,
-				84A9AB002A52F0A400FB2F8A /* AudioToolbox.framework */,
-				84A9AAFF2A52F0A400FB2F8A /* AVFoundation.framework */,
-				84A9AAFC2A52F01A00FB2F8A /* AudioUnit.framework */,
-				84FC55CB2A4F614400FFBA4D /* libFileReader.a */,
-				84FC55C12A4F604E00FFBA4D /* libFileReader.a */,
 				84D0E10E2A2FE50000D23803 /* Project.xcodeproj */,
 				8402C0382A250BEF00E5D2AA /* OpenGLES.framework */,
-				84DAEF43299CF5AE000BCC60 /* libegl.a */,
-				84DAEF3F299CF49C000BCC60 /* libegl-master */,
 				84DAEF3B299CDB80000BCC60 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -548,7 +525,6 @@
 				84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */,
 				8452C00E29869F500040E1D6 /* ContentView.swift in Sources */,
 				8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */,
-				84A9AAFB2A52E59F00FB2F8A /* Tone.swift in Sources */,
 				8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */,
 				844AB4772A4F11F500D0824D /* UIDevice.swift in Sources */,
 			);
@@ -681,11 +657,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"TunnelFever/Preview Content\"";
 				DEVELOPMENT_TEAM = 9STG586372;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TunnelFever/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tunnel Fever";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -696,7 +673,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joy-joyholdings.TunnelFever";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -715,11 +692,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"TunnelFever/Preview Content\"";
 				DEVELOPMENT_TEAM = 9STG586372;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TunnelFever/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tunnel Fever";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -730,7 +708,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joy-joyholdings.TunnelFever";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

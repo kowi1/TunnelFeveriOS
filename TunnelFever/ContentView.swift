@@ -19,9 +19,11 @@ struct ContentView: View {
                 .onTouch(perform: updateLocation)
                 .rotationEffect(.degrees(-90))
                 .scaleEffect(1.0)
-                .onAppear {
-                       AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeLeft)
-                   }
+                .scaledToFit()
+                .offset(y: 5.5)
+             //   .onAppear {
+              //         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeLeft)
+            //       }
                 
              
         }
@@ -30,11 +32,14 @@ struct ContentView: View {
                 .onTouch(perform: updateLocation)
                 .rotationEffect(.degrees(-90))
                 .scaleEffect(1.0)
-                .onAppear {
-                       AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeLeft)
-                   }
+                .scaledToFit()
+                .offset(y: 5.5)
+              //  .onAppear {
+              //         //AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, //andRotateTo: UIInterfaceOrientation.landscapeLeft)
+            //       }
         }
            //
+     
             
     }
     func updateLocation(_ location: CGPoint) {
@@ -42,6 +47,7 @@ struct ContentView: View {
        }
     
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

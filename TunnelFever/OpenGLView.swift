@@ -7,6 +7,7 @@ protocol GestureDelegate: AnyObject {
     func handleSwipe(deltaX: CGFloat, deltaY: CGFloat)
 }
 
+
 struct OpenGLView: UIViewRepresentable {
     typealias UIViewType = OpenGLUIView
 
@@ -37,8 +38,9 @@ struct OpenGLView: UIViewRepresentable {
 }
 
 
+
+
 class OpenGLUIView: UIView{
-    
     private var context: EAGLContext?
     private var renderBuffer: GLuint = 0
     private var frameBuffer: GLuint = 0
@@ -56,11 +58,13 @@ class OpenGLUIView: UIView{
     
    
     
-    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper) {
+    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper){
          self._gestureLocation = gestureLocation
         self._test=mtestWrapper
         super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
+
         
         if setupOpenGLContext() {
             setupRenderBuffer()
@@ -186,17 +190,17 @@ class OpenGLUIView: UIView{
            // Update your UI, layout, or apply any necessary changes
        }
     
-    @objc private func renderLoop() {
-        guard let context = context else {
-            print("OpenGL context is not available")
-            return
-        }
-        
-        EAGLContext.setCurrent(context)
-        glViewport(0, 0, GLsizei(bounds.size.width), GLsizei(bounds.size.height))
-        
-        render()
+@objc private func renderLoop() {
+    guard let context = context else {
+        print("OpenGL context is not available")
+        return
     }
+    
+    EAGLContext.setCurrent(context)
+    glViewport(0, 0, GLsizei(bounds.size.width), GLsizei(bounds.size.height))
+    
+    render()
+}
 }
 
 
