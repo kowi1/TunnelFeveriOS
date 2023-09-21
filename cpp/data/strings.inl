@@ -20,13 +20,15 @@
 
 #define S_GOT_BONUS "+ 50"
 #define S_GAME_OVER "Game Over"
+#define S_LIFE_ADDED "5x Hearts Added"
 #define S_OUCH "Ouch"
-#define S_CHECKPOINT_SAVED "Checkpoint saved"
+#define S_CHECKPOINT_SAVED "Well Done Checkpoint saved"
 
 #define S_UNPAUSE "Resume"
 #define S_QUIT "Quit"
 #define S_START_OVER "Start Over"
 #define S_RESUME "Start from checkpoint"
+#define S_BUYCOIN "Buy Heart to Continue(+5)"
 
 #define S_TITLE "Tunnel Fever"
 #define S_PLAY "Play!"

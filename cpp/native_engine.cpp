@@ -20,6 +20,8 @@
 #include "welcome_scene.hpp"
 #include "play_scene.hpp"
 #include "native_engine.hpp"
+#include "firebase/gma/ad_view.h"
+
 
 // verbose debug logs on?
 #define VERBOSE_LOGGING 1
@@ -95,10 +97,11 @@ bool NativeEngine::IsAnimating() {
     return mHasFocus && mIsVisible && mHasWindow;
 }
 
-void NativeEngine::GameLoop(int a,int b,std::string BundlePath)
+void NativeEngine::GameLoop(int a,int b,std::string BundlePath,std::string DocumentDataPath)
 {
     
     mBundlePath=BundlePath;
+    mDocumentDataPath=DocumentDataPath;
     
       float c = (float)a / (float)b;
 
@@ -539,6 +542,7 @@ void NativeEngine::DoFrame() {
 
     SceneManager *mgr = SceneManager::GetInstance();
     mgr->mBundlePath=mBundlePath;
+    mgr->mDocumentDataPath=mDocumentDataPath;
 
     // how big is the surface? We query every frame because it's cheap, and some
     // strange devices out there change the surface size without calling any callbacks...
@@ -600,5 +604,13 @@ bool NativeEngine::InitGLObjects() {
         mHasGLObjects = true;
     }
     return true;
+}
+void NativeEngine::UpdateLife(int a) {
+    SceneManager *mgr = SceneManager::GetInstance();
+    mgr->extraLife=a;
+}
+void NativeEngine::InitializeOpengLUIObject(objc_object * a){
+    SceneManager *mgr = SceneManager::GetInstance();
+    mgr->opengluiObj=a;
 }
 

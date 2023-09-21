@@ -12,15 +12,46 @@ struct ContentView: View {
     @State private var tapGestureState: CGPoint = .zero
     @State private var orientation = UIDevice.current.orientation
     
+    
     let mtestWrapper = testWrapper()
+    @State var isButtonHidden:Bool = true
+        let button = InterstialVC()
+ 
     var body: some View {
-        if (UIScreen.main.bounds.width<UIScreen.main.bounds.height){
-            OpenGLView(gestureLocation: $gestureLocation,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
-                .onTouch(perform: updateLocation)
-                .rotationEffect(.degrees(-90))
-                .scaleEffect(1.0)
-                .scaledToFit()
-                .offset(y: 5.5)
+       
+               
+       if (UIScreen.main.bounds.width<UIScreen.main.bounds.height){
+            ZStack{
+                //BannerVC().
+                Group {
+                            if isButtonHidden {
+                              //  button
+                            } else {
+                               button
+                            }
+                }.onChange(of: isButtonHidden){value in
+                    
+                    if !value
+                     {                            InterstialVC()
+                        isButtonHidden=true
+                    }
+                }
+               /* .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10.5) {
+                                self.isButtonHidden = false
+                            }
+                        }*/
+               
+                OpenGLView(gestureLocation: $gestureLocation,isButtonHidden:$isButtonHidden,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
+                    .onTouch(perform: updateLocation)
+                    .rotationEffect(.degrees(-90))
+                    .scaleEffect(1.0)
+                    .scaledToFit()
+                    .offset(y: 5.5)
+               
+                
+            }
+            
              //   .onAppear {
               //         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeLeft)
             //       }
@@ -28,12 +59,37 @@ struct ContentView: View {
              
         }
         else{
-            OpenGLView(gestureLocation: $gestureLocation,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.height, height:UIScreen.main.bounds.width)
-                .onTouch(perform: updateLocation)
-                .rotationEffect(.degrees(-90))
-                .scaleEffect(1.0)
-                .scaledToFit()
-                .offset(y: 5.5)
+            ZStack{
+              
+               /* .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10.5) {
+                                self.isButtonHidden = false
+                            }
+                        }*/
+         
+                Group {
+                            if isButtonHidden {
+                               // button
+                            } else {
+                                button
+                            }
+                        }.onChange(of: isButtonHidden){value in
+                            
+                           if !value
+                            {                         //  InterstialVC()
+                               isButtonHidden=true
+                           }
+                                            
+                        }
+            }
+                OpenGLView(gestureLocation: $gestureLocation,isButtonHidden:$isButtonHidden,mtestWrapper: mtestWrapper).frame(width:UIScreen.main.bounds.height, height:UIScreen.main.bounds.width)
+                    .onTouch(perform: updateLocation)
+                    .rotationEffect(.degrees(-90))
+                    .scaleEffect(1.0)
+                    .scaledToFit()
+                    .offset(y: 5.5)
+            
+               
               //  .onAppear {
               //         //AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, //andRotateTo: UIInterfaceOrientation.landscapeLeft)
             //       }

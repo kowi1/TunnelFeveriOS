@@ -59,33 +59,47 @@ void TeapotRenderer::Init() {
                  "ShaderPlain.fsh");
   }
   // Create Index buffer
+    GLenum err;
+     num_indices_ = sizeof(carpetIndicess) / sizeof(carpetIndicess[0]);
+     glGenBuffers(1, &ibo_);
 
-  num_indices_ = sizeof(teapotIndices) / sizeof(teapotIndices[0]);
-  glGenBuffers(1, &ibo_);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(teapotIndices), teapotIndices,
-               GL_STATIC_DRAW);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-  // Create VBO
-  num_vertices_ = sizeof(teapotPositions) / sizeof(teapotPositions[0]) / 3;
-  int32_t stride = sizeof(TEAPOT_VERTEX);
-  int32_t index = 0;
-  TEAPOT_VERTEX* p = new TEAPOT_VERTEX[num_vertices_];
-  for (int32_t i = 0; i < num_vertices_; ++i) {
-    p[i].pos[0] = teapotPositions[index];
-    p[i].pos[1] = teapotPositions[index + 1];
-    p[i].pos[2] = teapotPositions[index + 2];
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
 
-    p[i].normal[0] = teapotNormals[index];
-    p[i].normal[1] = teapotNormals[index + 1];
-    p[i].normal[2] = teapotNormals[index + 2];
-    index += 3;
-  }
-  glGenBuffers(1, &vbo_);
-  glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-  glBufferData(GL_ARRAY_BUFFER, stride * num_vertices_, p, GL_STATIC_DRAW);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(carpetIndicess), carpetIndicess,
+                  GL_STATIC_DRAW);
+
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+     // Create VBO
+     num_vertices_ = sizeof(carpetPositionss) / sizeof(carpetPositionss[0]) / 3;
+     int32_t stride = sizeof(TEAPOT_VERTEX);
+     int32_t index = 0;
+     TEAPOT_VERTEX* p = new TEAPOT_VERTEX[num_vertices_];
+     for (int32_t i = 0; i < num_vertices_; ++i) {
+       p[i].pos[0] = carpetPositionss[index];
+       p[i].pos[1] = carpetPositionss[index + 1];
+       p[i].pos[2] = carpetPositionss[index + 2];
+
+       p[i].normal[0] = carpetNormalss[index];
+       p[i].normal[1] = carpetNormalss[index + 1];
+
+       p[i].normal[2] = carpetNormalss[index + 2];
+       index += 3;
+     }
+     glGenBuffers(1, &vbo_);
+
+
+
+     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
+
+     glBufferData(GL_ARRAY_BUFFER, stride * num_vertices_, p, GL_STATIC_DRAW);
+
+
+     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+ 
 
   delete[] p;
 

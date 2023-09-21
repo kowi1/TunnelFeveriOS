@@ -7,14 +7,54 @@
 
 #import <Foundation/Foundation.h>
 #import "test-wrapper.h"
+#import <UIKit/UIKit.h>
+#import "TunnelFever-Swift.h"
 #include "Test.hpp"
 #include "native_engine.hpp"
+#include "swift_call.h"
 //#include "input_util.hpp"
 
 
 @implementation testWrapper
 
 NativeEngine *_nativeEngine = new NativeEngine();
+//PurchaseView *_puchaseView;
+PurchaseView *_purchaseView;
+OpenGLUIView *_opengluiView;
+
+void ShowAd ()
+{
+  // testWrapper *testWrapperInstance = [[testWrapper alloc] init];
+   // ViewController *myOb = [[ViewController alloc] init];
+    
+   // [_purchaseView buyConsumable];
+    [_opengluiView showInterstitial];
+    // Call the Objective-C method using Objective-C syntax
+    //[(id) CFBridgingRelease(self) buyConsumable];
+}
+void BuyConsumableC ()
+{
+  // testWrapper *testWrapperInstance = [[testWrapper alloc] init];
+   // ViewController *myOb = [[ViewController alloc] init];
+    
+    [_purchaseView buyConsumable];
+   // [_opengluiView showInterstitial];
+    // Call the Objective-C method using Objective-C syntax
+    //[(id) CFBridgingRelease(self) buyConsumable];
+}
+-(void)  initializePurchase:(NSObject *)obj{
+    
+    _purchaseView=obj;
+    
+    
+}
+-(void)  initializeUIView:(NSObject *)uiobj{
+    
+    _opengluiView = uiobj;
+    _nativeEngine->InitializeOpengLUIObject((__bridge objc_object *)uiobj);
+
+}
+
 
 -(NSString*) runTest {
     
@@ -46,22 +86,28 @@ NativeEngine *_nativeEngine = new NativeEngine();
     
     
 }
--(void)  nativeEngine:(int)a and:(int)b and:(NSString *)c{
+-(void)  updateLife:(int)a{
+    
+    _nativeEngine->UpdateLife(a);
+    
+    
+}
+-(void)  nativeEngine:(int)width and:(int)height and:(NSString *)BundlePath  and:(NSString *)DocumentDataPath{
     
    
   //  PlayScene _scene;
     
-    
-    _nativeEngine->GameLoop(a,b,[c UTF8String]);
+   // myOb = [PurchaseView init];
+    _nativeEngine->GameLoop(width,height,[BundlePath UTF8String],[DocumentDataPath UTF8String]);
     
     
 }
 
--(void)  inputfunc:(int)a and:(int)b and:(int)width and:(int)height;{
+-(void)  inputfunc:(int)posY and:(int)posX and:(int)width and:(int)height;{
     
     AInputEvent event;
-    event.motionX=(b);
-    event.motionY=(a);
+    event.motionX=(posX);
+    event.motionY=(posY);
     event.motionMinX=0.0f;
     event.motionMaxX=1.0f;
     event.motionMaxY=1.0f;
@@ -71,5 +117,9 @@ NativeEngine *_nativeEngine = new NativeEngine();
     // PlayScene _scene;
    // _nativeEngine->
     _nativeEngine->HandleInputProxy(&event);
+        
 }
+
 @end
+
+

@@ -19,17 +19,23 @@
 #include "game_consts.hpp"
 #include "our_shader.hpp"
 #include "play_scene.hpp"
+#include "swift_call.h"
 #include "util.hpp"
 #include "common.hpp"
 #include "welcome_scene.hpp"
 #include "welcome_scene.hpp"
-
+//#include "Tunnel"
 #include "data/ascii_art.inl"
 #include "data/cube_geom.inl"
 #include "data/strings.inl"
 #include "data/tunnel_geom.inl"
 #include "data/teapot.inl"
-
+#include <fstream>
+#include <sstream>
+#include <string>
+#include "firebase/gma/ad_view.h"
+#include "firebase/gma.h"
+#include <unistd.h>
 
 #define WALL_TEXTURE_SIZE 64
 
@@ -69,7 +75,6 @@ static const char* TONE_BONUS[] = {
     "d70 f550. f650. f750. f850."
 };
 
-
 PlayScene::PlayScene() : Scene() {
     AAssetManager* assMgr;
     hello= new Hello();
@@ -102,6 +107,7 @@ PlayScene::PlayScene() : Scene() {
     mMenuItemText[MENUITEM_QUIT] = S_QUIT;
     mMenuItemText[MENUITEM_START_OVER] = S_START_OVER;
     mMenuItemText[MENUITEM_RESUME] = S_RESUME;
+    mMenuItemText[MENUITEM_BUYCOIN] = S_BUYCOIN;
 
     memset(mMenuItems, 0, sizeof(mMenuItems));
     mMenuItemCount = 0;
@@ -116,7 +122,7 @@ PlayScene::PlayScene() : Scene() {
     mLifeGeom = NULL;
 
     mLives = PLAYER_LIVES;
-
+    mGameOverExpire=1000000;
     mRollAngle = 0.0f;
 
     mPlayerSpeed = 0.0f;
@@ -132,19 +138,22 @@ PlayScene::PlayScene() : Scene() {
 
     mCheckpointSignPending = false;
     SetScore(0);
-
+    isLifeUpdated=false;
     /*
      * where do I put the program???
      */
-    const char *savePath = "/mnt/sdcard/com.google.example.games.tunnel.fix";
+    SceneManager *mgr = SceneManager::GetInstance();
+    const char *savePath = (mgr->mDocumentDataPath).c_str();//"/mnt/sdcard/com.google.example.games.tunnel.fix";
+ 
     int len = strlen(savePath) + strlen(SAVE_FILE_NAME) + 3;
     mSaveFileName = new char[len];
     strcpy(mSaveFileName, savePath);
-    strcat(mSaveFileName, "/");
+ //   strcat(mSaveFileName, "/");
     strcat(mSaveFileName, SAVE_FILE_NAME);
     LOGD("Save file name: %s", mSaveFileName);
     LoadProgress();
-
+    
+    
     if (mSavedCheckpoint) {
         mUseMove=false;
         mIsmenu=true;
@@ -154,99 +163,11 @@ PlayScene::PlayScene() : Scene() {
     }else{
         mUseMove=true;
         mIsmenu=false;}
+    
 }
 
 
-PlayScene::PlayScene(struct android_app* app) : Scene() {
-    AAssetManager* assMgr;
-    hello= new Hello();
-    mApp=app;
-    mUseMove=false;
-    mIsmenu=true;
-    mOurShader = NULL;
-    mIsmenu=false;
-    mTrivialShader = NULL;
-    mTextRenderer = NULL;
-    mShapeRenderer = NULL;
-    mTeapotRenderer= new TexturedTeapotRender();
-    mTeapotRenderer->Init(assMgr);
-    mShipSteerX = mShipSteerZ = 0.0f;
-    mFilteredSteerX = mFilteredSteerZ = 0.0f;
-    mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
-    mDifficulty = 0;
-    mUseCloudSave = false;
-    mCubeGeom = NULL;
-    mTunnelGeom = NULL;
 
-    mObstacleCount = 0;
-    mFirstObstacle = 0;
-    mFirstSection = 0;
-    mSteering = STEERING_NONE;
-    mPointerId = -1;
-    mPointerAnchorX = mPointerAnchorY = 0.0f;
-
-    mWallTexture = NULL;
-
-    InitTeapot();
-    memset(mMenuItemText, 0, sizeof(mMenuItemText));
-    mMenuItemText[MENUITEM_UNPAUSE] = S_UNPAUSE;
-    mMenuItemText[MENUITEM_QUIT] = S_QUIT;
-    mMenuItemText[MENUITEM_START_OVER] = S_START_OVER;
-    mMenuItemText[MENUITEM_RESUME] = S_RESUME;
-
-    memset(mMenuItems, 0, sizeof(mMenuItems));
-    mMenuItemCount = 0;
-
-    mMenu = MENU_NONE;
-    mMenuSel = 0;
-
-    mSignText = NULL;
-    mSignTimeLeft = 0.0f;
-
-    mShowedHowto = false;
-    mLifeGeom = NULL;
-
-    mLives = PLAYER_LIVES;
-
-    mRollAngle = 0.0f;
-
-    mPlayerSpeed = 0.0f;
-    mBlinkingHeart = false;
-    mGameStartTime = Clock();
-
-    mBonusInARow = 0;
-    mLastCrashSection = -1;
-
-    mFrameClock.SetMaxDelta(MAX_DELTA_T);
-    mLastAmbientBeepEmitted = 0;
-    mMenuTouchActive = false;
-
-    mCheckpointSignPending = false;
-    SetScore(0);
-
-    /*
-     * where do I put the program???
-     */
-  /*  const char *savePath = mApp->activity->internalDataPath;
-   // const char *savePath = "/mnt/sdcard/com.google.example.games.tunnel.fix";
-    int len = strlen(savePath) + strlen(SAVE_FILE_NAME) + 3;
-    mSaveFileName = new char[len];
-    strcpy(mSaveFileName, savePath);
-    strcat(mSaveFileName, "/");
-    strcat(mSaveFileName, SAVE_FILE_NAME);
-    LOGD("Save file name: %s", mSaveFileName);
-    LoadProgress();*/
-
-    if (mSavedCheckpoint) {
-        mUseMove=false;
-        mIsmenu=true;
-        // start with the menu that asks whether or not to start from the saved level
-        // or start over from scratch
-        ShowMenu(MENU_LEVEL);
-    }else{
-        mUseMove=true;
-        mIsmenu=false;}
-}
 
 
 void PlayScene::LoadProgress() {
@@ -259,10 +180,21 @@ void PlayScene::LoadProgress() {
     if (f) {
         hasLocalFile = true;
         LOGD("File found. Loading data.");
-        if (1 != fscanf(f, "v1 %d", &mSavedCheckpoint)) {
+        std::ifstream myfile (mSaveFileName);
+      //  if (1 != fscanf(f, "v1 %d", &mSavedCheckpoint)) {
+        if( !myfile.is_open()){
+          
             LOGE("Error parsing save file.");
             mSavedCheckpoint = 0;
         } else {
+            
+            std::string mystring;
+            myfile >> mystring;
+           // int num;
+            std::istringstream iss(mystring);
+            char* endPtr;
+                int num = std::strtol(mystring.c_str(), &endPtr, 10);
+            mSavedCheckpoint=num;
             LOGD("Loaded. Level = %d", mSavedCheckpoint);
             mSavedCheckpoint = (mSavedCheckpoint / LEVELS_PER_CHECKPOINT) * LEVELS_PER_CHECKPOINT;
             LOGD("Normalized check-point: level %d", mSavedCheckpoint);
@@ -294,19 +226,24 @@ void PlayScene::LoadProgress() {
 
 void PlayScene::WriteSaveFile(int level) {
     LOGD("Saving progress (level %d) to file: %s", level, mSaveFileName);
-    FILE *f = fopen(mSaveFileName, "w");
-    if (!f) {
+   // FILE *f = fopen(mSaveFileName, "w");
+    std::ofstream myfile (mSaveFileName);
+    std::stringstream ss;
+    ss<<level;
+    std::string mystring=ss.str();
+    myfile << mystring;
+    if (!myfile) {
         LOGE("Error writing to save game file.");
         return;
     }
-    fprintf(f, "v1 %d", level);
-    fclose(f);
+  //  fprintf(f, "v1 %d", level);
+    //fclose(myfile);
     LOGD("Save file written.");
 }
 
 void PlayScene::SaveProgress() {
     if (mDifficulty <= mSavedCheckpoint) {
-        // nothing to do
+        // nothing to dole
         LOGD("No need to save level, current = %d, saved = %d", mDifficulty, mSavedCheckpoint);
         return;
     } else if (!IsCheckpointLevel()) {
@@ -424,12 +361,39 @@ void PlayScene::DoFrame() {
     
     // render tunnel walls
     RenderTunnel();
-    glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPlayerPos.x, previousY+20.5f,mPlayerPos.z ));
-    modelMat = glm::scale(modelMat, glm::vec3(0.02f, 0.02f, 0.02f));
-    mTeapotRenderer->Render(mViewMat*modelMat, mProjMat);
-    // render obstacles
+    glEnable(GL_DEPTH_TEST);
     RenderObstacles();
+    float angleInRadians = glm::radians(-100.0f); // Angle in radians
+        glm::vec3 rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+        float angleInRadiansz = glm::radians(40.0f); // Angle in radians
+        glm::vec3 rotationAxisz = glm::vec3(0.0f, 1.0f, 0.0f);
+        glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angleInRadians, rotationAxis);
+        glm::mat4 rotationMatrixz = glm::rotate(glm::mat4(1.0f), angleInRadiansz, rotationAxisz);
 
+        if(k*Pos_step < 20.5) {
+            animPos=k*Pos_step;
+        }
+        if(k*Scale_step < 0.1) {
+            animScale=k*Scale_step;
+        }
+            glm::mat4 modelMat = glm::translate(glm::mat4(1.0f),
+                                                glm::vec3(mPlayerPos.x, previousY + animPos,
+                                                          mPlayerPos.z));
+
+        modelMat = glm::scale(modelMat, glm::vec3(animScale, animScale, animScale));
+        mTeapotRenderer->Render(mViewMat*modelMat*rotationMatrix*rotationMatrixz, mProjMat);
+        // render obstacles
+        if(k<2000) {
+            k++;
+        }
+    
+  
+    
+    
+    glEnable(GL_DEPTH_TEST);
+    // render obstacles
+    
+    glEnable(GL_DEPTH_TEST);
 
     if (mMenu) {
         RenderMenu();
@@ -472,8 +436,9 @@ void PlayScene::DoFrame() {
     float targetSpeed = PLAYER_SPEED + PLAYER_SPEED_INC_PER_LEVEL * mDifficulty;
     float accel = mPlayerSpeed >= 0.0f ? PLAYER_ACCELERATION_POSITIVE_SPEED :
             PLAYER_ACCELERATION_NEGATIVE_SPEED;
-    if (mLives <= 0) {
-        targetSpeed = 0.0f;
+   if (mLives <= 0) {
+       targetSpeed = 0.0f;
+       purchasedelay=10;
     }
     mPlayerSpeed = Approach(mPlayerSpeed, targetSpeed, deltaT * accel);
 
@@ -525,9 +490,9 @@ void PlayScene::DoFrame() {
     while (mRollAngle > 2 * M_PI) {
         mRollAngle -= 2 * M_PI;
     }
-
+    int clock=Clock();
     // did the game expire?
-    if (mLives <= 0 && Clock() > mGameOverExpire) {
+    if (mLives <= 0 && clock > mGameOverExpire) {
         SceneManager::GetInstance()->RequestNewScene(new WelcomeScene(mApp));
 
     }
@@ -723,7 +688,7 @@ void PlayScene::ShiftIfNeeded() {
 
 void PlayScene::UpdateMenuSelFromTouch(float x, float y) {
     float sh = SceneManager::GetInstance()->GetScreenHeight();
-    int item = (int)floor((y / sh) * (mMenuItemCount));
+    int item = (int)floor(((sh-y) / sh) * (mMenuItemCount));
     mMenuSel = Clamp(item, 0, mMenuItemCount - 1);
 }
 
@@ -824,7 +789,12 @@ void PlayScene::RenderHUD() {
 
         mTextRenderer->SetMatrix(modelMat);
         mTextRenderer->SetFontScale(SIGN_FONT_SCALE);
-        mTextRenderer->RenderText(mSignText, aspect * 0.5f, 0.5f);
+        if(mSignText==S_GOT_BONUS){
+            mTextRenderer->RenderText(mSignText, aspect * 0.5f, 0.1f);
+        }else{
+            mTextRenderer->RenderText(mSignText, aspect * 0.5f, 0.5f);
+        }
+        
         mTextRenderer->ResetMatrix();
     }
 
@@ -833,10 +803,15 @@ void PlayScene::RenderHUD() {
     float lifeX = LIFE_POS_X < 0.0f ? aspect + LIFE_POS_X : LIFE_POS_X;
     modelMat = glm::translate(glm::mat4(1.0), glm::vec3(lifeX, LIFE_POS_Y, 0.0f));
     modelMat = glm::scale(modelMat, glm::vec3(1.0f, LIFE_SCALE_Y, 1.0f));
+   // modelMat = glm::scale(modelMat, glm::vec3(0.04f, 0.04f, 0.04f));
+   // glm::vec3 upVec = glm::vec3(-sin(mRollAngle), 0, cos(mRollAngle));
     int ubound = (mBlinkingHeart && BlinkFunc(0.2f)) ? mLives + 1 : mLives;
     for (int i = 0; i < ubound; i++) {
         mat = orthoMat * modelMat;
         mTrivialShader->RenderSimpleGeom(&mat, mLifeGeom);
+      //  glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPlayerPos.x, previousY+20.5f,mPlayerPos.z ));
+      //  mViewMat = glm::lookAt(glm::vec3(lifeX, LIFE_POS_Y, 0.0f), glm::vec3(lifeX, LIFE_POS_Y, 0.0f) + mPlayerDir, upVec);
+      //  mTeapotRenderer->Render(mViewMat*mat, mProjMat);
         modelMat = glm::translate(modelMat, glm::vec3(LIFE_SPACING_X, 0.0f, 0.0f));
     }
 
@@ -875,22 +850,43 @@ void PlayScene::DetectCollisions(float previousY) {
     float obsMin = obsCenter - OBS_BOX_SIZE;
     float curY = mPlayerPos.y+20.5f;
     if(isLifeUpdated){
-    mLives=life;
-    isLifeUpdated=false;}
+        SceneManager *mgr = SceneManager::GetInstance();
+        mLives=mgr->extraLife;
+        ShowSign(S_LIFE_ADDED, SIGN_DURATION_GAME_OVER);
+        mgr->extraLife=0;
+        isLifeUpdated=false;
+        
+    }
     if (!o || !(previousY+20.5f < obsMin && curY >= obsMin)) {
         // no collision
-         
-        return;
+        // Time out at GameOver g is very small
+        int g=abs(mGameOverExpire-Clock());
+        if(purchasedelay==10&&g<50000){
+            
+            return;
+            
+        }//
+        else if(purchasedelay==10){
+            
+            purchasedelay=0;
+            
+        }
+        else{
+            
+            return;
+            
+        }
     }
     
     // what row/column is the player on?
     int col = o->GetColAt(mPlayerPos.x);
     int row = o->GetRowAt(mPlayerPos.z);
     if(o->grid[col][row] && (mLives-1==0))
-    {   
+    {
         BuyLifeInit();
         isLifeUpdated=true;
        // mLives=mLives+life;
+
         return;
     }
     if (o->grid[col][row]) {
@@ -905,17 +901,20 @@ void PlayScene::DetectCollisions(float previousY) {
             //say "Game Over"
             mIsmenu=true;
             mUseMove=false;
+    
             ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
+        
            // SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
             mGameOverExpire = Clock() + GAME_OVER_EXPIRE;
             
         }
-        mPlayerPos.y = obsMin - PLAYER_RECEDE_AFTER_COLLISION+20.5f;
+        mPlayerPos.y = obsMin - PLAYER_RECEDE_AFTER_COLLISION;
         mPlayerSpeed = PLAYER_SPEED_AFTER_COLLISION;
         mBlinkingHeart = true;
         mBlinkingHeartExpire = Clock() + BLINKING_HEART_DURATION;
 
         mLastCrashSection = mFirstSection;
+
 
     } else if (row == o->bonusRow && col == o->bonusCol) {
         ShowSign(S_GOT_BONUS, SIGN_DURATION_BONUS);
@@ -999,7 +998,7 @@ bool PlayScene::BuyLifeInit() {
         ShowMenu(MENU_NONE);
     } else {
         // enter pause menu
-         BuyLife();
+        ShowAd();
         ShowMenu(MENU_PAUSE);
     }
     return true;
@@ -1049,7 +1048,8 @@ void PlayScene::ShowMenu(int menu) {
         case MENU_PAUSE:
             mMenuItems[0] = MENUITEM_UNPAUSE;
             mMenuItems[1] = MENUITEM_QUIT;
-            mMenuItemCount = 2;
+            mMenuItems[2] = MENUITEM_BUYCOIN;
+            mMenuItemCount = 3;
             break;
         case MENU_LEVEL:
             mMenuItems[0] = MENUITEM_RESUME;
@@ -1089,6 +1089,10 @@ void PlayScene::HandleMenu(int menuItem) {
             mUseMove=true;
             mIsmenu=false;
             break;
+        case MENUITEM_BUYCOIN:
+            BuyConsumableC();
+            ShowMenu(MENU_PAUSE);
+            break;
     }
 }
 
@@ -1103,7 +1107,7 @@ void PlayScene::ShowLevelSign() {
 
 void PlayScene::OnPause() {
     if (mMenu == MENU_NONE) {
-       // ShowMenu(MENU_PAUSE);
+        ShowMenu(MENU_PAUSE);
     }
 }
 
@@ -1119,6 +1123,8 @@ void PlayScene::UpdateProjectionMatrix() {
 
 void PlayScene::BuyLife() 
 {
+
+    BuyConsumableC();
 /*JNIEnv * env=mApp->activity->env;
 
 mApp->activity->vm->AttachCurrentThread(&env, NULL);

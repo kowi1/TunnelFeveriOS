@@ -69,7 +69,7 @@
 
 // touch control sensivity (ship displacement caused by dragging the screen by a length
 // equivalent to its height).
-#define TOUCH_CONTROL_SENSIVITY (TUNNEL_HALF_W * 5)
+#define TOUCH_CONTROL_SENSIVITY (TUNNEL_HALF_W * 10)
 
 // joystick control sensivity (maximum velocity attained per axis)
 #define JOYSTICK_CONTROL_SENSIVITY 20.0f
@@ -92,7 +92,7 @@
 // how long do signs stay onscreen
 #define SIGN_DURATION 2.0f
 #define SIGN_DURATION_BONUS 1.0f
-#define SIGN_DURATION_GAME_OVER 5.0f
+#define SIGN_DURATION_GAME_OVER 10.0f
 
 // duration of a text sign's zoom-in animation
 #define SIGN_ANIM_DUR 0.2f
@@ -138,7 +138,7 @@
 #define BLINKING_HEART_DURATION 2.0f
 
 // how long does the game take to end after we show Game Over
-#define GAME_OVER_EXPIRE 5.0f
+#define GAME_OVER_EXPIRE 4.0f
 
 // UI transition animation duration
 #define TRANSITION_DURATION 0.25f
@@ -152,10 +152,10 @@
 #define MENUITEM_PULSE_PERIOD 0.5f
 
 // save file name
-#define SAVE_FILE_NAME "tunnel.dat"
+#define SAVE_FILE_NAME "tunnelll.dat"
 
 // checkpoint (save progress) every how many levels?
-#define LEVELS_PER_CHECKPOINT 4
+#define LEVELS_PER_CHECKPOINT 2
 
 #endif
 

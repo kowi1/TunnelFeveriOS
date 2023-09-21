@@ -22,7 +22,7 @@ cmake_minimum_required(VERSION 3.4.1)
  #    ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 set(target_name game)     
 set(BULLET_PHYSICS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet)
-
+set(FIREBASE_CPP_SDK_DIR /Users/admin/firebase_cpp_sdk)
 # Export ANativeActivity_onCreate(),
 # Refer to: https://github.com/android-ndk/ndk/issues/381.
 #set(CMAKE_SHARED_LINKER_FLAGS
@@ -76,7 +76,8 @@ target_include_directories(game PRIVATE
      ${CMAKE_CURRENT_SOURCE_DIR}
      ${CMAKE_CURRENT_SOURCE_DIR}/data
      ${CMAKE_CURRENT_SOURCE_DIR}/common/stb
-     ${BULLET_PHYSICS_SOURCE_DIR}/src)
+     ${BULLET_PHYSICS_SOURCE_DIR}/src
+     ${FIREBASE_CPP_SDK_DIR}/include)
      
      
 
@@ -95,15 +96,15 @@ target_link_libraries(game
 
 
 # Add Firebase libraries to the target using the function from the SDK.
-#add_subdirectory(${FIREBASE_CPP_SDK_DIR} bin/ EXCLUDE_FROM_ALL)
+add_subdirectory(${FIREBASE_CPP_SDK_DIR} bin/ EXCLUDE_FROM_ALL)
 
 # The Firebase C++ library `firebase_app` is required,
 # and it must always be listed last.
 
 # Add the Firebase SDKs for the products you want to use in your app
 # For example, to use Analytics, Firebase Authentication, and Firebase Realtime Database
-#set(firebase_libs firebase_analytics firebase_auth firebase_database firebase_app)
-#target_link_libraries(${target_name} "${firebase_libs}")
+set(firebase_libs firebase_analytics firebase_auth firebase_gma firebase_database firebase_functions firebase_storage firebase_messaging firebase_firestore firebase_app_check firebase_app)
+target_link_libraries(${target_name} "${firebase_libs}")
 
 add_subdirectory(bullet/src)
 target_link_libraries(${target_name} LinearMath  BulletDynamics BulletCollision BulletSoftBody)

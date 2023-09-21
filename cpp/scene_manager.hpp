@@ -17,7 +17,7 @@
 #define endlesstunnel_scene_manager_h
 
 #include "our_key_codes.hpp"
-
+#include "firebase/gma/ad_view.h"
 class Scene;
 
 struct PointerCoords {
@@ -45,6 +45,9 @@ class SceneManager {
     public:
         SceneManager();
         std::string mBundlePath;
+        std::string mDocumentDataPath;
+        int extraLife;
+        objc_object* opengluiObj;
         void SetScreenSize(int width, int height);
         void KillGraphics();
         void StartGraphics();

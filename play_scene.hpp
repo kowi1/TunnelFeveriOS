@@ -150,13 +150,14 @@ class PlayScene : public Scene {
         static const int MENUITEM_QUIT = 1;
         static const int MENUITEM_START_OVER = 2;
         static const int MENUITEM_RESUME = 3;
-        static const int MENUITEM_COUNT = 4;
+        static const int MENUITEM_BUYCOIN = 4;
+        static const int MENUITEM_COUNT = 5;
 
         // text for each menu item
         const char *mMenuItemText[MENUITEM_COUNT];
 
         // menu items on current menu
-        static const int MENUITEMS_MAX = 4;
+        static const int MENUITEMS_MAX = 8;
         int mMenuItems[MENUITEMS_MAX];
         int mMenuItemCount; // # of menu items
         int mMenuSel; // index of selected menu item
@@ -179,7 +180,7 @@ class PlayScene : public Scene {
 
         // when should the game expire? This will be set after the game is over (mLives <= 0)
         // and indicates when we should return to the main screen
-        float mGameOverExpire;
+        int mGameOverExpire;
 
         // time when game started
         float mGameStartTime;
@@ -290,7 +291,13 @@ class PlayScene : public Scene {
         // update projection matrix
         void UpdateProjectionMatrix();
     private:
-    struct android_app* mApp;    
+    struct android_app* mApp;
+    float animPos=0.0f;
+        float animScale=0.0f;
+        int k=1;
+        float Pos_step=0.05;
+        float Scale_step=0.05;
+    
 };
 
 #endif

@@ -37,6 +37,7 @@ void main()
     lowp vec4 colorSpecular = vec4( vMaterialSpecular.xyz * specular, 1 );
     mediump vec3 texCoord = normal;
     texCoord.y = -normal.y;
-    gl_FragColor = colorDiffuse * textureCube(samplerObj, normalize(texCoord)) +
-                      vec4(vMaterialAmbient.xyz, 1.0);
+    lowp vec4 greenColor = vec4(0.0, 0.1, 0.0, 1.0);
+        gl_FragColor = (colorDiffuse * textureCube(samplerObj, normalize(texCoord))) + greenColor + (vec4(vMaterialAmbient.xyz, 1.0) * greenColor.a);
+
 }

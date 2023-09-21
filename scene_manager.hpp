@@ -45,6 +45,9 @@ class SceneManager {
     public:
         SceneManager();
         std::string mBundlePath;
+        std::string mDocumentDataPath;
+        int extraLife;
+        objc_object* opengluiObj;
         void SetScreenSize(int width, int height);
         void KillGraphics();
         void StartGraphics();

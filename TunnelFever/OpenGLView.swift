@@ -12,17 +12,18 @@ struct OpenGLView: UIViewRepresentable {
     typealias UIViewType = OpenGLUIView
 
     @Binding var gestureLocation: CGPoint
+    @Binding var isButtonHidden:Bool
     let mtestWrapper: testWrapper
     
     func makeUIView(context: Context) -> OpenGLUIView {
         if(UIScreen.main.bounds.height<UIScreen.main.bounds.width){
-            let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
+            let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper, isButtonHidden:$isButtonHidden)
             
             return view
         }
         else{
-            let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.height,height:UIScreen.main.bounds.width), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper)
-          
+            let view = OpenGLUIView(frame: CGRect(x:0,y:0,width:UIScreen.main.bounds.height,height:UIScreen.main.bounds.width), gestureLocation: $gestureLocation,mtestWrapper:mtestWrapper, isButtonHidden:$isButtonHidden)
+            
             return view
         }
         // Create and configure your OpenGL view here
@@ -39,18 +40,21 @@ struct OpenGLView: UIViewRepresentable {
 
 
 
-
+@objc(OpenGLUIView)
 class OpenGLUIView: UIView{
     private var context: EAGLContext?
     private var renderBuffer: GLuint = 0
     private var frameBuffer: GLuint = 0
     private var displayLink: CADisplayLink?
+    private var BundlePath: String?
+    private var DocumentDataPath: String?
+    private var con: PurchaseView
     
     private var _test:testWrapper
- 
+   
 
     @Binding var gestureLocation: CGPoint
- 
+    @Binding var isButtonHidden:Bool
 
     override class var layerClass: AnyClass {
         return CAEAGLLayer.self
@@ -58,13 +62,37 @@ class OpenGLUIView: UIView{
     
    
     
-    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper){
+    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper,isButtonHidden:Binding<Bool>){
          self._gestureLocation = gestureLocation
         self._test=mtestWrapper
+        self.con = PurchaseView(mtestWrapper:mtestWrapper)
+        self._isButtonHidden = isButtonHidden
         super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+        BundlePath=Bundle.main.url(forResource: "right", withExtension: "tga")?.absoluteString.replacingOccurrences(of: "right.tga", with: "").replacingOccurrences(of: "file://", with: "")
         
-
+        DocumentDataPath=FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.absoluteString.replacingOccurrences(of: "file://", with: "")
+        
+        let fileURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first? .appendingPathComponent("tunnelll.dat"))!
+        var text = "0"
+        do {
+                text = try String(contentsOf: fileURL, encoding: .utf16LittleEndian)
+            }
+        catch
+        {
+            text = "1"
+        }
+               
+        do {
+         try   text.write(to: fileURL, atomically: false, encoding: .utf16LittleEndian)
+        }
+        catch
+        {
+            
+        }
+        _test.initializePurchase(con)
+        _test.initializeUIView(self)
+    
         
         if setupOpenGLContext() {
             setupRenderBuffer()
@@ -144,9 +172,10 @@ class OpenGLUIView: UIView{
       glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
          
         
-        
+        _test.nativeEngine(Int32(UIScreen.main.bounds.height),and: Int32(UIScreen.main.bounds.width),and:BundlePath, and:DocumentDataPath
+        )
 
-        _test.nativeEngine(Int32(UIScreen.main.bounds.height),and: Int32(UIScreen.main.bounds.width),and:Bundle.main.url(forResource: "right", withExtension: "tga")?.absoluteString.replacingOccurrences(of: "right.tga", with: "").replacingOccurrences(of: "file://", with: ""))
+        
        
 
         // Add your OpenGL rendering code here
@@ -174,7 +203,9 @@ class OpenGLUIView: UIView{
            let currentOrientation = UIDevice.current.orientation
            print("Initial device orientation: \(currentOrientation)")
        }
-
+    @objc func showInterstitial() {
+        self.isButtonHidden=false
+    }
        @objc func orientationDidChange() {
            let currentOrientation = UIDevice.current.orientation
            print("Device orientation changed: \(currentOrientation)")

@@ -18,6 +18,7 @@
 
 #include "common.hpp"
 #include "input_util.hpp"
+#include "firebase/gma/ad_view.h"
 
 struct NativeEngineSavedState {};
 
@@ -29,8 +30,9 @@ class NativeEngine {
         ~NativeEngine();
 
         // runs application until it dies
-        void GameLoop(int a, int b,std::string BundlePath);
-        
+        void GameLoop(int a, int b,std::string BundlePath,std::string DocumentDataPath);
+    void UpdateLife(int a);
+    void InitializeOpengLUIObject(objc_object * a);
         // returns the JNI environment
          //  JNIEnv *GetJniEnv();
 
@@ -39,6 +41,7 @@ class NativeEngine {
 
         // returns the (singleton) instance
         std::string mBundlePath;
+    std::string mDocumentDataPath;
         static NativeEngine* GetInstance();
 
     private:
