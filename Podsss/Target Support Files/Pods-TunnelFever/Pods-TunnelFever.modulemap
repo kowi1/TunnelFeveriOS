@@ -1,6 +1,0 @@
-framework module Pods_TunnelFever {
-  umbrella header "Pods-TunnelFever-umbrella.h"
-
-  export *
-  module * { export * }
-}

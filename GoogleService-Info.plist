@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>548587688240-movt6vb9o9j2dgt3kn2dvtl9bkkktck2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.548587688240-movt6vb9o9j2dgt3kn2dvtl9bkkktck2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAgmVzvtLA0-XXG-gr6NRx2cy8csF9Zgdo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>548587688240</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.joy-joyholdings.TunnelFever</string>
+	<key>PROJECT_ID</key>
+	<string>tunnel-fever</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tunnel-fever.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:548587688240:ios:5356d9bf9a7ac72074b8f5</string>
+	<key>DATABASE_URL</key>
+	<string>https://tunnel-fever.firebaseio.com</string>
+</dict>
+</plist>
