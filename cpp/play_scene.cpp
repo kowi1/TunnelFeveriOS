@@ -33,8 +33,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "firebase/gma/ad_view.h"
-#include "firebase/gma.h"
+//#include "firebase/gma/ad_view.h"
+//#include "firebase/gma.h"
 #include <unistd.h>
 
 #define WALL_TEXTURE_SIZE 64
@@ -77,7 +77,7 @@ static const char* TONE_BONUS[] = {
 
 PlayScene::PlayScene() : Scene() {
     AAssetManager* assMgr;
-    hello= new Hello();
+   // hello= new Hello();
     mOurShader = NULL;
     mUseMove=false;
     mIsmenu=true;
@@ -168,7 +168,7 @@ PlayScene::PlayScene() : Scene() {
     
     
     
-    dynamicsWorld->setGravity(btVector3(0, -10, 0));
+ /*   dynamicsWorld->setGravity(btVector3(0, -10, 0));
     
     {
             btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
@@ -226,7 +226,7 @@ PlayScene::PlayScene() : Scene() {
 
             dynamicsWorld->addRigidBody(body);
         }
-    
+    */
     
 }
 
@@ -400,7 +400,7 @@ void PlayScene::OnKillGraphics() {
     CleanUp(&mCubeGeom);
     CleanUp(&mWallTexture);
     CleanUp(&mLifeGeom);
-    hello->~Hello();
+  /*  hello->~Hello();
     
     for (ibullet = dynamicsWorld->getNumCollisionObjects() - 1; ibullet >= 0; ibullet--)
         {
@@ -437,14 +437,14 @@ void PlayScene::OnKillGraphics() {
         delete collisionConfiguration;
 
         //next line is optional: it will be cleared by the destructor when the array goes out of scope
-        collisionShapes.clear();
+        collisionShapes.clear();*/
 }
 
 void PlayScene::DoFrame() {
     
     
     
-    for (ibullet = 0; ibullet < 150; ibullet++)
+    /*for (ibullet = 0; ibullet < 150; ibullet++)
         {
             dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 
@@ -465,7 +465,7 @@ void PlayScene::DoFrame() {
                 //printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
                 LOGD("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
             }
-        }
+        }*/
     
     
     
@@ -782,7 +782,7 @@ void PlayScene::GenObstacles() {
             for (int c = 0; c < OBS_GRID_SIZE; c++) {
                 bool isBonus = r == o->bonusRow && c == o->bonusCol;
                 if (o->grid[c][r]||isBonus) {
-                hello->AddShapes(r,c,index,int(o->GetBoxCenter(c, r, posY).x),int(o->GetBoxCenter(c, r, posY).y),int(o->GetBoxCenter(c, r, posY).z));
+              //  hello->AddShapes(r,c,index,int(o->GetBoxCenter(c, r, posY).x),int(o->GetBoxCenter(c, r, posY).y),int(o->GetBoxCenter(c, r, posY).z));
               LOGD("SceneManager: installing scene %d ",r );
               LOGD("SceneManager: installing scene %d ",c);
               LOGD("SceneManager: installing scene %d ",index );
@@ -1109,13 +1109,13 @@ bool PlayScene::OnBackKeyPressed() {
     return true;
 }
 
-bool PlayScene::IsMenu() {
+void PlayScene::IsMenu() {
     
-    return mIsmenu;
+    //return mIsmenu;
 }
-bool PlayScene::UseMove() {
+void PlayScene::UseMove() {
     
-    return mUseMove;
+    //return mUseMove;
 }
 bool PlayScene::BuyLifeInit() {
     if (mMenu) {

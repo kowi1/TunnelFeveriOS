@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-import Firebase
+//import Firebase
 @main
 struct TunnelFeverApp: App {
     
 @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
    init() {
-          FirebaseApp.configure() // Initialize Firebase
+      //    FirebaseApp.configure() // Initialize Firebase
      }
 var body: some Scene {
         WindowGroup {

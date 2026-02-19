@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import GoogleMobileAds
+//import GoogleMobileAds
 import UIKit
     
 
@@ -16,7 +16,9 @@ struct InterstialVC: UIViewControllerRepresentable  {
     typealias UIViewControllerType = UIViewController
     
     func makeUIViewController(context: Context) -> UIViewController {
-         let view = ViewController()
+         //let view = ViewController()
+        let view = UIViewController()
+                view.view.backgroundColor = .systemBackground
         return view
     }
 
@@ -24,7 +26,7 @@ struct InterstialVC: UIViewControllerRepresentable  {
 }
 
 
-class ViewController:UIViewController, GADFullScreenContentDelegate {
+/*class ViewController:UIViewController, GADFullScreenContentDelegate {
 
    private var interstitial: GAMInterstitialAd?
     
@@ -99,4 +101,4 @@ class ViewController:UIViewController, GADFullScreenContentDelegate {
     print("Ad did dismiss full screen content.")
   }
 }
-
+*/

@@ -17,7 +17,8 @@
 #define endlesstunnel_scene_manager_h
 
 #include "our_key_codes.hpp"
-#include "firebase/gma/ad_view.h"
+#include <objc/objc.h>
+//#include "firebase/gma/ad_view.h"
 class Scene;
 
 struct PointerCoords {
@@ -100,8 +101,8 @@ class SceneManager {
 
         // Reports that the game was resumed (e.g. Activity got an onResume())
         void OnResume();
-         bool IsMenu();
-    bool UseMove();
+         void IsMenu();
+    void UseMove();
         // Requests that a new scene be installed, replacing the currently active
         // scene. The new scene will be installed on the next DoFrame() call.
         void RequestNewScene(Scene *newScene);

@@ -24,9 +24,9 @@
 #include "text_renderer.hpp"
 #include "textured_teapot_render.hpp"
 #include "util.hpp"
-#include "HelloWorld.hpp"
+//#include "HelloWorld.hpp"
 
-#include "btBulletDynamicsCommon.h"
+//#include "btBulletDynamicsCommon.h"
 #include <stdio.h>
 
 class OurShader;
@@ -52,9 +52,9 @@ class PlayScene : public Scene {
         virtual void OnJoy(float joyX, float joyY);
         virtual void OnKeyDown(int keyCode);
         virtual void OnPause();
-        virtual bool IsMenu();
-    virtual bool UseMove();
-        Hello *hello;
+        virtual void IsMenu();
+    virtual void UseMove();
+        //Hello *hello;
 
     protected:
         // shaders
@@ -305,7 +305,7 @@ class PlayScene : public Scene {
         float Pos_step=0.05;
         float Scale_step=0.05;
     
-    
+    /*
     ///-----includes_end-----
 
         int ibullet;
@@ -325,7 +325,7 @@ class PlayScene : public Scene {
 
         btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
         btAlignedObjectArray<btCollisionShape*> collisionShapes;
-        
+        */
     
     
 };

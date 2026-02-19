@@ -18,8 +18,8 @@
 #include "play_scene.hpp"
 #include "welcome_scene.hpp"
 
-#include "blurb.inl"
-#include "strings.inl"
+#include "data/blurb.inl"
+#include "data/strings.inl"
 
 #define TITLE_POS center, 0.85f
 #define TITLE_FONT_SCALE 1.0f

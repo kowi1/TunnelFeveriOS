@@ -69,7 +69,8 @@ class OpenGLUIView: UIView{
         self._isButtonHidden = isButtonHidden
         super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
-        BundlePath=Bundle.main.url(forResource: "right", withExtension: "tga")?.absoluteString.replacingOccurrences(of: "right.tga", with: "").replacingOccurrences(of: "file://", with: "")
+        BundlePath=""
+        /*Bundle.main.url(forResource: "right", withExtension: "tga")?.absoluteString.replacingOccurrences(of: "right.tga", with: "").replacingOccurrences(of: "file://", with: "")*/
         
         DocumentDataPath=FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.absoluteString.replacingOccurrences(of: "file://", with: "")
         

@@ -305,6 +305,6 @@ bool CookEvent(AInputEvent *event, CookedEventCallback callback) {
        
     //}
 
-   // return false;
+   return false;
 }
 

@@ -20,7 +20,7 @@
 #include "welcome_scene.hpp"
 #include "play_scene.hpp"
 #include "native_engine.hpp"
-#include "firebase/gma/ad_view.h"
+//#include "firebase/gma/ad_view.h"
 
 
 // verbose debug logs on?
@@ -285,7 +285,7 @@ void NativeEngine::HandleInputProxy(struct AInputEvent* event) {
  //  NativeEngine *engine = (NativeEngine*) app->userData;
     SceneManager *mgr = SceneManager::GetInstance();
     
-    if(mgr->UseMove()){
+    /*if(mgr->UseMove()){
         event->type=0;
     }else{
         event->type=1;
@@ -294,7 +294,7 @@ void NativeEngine::HandleInputProxy(struct AInputEvent* event) {
         event->keyCode=1;
     }else{
         event->keyCode=0;
-    }
+    }*/
     HandleInput(event);
 }
 /*bool NativeEngine::InitDisplay() {
@@ -609,8 +609,8 @@ void NativeEngine::UpdateLife(int a) {
     SceneManager *mgr = SceneManager::GetInstance();
     mgr->extraLife=a;
 }
-void NativeEngine::InitializeOpengLUIObject(objc_object * a){
-    SceneManager *mgr = SceneManager::GetInstance();
-    mgr->opengluiObj=a;
-}
+//void NativeEngine::InitializeOpengLUIObject(objc_object * a){
+  //  SceneManager *mgr = SceneManager::GetInstance();
+  //  mgr->opengluiObj=a;
+//}
 

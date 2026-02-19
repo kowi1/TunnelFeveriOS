@@ -17,7 +17,7 @@
 #define endlesstunnel_ascii_to_geom_hpp
 
 #include "engine.hpp"
-#include "HelloWorld.hpp"
+//#include "HelloWorld.hpp"
 
 /* Converts ASCII art into a Vbo/Ibo pair. Useful for retro-looking drawings/text!
  * scale is the size of each character. The center of the rendering will be 0,0.

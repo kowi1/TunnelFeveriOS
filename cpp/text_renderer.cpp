@@ -17,7 +17,7 @@
 #include "text_renderer.hpp"
 #include "util.hpp"
 
-#include "alphabet.inl"
+#include "data/alphabet.inl"
 
 #define ALPHABET_SCALE 0.01f
 #define CHAR_SPACING_F 0.1f // as a fraction of char width

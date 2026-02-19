@@ -18,7 +18,8 @@
 
 #include "common.hpp"
 #include "input_util.hpp"
-#include "firebase/gma/ad_view.h"
+#include <objc/objc.h>
+//#include "firebase/gma/ad_view.h"
 
 struct NativeEngineSavedState {};
 
