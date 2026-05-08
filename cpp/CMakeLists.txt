@@ -70,7 +70,8 @@ add_library(game STATIC
      welcome_scene.cpp
      HelloWorld.cpp
      shaderhelper.cpp
-     vecmath.cpp)
+     vecmath.cpp
+     morph_renderer.cpp)
 
 target_include_directories(game PRIVATE
      ${CMAKE_CURRENT_SOURCE_DIR}

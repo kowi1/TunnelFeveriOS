@@ -35,9 +35,17 @@ uniform lowp vec4       vMaterialDiffuse;
 uniform lowp vec3       vMaterialAmbient;
 uniform lowp vec4       vMaterialSpecular;
 
+uniform mediump float   uTime;   // Clock() in seconds — cloth wave animation
+uniform mediump float   uSpeed;  // Normalized ship speed [0,1] — wave amplitude
+
 void main(void)
 {
-    highp vec4 p = vec4(myVertex,1);
+    // Cloth wave: ripple across the surface driven by speed and time.
+    mediump float amp  = uSpeed * 0.07;
+    mediump float waveX = sin(myVertex.x * 2.5 + uTime * 6.3) * amp
+                        + cos(myVertex.y * 1.8 + uTime * 4.1) * amp * 0.6;
+    mediump float waveZ = cos(myVertex.x * 3.1 + uTime * 5.5) * amp * 0.5;
+    highp vec4 p = vec4(myVertex.x + waveX, myVertex.y, myVertex.z + waveZ, 1.0);
     gl_Position = uPMatrix * p;
 
     highp vec3 worldNormal = vec3(mat3(uMVMatrix[0].xyz, uMVMatrix[1].xyz, uMVMatrix[2].xyz) * myNormal);

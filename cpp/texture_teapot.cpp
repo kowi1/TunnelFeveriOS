@@ -180,7 +180,8 @@ TextureCubemap::TextureCubemap(std::vector<std::string> &files,
     int32_t imgWidth, imgHeight, channelCount;
     std::vector<uint8_t> fileBits;
 
-    if (!mgr || files.size() != 6) {
+    // if (!mgr || files.size() != 6) {  // Android: mgr is AAssetManager
+    if (files.size() != 6) {  // iOS: bundle path used below; no AAssetManager needed
         assert(false);
         return;
     }
@@ -271,11 +272,11 @@ TextureCubemap::~TextureCubemap() {
  * Texture2D implementation
  */
 Texture2d::Texture2d(std::string& fileName, AAssetManager* assetManager)  {
-    if (!assetManager) {
-        LOGE("AssetManager to Texture2D() could not be null!!!");
-        assert(false);
-        return;
-    }
+    // if (!assetManager) {  // Android guard — iOS loads from bundle path below
+    //     LOGE("AssetManager to Texture2D() could not be null!!!");
+    //     assert(false);
+    //     return;
+    // }
 
     int32_t imgWidth, imgHeight, channelCount;
     std::string texName(fileName);

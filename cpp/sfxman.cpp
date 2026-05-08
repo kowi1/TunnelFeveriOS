@@ -1,274 +1,199 @@
-/*
- * Copyright (C) Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-#include <random>
 #include "sfxman.hpp"
+#include <AudioToolbox/AudioToolbox.h>
+#include <dispatch/dispatch.h>
+#include <atomic>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <chrono>
 
-#define SAMPLES_PER_SEC 8000
-#define BUF_SAMPLES_MAX SAMPLES_PER_SEC*5 // 5 seconds
-#define DEFAULT_VOLUME 0.9f
+#define SAMPLES_PER_SEC  8000
+#define BUF_SAMPLES_MAX  (SAMPLES_PER_SEC * 5)
+#define DEFAULT_VOLUME   1.0f
 
-static SfxMan *_instance = new SfxMan();
-static short _sample_buf[BUF_SAMPLES_MAX];
-static volatile bool _bufferActive = false;
+// ---- State (all AudioQueue handles touched only on _audioQ serial thread) ----
+
+static SfxMan*         _instance  = nullptr;
+static short           _scratch[BUF_SAMPLES_MAX]; // synthesis buffer, game thread only
+static std::atomic<bool> _busy{false};
+static long long       _toneEndMs = 0;
+static AudioQueueRef   _queue     = nullptr;       // owned by _audioQ thread
+
+// Serial GCD queue — every AudioQueue call goes here, never on the render thread.
+// Lazily created on first PlayTone call so there is no static-init ordering issue.
+static dispatch_queue_t _audioQ = nullptr;
+static dispatch_once_t  _audioQOnce;
+
+static dispatch_queue_t getAudioQ() {
+    dispatch_once(&_audioQOnce, ^{
+        _audioQ = dispatch_queue_create("com.tunnelfever.sfx", DISPATCH_QUEUE_SERIAL);
+    });
+    return _audioQ;
+}
+
+// ---- Helpers ----
+
+static long long _nowMs() {
+    using namespace std::chrono;
+    return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
+}
+
+// Fires on AudioQueue's internal thread after the buffer has been consumed.
+static void _queueCallback(void*, AudioQueueRef, AudioQueueBufferRef) {
+    _busy.store(false, std::memory_order_release);
+}
+
+static void _fillFmt(AudioStreamBasicDescription* f) {
+    f->mSampleRate       = SAMPLES_PER_SEC;
+    f->mFormatID         = kAudioFormatLinearPCM;
+    f->mFormatFlags      = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+    f->mBitsPerChannel   = 16;
+    f->mChannelsPerFrame = 1;
+    f->mBytesPerFrame    = 2;
+    f->mFramesPerPacket  = 1;
+    f->mBytesPerPacket   = 2;
+}
+
+// ---- SfxMan ----
 
 SfxMan* SfxMan::GetInstance() {
-    return _instance ? _instance : (_instance = new SfxMan());
+    if (!_instance) _instance = new SfxMan();
+    return _instance;
 }
 
-static bool _checkError(SLresult r, const char *what) {
-    if (r != SL_RESULT_SUCCESS) {
-        LOGW("SfxMan: Error %s (result %lu)", what, (long unsigned int)r);
-        LOGW("DISABLING SOUND!");
-        return true;
-    }
-    return false;
-}
-
-static void _bqPlayerCallback(SLAndroidSimpleBufferQueueItf bq, void *context) {
-    _bufferActive = false;
-}
-
-
-SfxMan::SfxMan() {
-    // Note: this initialization code was mostly copied from the NDK audio sample.
-    SLresult result;
-    SLObjectItf engineObject = NULL;
-    SLEngineItf engineEngine;
-    SLObjectItf outputMixObject = NULL;
-    SLEnvironmentalReverbItf outputMixEnvironmentalReverb = NULL;
-    SLObjectItf bqPlayerObject = NULL;
-    SLPlayItf bqPlayerPlay;
-    SLEffectSendItf bqPlayerEffectSend;
-    SLVolumeItf bqPlayerVolume;
-    const SLEnvironmentalReverbSettings reverbSettings =
-            SL_I3DL2_ENVIRONMENT_PRESET_STONECORRIDOR;
-
-    LOGD("SfxMan: initializing.");
-    mPlayerBufferQueue = NULL;
-
-    // create engine
-    result = slCreateEngine(&engineObject, 0, NULL, 0, NULL, NULL);
-    if (_checkError(result, "creating engine")) return;
-
-    // realize the engine
-    result = (*engineObject)->Realize(engineObject, SL_BOOLEAN_FALSE);
-    if (_checkError(result, "realizing engine")) return;
-
-    // get the engine interface, which is needed in order to create other objects
-    result = (*engineObject)->GetInterface(engineObject, SL_IID_ENGINE, &engineEngine);
-    if (_checkError(result, "getting engine interface")) return;
-
-    // create output mix, with einitializingnvironmental reverb specified as a non-required interface
-    const SLInterfaceID ids[1] = {SL_IID_ENVIRONMENTALREVERB};
-    const SLboolean req[1] = {SL_BOOLEAN_FALSE};
-    result = (*engineEngine)->CreateOutputMix(engineEngine, &outputMixObject, 1, ids, req);
-    if (_checkError(result, "creating output mix")) return;
-
-    // realize the output mix
-    result = (*outputMixObject)->Realize(outputMixObject, SL_BOOLEAN_FALSE);
-    if (_checkError(result, "realizin goutput mix")) return;
-
-    // get the environmental reverb interface
-    // this could fail if the environmental reverb effect is not available,
-    // either because the feature is not present, excessive CPU load, or
-    // the required MODIFY_AUDIO_SETTINGS permission was not requested and granted
-    result = (*outputMixObject)->GetInterface(outputMixObject, SL_IID_ENVIRONMENTALREVERB,
-                &outputMixEnvironmentalReverb);
-    if (SL_RESULT_SUCCESS == result) {
-        result = (*outputMixEnvironmentalReverb)->SetEnvironmentalReverbProperties(
-                    outputMixEnvironmentalReverb, &reverbSettings);
-    }
-    // ignore unsuccessful result codes for environmental reverb, as it is optional for this example
-
-    // configure audio source
-    SLDataLocator_AndroidSimpleBufferQueue loc_bufq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 2};
-    SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, 1, SL_SAMPLINGRATE_8,
-        SL_PCMSAMPLEFORMAT_FIXED_16, SL_PCMSAMPLEFORMAT_FIXED_16,
-        SL_SPEAKER_FRONT_CENTER, SL_BYTEORDER_LITTLEENDIAN};
-
-    SLDataSource audioSrc = {&loc_bufq, &format_pcm};
-
-    // configure audio sink
-    SLDataLocator_OutputMix loc_outmix = {SL_DATALOCATOR_OUTPUTMIX, outputMixObject};
-    SLDataSink audioSnk = {&loc_outmix, NULL};
-
-    // create audio player
-    const SLInterfaceID player_ids[3] = {SL_IID_BUFFERQUEUE, SL_IID_EFFECTSEND,
-            /*SL_IID_MUTESOLO,*/ SL_IID_VOLUME};
-    const SLboolean player_req[3] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE,
-            /*SL_BOOLEAN_TRUE,*/ SL_BOOLEAN_TRUE};
-    result = (*engineEngine)->CreateAudioPlayer(engineEngine, &bqPlayerObject,
-            &audioSrc, &audioSnk, 3, player_ids, player_req);
-    if (_checkError(result, "creating audio player")) return;
-
-    // realize the player
-    result = (*bqPlayerObject)->Realize(bqPlayerObject, SL_BOOLEAN_FALSE);
-    assert(SL_RESULT_SUCCESS == result);
-
-    // get the play interface
-    result = (*bqPlayerObject)->GetInterface(bqPlayerObject, SL_IID_PLAY, &bqPlayerPlay);
-    if (_checkError(result, "realizing audio player")) return;
-
-    // get the buffer queue interface
-    result = (*bqPlayerObject)->GetInterface(bqPlayerObject, SL_IID_BUFFERQUEUE,
-                &mPlayerBufferQueue);
-    if (_checkError(result, "getting buffer queue interface")) return;
-
-    // register callback on the buffer queue
-    result = (*mPlayerBufferQueue)->RegisterCallback(mPlayerBufferQueue, _bqPlayerCallback, NULL);
-    if (_checkError(result, "registering callback on buffer queue")) return;
-
-    // get the effect send interface
-    result = (*bqPlayerObject)->GetInterface(bqPlayerObject, SL_IID_EFFECTSEND,
-                &bqPlayerEffectSend);
-    if (_checkError(result, "getting effect send interface")) return;
-
-    // get the volume interface
-    result = (*bqPlayerObject)->GetInterface(bqPlayerObject, SL_IID_VOLUME, &bqPlayerVolume);
-    if (_checkError(result, "getting volume interface")) return;
-
-    // set the player's state to playing
-    result = (*bqPlayerPlay)->SetPlayState(bqPlayerPlay, SL_PLAYSTATE_PLAYING);
-    if (_checkError(result, "setting play state to playing")) return;
-
-    LOGD("SfxMan: initialization complete.");
-    mInitOk = true;
-}
+SfxMan::SfxMan() : mInitOk(true) {}
 
 bool SfxMan::IsIdle() {
-    return !_bufferActive;
+    // Time-based safety valve — if callback never fires, unlock after deadline.
+    if (_busy.load(std::memory_order_acquire) && _nowMs() > _toneEndMs)
+        _busy.store(false, std::memory_order_release);
+    return !_busy.load(std::memory_order_acquire);
 }
 
-static const char *_parseInt(const char *s, int *result) {
+// ---- PCM synthesis (game thread, pure math, < 1 ms) ----
+
+static const char* _parseInt(const char* s, int* result) {
     *result = 0;
-    while (*s >= '0' && *s <= '9') {
-        *result = *result * 10 + (*s - '0');
-        s++;
-    }
+    while (*s >= '0' && *s <= '9') { *result = *result * 10 + (*s++ - '0'); }
     return s;
 }
 
-static int _synth(int frequency, int duration, float amplitude, short *sample_buf, int samples) {
-    int i;
-
-    for (i = 0; i < samples; i++) {
-        float t = i / (float)SAMPLES_PER_SEC;
+static int _synth(int freq, int /*dur*/, float amp, short* out, int samples) {
+    for (int i = 0; i < samples; i++) {
+        float tv = i / (float)SAMPLES_PER_SEC;
         float v;
-        if (frequency > 0) {
-            v = amplitude * sin(frequency * t * 2 * M_PI) +
-                  (amplitude * 0.1f) * sin(frequency * 2 * t * 2 * M_PI);
+        if (freq > 0) {
+            v = amp * sinf(freq * tv * 2.f * M_PI) +
+                (amp * 0.1f) * sinf(freq * 2 * tv * 2.f * M_PI);
         } else {
-            int r = rand();
-            r = r > 0 ? r : -r;
-            v = amplitude * (-0.5f + (r % 1024) / 512.0f);
+            int r = rand(); r = r > 0 ? r : -r;
+            v = amp * (-0.5f + (r % 1024) / 512.f);
         }
-        int value = (int)(v * 32768.0f);
-        sample_buf[i] = value < -32767 ? -32767 : value > 32767 ? 32767 : value;
-
-        if (i > 0 && sample_buf[i-1] < 0 && sample_buf[i] >= 0) {
-            // start of new wave -- check if we have room for a full period of it
-            int period_samples = (1.0f / frequency) * SAMPLES_PER_SEC;
-            if (i + period_samples >= samples) break;
+        int val = (int)(v * 32768.f);
+        out[i] = (short)(val < -32767 ? -32767 : val > 32767 ? 32767 : val);
+        if (i > 0 && freq > 0 && out[i-1] < 0 && out[i] >= 0) {
+            int period = (int)(SAMPLES_PER_SEC / (float)freq);
+            if (i + period >= samples) { return i; }
         }
     }
-
-    return i;
+    return samples;
 }
 
-static void _taper(short *sample_buf, int samples) {
-    int i;
-    const float TAPER_SAMPLES_FRACTION = 0.1f;
-    int taper_samples = (int)(TAPER_SAMPLES_FRACTION * samples);
-    for (i = 0; i < taper_samples && i < samples; i++) {
-        float factor = i / (float)taper_samples;
-        sample_buf[i] = (short)((float)sample_buf[i] * factor);
-    }
-    for (i = samples - taper_samples; i < samples; i++) {
-        if (i < 0) continue;
-        float factor = (samples - i)/ (float)taper_samples;
-        sample_buf[i] = (short)((float)sample_buf[i] * factor);
-    }
+static void _taper(short* buf, int samples) {
+    int t = (int)(0.1f * samples);
+    for (int i = 0; i < t && i < samples; i++)
+        buf[i] = (short)(buf[i] * (i / (float)t));
+    for (int i = samples - t; i < samples; i++)
+        if (i >= 0) buf[i] = (short)(buf[i] * ((samples - i) / (float)t));
 }
 
-void SfxMan::PlayTone(const char *tone) {
-    if (!mInitOk) {
-        LOGW("SfxMan: not playing sound because initialization failed.");
-        return;
-    }
-    if (_bufferActive) {
-        // can't play -- the buffer is in use
-        LOGW("SfxMan: can't play tone; buffer is active.");
-        return;
+// ---- Background audio task ----
+
+struct AudioCtx { short* pcm; int samples; };
+
+static void _playOnAudioThread(void* vctx) {
+    AudioCtx* ctx = static_cast<AudioCtx*>(vctx);
+
+    // Tear down previous queue synchronously (we own it here, no races).
+    if (_queue) { AudioQueueDispose(_queue, true); _queue = nullptr; }
+
+    AudioStreamBasicDescription fmt = {};
+    _fillFmt(&fmt);
+    AudioQueueRef q;
+    if (AudioQueueNewOutput(&fmt, _queueCallback, nullptr, nullptr, nullptr, 0, &q) != noErr) {
+        _busy.store(false, std::memory_order_release);
+        delete[] ctx->pcm; delete ctx; return;
     }
 
-    // synth the tone
-    int total_samples = 0;
-    int num_samples;
-    int frequency = 100;
-    int duration = 50;
-    int volume_int;
-    float amplitude = DEFAULT_VOLUME;
+    int bytes = ctx->samples * (int)sizeof(short);
+    AudioQueueBufferRef buf;
+    if (AudioQueueAllocateBuffer(q, bytes, &buf) != noErr) {
+        AudioQueueDispose(q, true);
+        _busy.store(false, std::memory_order_release);
+        delete[] ctx->pcm; delete ctx; return;
+    }
+
+    memcpy(buf->mAudioData, ctx->pcm, bytes);
+    buf->mAudioDataByteSize = (UInt32)bytes;
+    _queue = q;
+
+    if (AudioQueueEnqueueBuffer(q, buf, 0, nullptr) != noErr) {
+        AudioQueueDispose(q, true); _queue = nullptr;
+        _busy.store(false, std::memory_order_release);
+        delete[] ctx->pcm; delete ctx; return;
+    }
+    AudioQueueStart(q, nullptr);
+
+    delete[] ctx->pcm;
+    delete ctx;
+}
+
+// ---- PlayTone (called from game/render thread) ----
+
+void SfxMan::PlayTone(const char* tone) {
+    if (!IsIdle()) return;
+
+    // Synthesise entirely on the calling thread — pure arithmetic, well under 1 ms.
+    int total = 0;
+    int freq = 100, dur = 50, vol_int;
+    float amp = DEFAULT_VOLUME;
 
     while (*tone) {
-       switch (*tone) {
-           case 'f':
-               // set frequency
-               tone = _parseInt(tone + 1, &frequency);
-               break;
-           case 'd':
-               // set duration
-               tone = _parseInt(tone + 1, &duration);
-               break;
-           case 'a':
-               // set amplitude.
-               tone = _parseInt(tone + 1, &volume_int);
-               amplitude = volume_int / 100.0f;
-               amplitude = amplitude < 0.0f ? 0.0f : amplitude > 1.0f ? 1.0f : amplitude;
-               break;
-           case '.':
-               // synth
-               num_samples = duration * SAMPLES_PER_SEC / 1000;
-               if (num_samples > (BUF_SAMPLES_MAX - total_samples - 1)) {
-                   num_samples = BUF_SAMPLES_MAX - total_samples - 1;
-               }
-               num_samples = _synth(frequency, duration, amplitude, _sample_buf + total_samples,
-                       num_samples);
-               total_samples += num_samples;
-               tone++;
-               break;
-           default:
-               // ignore and advance to next character
-               tone++;
-       }
+        switch (*tone) {
+            case 'f': tone = _parseInt(tone + 1, &freq);    break;
+            case 'd': tone = _parseInt(tone + 1, &dur);     break;
+            case 'a':
+                tone = _parseInt(tone + 1, &vol_int);
+                amp = vol_int / 100.f;
+                amp = amp < 0.f ? 0.f : amp > 1.f ? 1.f : amp;
+                break;
+            case '.': {
+                int n = dur * SAMPLES_PER_SEC / 1000;
+                if (n > BUF_SAMPLES_MAX - total - 1) n = BUF_SAMPLES_MAX - total - 1;
+                n = _synth(freq, dur, amp, _scratch + total, n);
+                total += n;
+                tone++;
+                break;
+            }
+            default: tone++; break;
+        }
     }
 
-    SLresult result;
-    int total_size = total_samples * sizeof(short);
-    if (total_size <= 0) {
-        LOGW("Tone is empty. Not playing.");
-        return;
-    }
+    if (total <= 0) return;
+    _taper(_scratch, total);
 
-    _taper(_sample_buf, total_samples);
+    // Lock the channel immediately on the game thread so back-to-back calls
+    // don't race with the async setup below.
+    _toneEndMs = _nowMs() + (long long)(total * 1000LL / SAMPLES_PER_SEC) + 300LL;
+    _busy.store(true, std::memory_order_release);
 
-    _bufferActive = true;
-    result = (*mPlayerBufferQueue)->Enqueue(mPlayerBufferQueue, _sample_buf, total_size);
-    if (result != SL_RESULT_SUCCESS) {
-        LOGW("SfxMan: warning: failed to enqueue buffer: %lu", (unsigned long)result);
-        return;
-    }
+    // Copy PCM to a heap buffer owned by the async task, then hand it off.
+    // AudioQueueNewOutput / Dispose / Start all run on the serial audio thread —
+    // the render loop never blocks on audio system calls.
+    AudioCtx* ctx = new AudioCtx();
+    ctx->samples  = total;
+    ctx->pcm      = new short[total];
+    memcpy(ctx->pcm, _scratch, total * sizeof(short));
+
+    dispatch_async_f(getAudioQ(), ctx, _playOnAudioThread);
 }
-

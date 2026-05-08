@@ -29,7 +29,7 @@ void StringToUpper(std::string& str) {
 }
 bool AssetEnumerateFileType(AAssetManager * assetManager,
                         const char* type, std::vector<std::string> & files) {
-
+#ifdef __ANDROID__
   if (!assetManager || !type || !*type)
     return false;
 
@@ -59,22 +59,31 @@ bool AssetEnumerateFileType(AAssetManager * assetManager,
 
   AAssetDir_close(dir);
   return true;
+#else
+  // iOS: asset enumeration uses the bundle; not needed at runtime.
+  return false;
+#endif
 }
 
 bool AssetReadFile(AAssetManager* assetManager,
               std::string& assetName, std::vector<uint8_t>& buf) {
   if (!assetName.length())
     return false;
+#ifdef __ANDROID__
   AAsset* assetDescriptor = AAssetManager_open(assetManager,
                                     assetName.c_str(),
                                     AASSET_MODE_BUFFER);
-  ASSERT(assetDescriptor, "%s does not exist in %s",
-         assetName.c_str(), __FUNCTION__);
+  // ASSERT(assetDescriptor, "%s does not exist in %s", assetName.c_str(), __FUNCTION__);
+  if (!assetDescriptor) return false;
   size_t fileLength = AAsset_getLength(assetDescriptor);
 
   buf.resize(fileLength);
   int64_t readSize = AAsset_read(assetDescriptor, buf.data(), buf.size());
 
   AAsset_close(assetDescriptor);
-  return (readSize == buf.size());
+  return (readSize == (int64_t)buf.size());
+#else
+  // iOS: caller uses readTextureFile() with bundle path directly.
+  return false;
+#endif
 }

@@ -44,7 +44,7 @@
 #define OBS_BONUS_SIZE (0.3f * OBS_CELL_SIZE)
 
 // at what distance (in tunnel sections) from the start position do obstacles start to appear?
-#define OBS_START_SECTION 4
+#define OBS_START_SECTION 6
 
 // once a tunnel section is this far behind the player, delete it
 #define SHIFT_THRESH 20.0f
@@ -117,12 +117,19 @@
 #define ROLL_SPEEDS { 0.0f, 0.1f, 0.0f, -0.1f, 0.0f, 0.2f, 0.0f, -0.2f }
 
 // recipes for synthesizing our very advanced sound effects:
-#define TONE_LEVEL_UP "d100 f500. f600. f700. f600. f700. f800."
-#define TONE_CRASHED "a100 d15 f0. a40 d75 f0. a30 f0. a20 f0. a70 d100 f400. a0. a70. a0. a70."
-#define TONE_GAME_OVER "a100 d15 f0. a40 d75 f0. a30 f0. a20 f0. a70 d200 f400. a0. f350 a70. " \
-        "a0. f300 a70. a0. f250 a70. a0. f200 a70."
-#define TONE_AMBIENT_0 "d100 f300."
-#define TONE_AMBIENT_1 "d100 f200."
+// Two-note descending swoosh played as the player passes each tunnel sub-section
+#define TONE_AMBIENT_0 "d45 f500. d55 f320."
+#define TONE_AMBIENT_1 "d45 f420. d55 f260."
+// Rising fanfare: 5 ascending notes
+#define TONE_LEVEL_UP "d55 f500. d55 f620. d55 f740. d80 f930. d120 f1240."
+// Sharp noise burst + 3 descending tones (impact → pain slide)
+#define TONE_CRASHED \
+    "a100 d15 f0. a80 d15 f0. a60 d15 f0. " \
+    "a100 d100 f220. a70 d85 f170. a35 d85 f130."
+// Noise burst then long descending wail to low drone
+#define TONE_GAME_OVER \
+    "a100 d20 f0. a80 d20 f0. a60 d20 f0. " \
+    "a100 d260 f280. a80 d260 f220. a60 d260 f170. a40 d310 f130. a20 d360 f90."
 
 // player's acceleration, in units per second squared
 #define PLAYER_ACCELERATION_NEGATIVE_SPEED 10.0f  // used when speed is negative

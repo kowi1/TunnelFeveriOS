@@ -49,12 +49,7 @@ typedef void (^FIRAuthCredentialCallback)(FIRAuthCredential *_Nullable credentia
                                                        NSError *_Nullable error))completion
     API_UNAVAILABLE(macos,
                     tvos,
-                    watchos
-#if defined(TARGET_OS_XR)
-                    ,
-                    xros
-#endif  // defined(TARGET_OS_XR)
-    );
+                    watchos);
 
 @end
 

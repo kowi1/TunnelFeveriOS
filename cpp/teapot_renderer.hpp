@@ -66,6 +66,9 @@ struct SHADER_PARAMS {
 
   GLuint matrix_projection_;
   GLuint matrix_view_;
+
+  GLint  uniform_time_;   // uTime  — cloth wave phase
+  GLint  uniform_speed_;  // uSpeed — cloth wave amplitude
 };
 
 struct TEAPOT_MATERIALS {
@@ -89,6 +92,9 @@ protected:
   ndk_helper::Mat4 mat_view_;
   ndk_helper::Mat4 mat_model_;
 
+  float mShaderTime_;   // fed to uTime  in the cloth-wave vertex shader
+  float mShaderSpeed_;  // fed to uSpeed in the cloth-wave vertex shader
+
   //ndk_helper::TapCamera* camera_;
   void Init();
  public:
@@ -98,6 +104,9 @@ protected:
   virtual GLint GetTextureType(void) = 0;
   virtual void Render();
   void Update(float dTime);
+  void SetShaderDynamics(float time, float normalizedSpeed) {
+      mShaderTime_ = time; mShaderSpeed_ = normalizedSpeed;
+  }
  // bool Bind(ndk_helper::TapCamera* camera);
   virtual void Unload();
   void UpdateViewport();

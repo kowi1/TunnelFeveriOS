@@ -27,7 +27,10 @@
 #include "HelloWorld.hpp"
 
 #include "btBulletDynamicsCommon.h"
+#include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include <stdio.h>
+#include <unordered_map>
+#include <vector>
 
 class OurShader;
 
@@ -299,35 +302,92 @@ class PlayScene : public Scene {
         void UpdateProjectionMatrix();
     private:
     struct android_app* mApp;
-        float animPos=0.0f;
-        float animScale=0.0f;
-        int k=1;
+        float animPos=20.5f;   // fixed final offset — no fly-in glitch
+        float animScale=0.1f;  // fixed final scale
+        int k=2001;            // already past animation range
         float Pos_step=0.05;
         float Scale_step=0.05;
-    
-    
-    ///-----includes_end-----
 
-        int ibullet;
-        ///-----initialization_start-----
+        // ----- Bonus screen flash -----
+        float mBonusFlashTime;    // seconds remaining on golden flash overlay (0 = off)
 
-        ///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
-        btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+        // ----- Crash VFX -----
+        float mCrashShakeTime;    // seconds remaining of high-freq camera shake after crash
+        float mCrashFlashTime;    // seconds remaining of red screen flash after crash
 
-        ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-        btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+        // ----- Spring camera -----
+        glm::vec3 mCamPos;        // spring-damped camera world position
+        float     mCamBankAngle;  // lateral banking angle (radians)
 
-        ///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-        btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
+        // ----- CPU Verlet cloth cape (soft body) -----
+        static const int CAPE_COLS = 5;
+        static const int CAPE_ROWS = 8;
+        int mClothIndexCount;
 
-        ///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-        btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+        struct ClothNode {
+            glm::vec3 pos;
+            glm::vec3 prevPos;
+            bool      fixed;
+        };
+        struct ClothSpring {
+            int   a, b;
+            float restLen;
+        };
 
-        btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-        btAlignedObjectArray<btCollisionShape*> collisionShapes;
-        
-    
-    
+        ClothNode mClothNodes[CAPE_COLS * CAPE_ROWS];
+        std::vector<ClothSpring> mClothSprings;
+        GLuint mClothVbo;   // dynamic VBO: vec4 (xyz=pos, w=rowNorm) per node
+        GLuint mClothIbo;   // static index buffer
+        GLuint mClothProg;  // compiled cloth shader
+        GLint  mClothMvpLoc;
+        GLint  mClothPosLoc;
+
+        void InitCloth();
+        void UpdateCloth(glm::vec3 shipPos, float deltaT);
+        void RenderCloth();
+
+        // ----- Engine glow -----
+        GLuint mGlowProg;
+        GLint  mGlowMvpLoc;
+        GLint  mGlowPosLoc;
+        GLuint mGlowVbo;   // dynamic VBO: vec4 (xyz=pos, w=alpha) per vertex
+
+        void InitGlow();
+        void RenderGlow(glm::vec3 shipPos);
+
+
+        // ----- Bullet Physics -----
+        // Single world; no gravity needed — the tunnel moves, not the player.
+        btDefaultCollisionConfiguration*     mBtConfig;
+        btCollisionDispatcher*               mBtDispatcher;
+        btDbvtBroadphase*                    mBtBroadphase;
+        btSequentialImpulseConstraintSolver* mBtSolver;
+        btDiscreteDynamicsWorld*             mBtWorld;
+        btGhostPairCallback*                 mGhostCallback;
+
+        // Player represented as a kinematic ghost (no dynamics response).
+        btPairCachingGhostObject*            mPlayerGhost;
+        btSphereShape*                       mPlayerShape;
+
+        // Per-section obstacle/bonus rigid bodies, keyed by section index.
+        struct SectionPhysics {
+            std::vector<btRigidBody*>       bodies;
+            std::vector<btCollisionShape*>  shapes;
+            int bodyIdx[OBS_GRID_SIZE][OBS_GRID_SIZE];  // body index per cell (-1=empty)
+            int bonusBodyIdx;                            // -1 if no bonus
+        };
+        std::unordered_map<int, SectionPhysics> mSectionPhysics;
+
+        // Four infinite-plane static bodies forming the tunnel cross-section boundary
+        btRigidBody*      mWallBodies[4];
+        btCollisionShape* mWallShapes[4];
+
+        void InitBulletWorld();
+        void CleanupBulletWorld();
+        void AddBulletBodiesForSection(int section, Obstacle* o);
+        void RemoveBulletBodiesForSection(int section);
+        void UpdateObstacleDrift(float deltaT);
+
 };
 
 #endif

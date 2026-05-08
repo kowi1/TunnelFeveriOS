@@ -7,6 +7,7 @@
 #if defined __cplusplus
 #include "Test.hpp"
 #include "math.h"
+#include <cstdlib>
 
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>

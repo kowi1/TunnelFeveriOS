@@ -130,8 +130,8 @@ void TexturedTeapotRender::Init(AAssetManager* assetManager) {
     if(type == GL_TEXTURE_2D) {
         textures[0] = std::string("front.tga");
     }
-    AAssetManager* assMgr;
-    texObj_ = TeapotTexture::Create(type, textures, assMgr);
+    // AAssetManager* assMgr;  // Android only — iOS reads from bundle path directly
+    texObj_ = TeapotTexture::Create(type, textures, nullptr);
     assert(texObj_);
 
     std::vector<std::string> samplers;

@@ -34,7 +34,7 @@
 //--------------------------------------------------------------------------------
 // Ctor
 //--------------------------------------------------------------------------------
-TeapotRenderer::TeapotRenderer() {
+TeapotRenderer::TeapotRenderer() : mShaderTime_(0.0f), mShaderSpeed_(0.0f) {
 }
 
 //--------------------------------------------------------------------------------
@@ -210,6 +210,12 @@ void TeapotRenderer::Render() {
   glUniformMatrix4fv(shader_param_.matrix_view_, 1, GL_FALSE, mat_view_.Ptr());
   glUniform3f(shader_param_.light0_, 100.f, -200.f, -600.f);
 
+  // Cloth wave uniforms (optional — only present in Cubemap.vsh)
+  if (shader_param_.uniform_time_ >= 0)
+      glUniform1f(shader_param_.uniform_time_,  mShaderTime_);
+  if (shader_param_.uniform_speed_ >= 0)
+      glUniform1f(shader_param_.uniform_speed_, mShaderSpeed_);
+
   glDrawElements(GL_TRIANGLES, num_indices_, GL_UNSIGNED_SHORT,
                 BUFFER_OFFSET(0));
 
@@ -277,7 +283,9 @@ bool TeapotRenderer::LoadShaders(SHADER_PARAMS* params, const char* strVsh,
 
   // Get uniform locations
   params->matrix_projection_ = glGetUniformLocation(program, "uPMatrix");
-  params->matrix_view_ = glGetUniformLocation(program, "uMVMatrix");
+  params->matrix_view_        = glGetUniformLocation(program, "uMVMatrix");
+  params->uniform_time_       = glGetUniformLocation(program, "uTime");
+  params->uniform_speed_      = glGetUniformLocation(program, "uSpeed");
 
   params->light0_ = glGetUniformLocation(program, "vLight0");
   params->material_diffuse_ = glGetUniformLocation(program, "vMaterialDiffuse");
