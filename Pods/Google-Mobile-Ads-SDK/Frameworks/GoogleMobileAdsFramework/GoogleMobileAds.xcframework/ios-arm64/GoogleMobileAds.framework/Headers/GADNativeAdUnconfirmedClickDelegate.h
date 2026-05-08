@@ -11,7 +11,6 @@
 @class GADNativeAd;
 
 /// Delegate methods for handling native ad unconfirmed clicks.
-NS_SWIFT_NAME(NativeAdUnconfirmedClickDelegate)
 @protocol GADNativeAdUnconfirmedClickDelegate <NSObject>
 
 /// Tells the delegate that native ad receives an unconfirmed click on view with asset ID. You
@@ -20,11 +19,11 @@ NS_SWIFT_NAME(NativeAdUnconfirmedClickDelegate)
 /// a view that will confirm the click. Only called for Google ads and is not supported for mediated
 /// ads.
 - (void)nativeAd:(nonnull GADNativeAd *)nativeAd
-    didReceiveUnconfirmedClickOnAssetID:(nonnull GADNativeAssetIdentifier)assetID NS_SWIFT_UI_ACTOR;
+    didReceiveUnconfirmedClickOnAssetID:(nonnull GADNativeAssetIdentifier)assetID;
 
 /// Tells the delegate that the unconfirmed click is cancelled. You should revert the user interface
 /// change once this message is received. Only called for Google ads and is not supported for
 /// mediated ads.
-- (void)nativeAdDidCancelUnconfirmedClick:(nonnull GADNativeAd *)nativeAd NS_SWIFT_UI_ACTOR;
+- (void)nativeAdDidCancelUnconfirmedClick:(nonnull GADNativeAd *)nativeAd;
 
 @end
