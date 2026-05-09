@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var orientation = UIDevice.current.orientation
     
     
-    let mtestWrapper = testWrapper()
+    let mtestWrapper = GameBridge()
     @State var isButtonHidden:Bool = true
         let button = InterstialVC()
  

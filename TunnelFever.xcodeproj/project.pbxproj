@@ -11,7 +11,6 @@
 		8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402C0352A250B7100E5D2AA /* OpenGLView.swift */; };
 		8402C0392A250BEF00E5D2AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8402C0382A250BEF00E5D2AA /* OpenGLES.framework */; };
 		AA01B2C3D4E5F6A7B8C9D0E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F6A7B8C9D0E0 /* AudioToolbox.framework */; };
-		843FFA37299BEF9D00813284 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8A299956F300B05CA9 /* Test.cpp */; };
 		844AB4772A4F11F500D0824D /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844AB4762A4F11F500D0824D /* UIDevice.swift */; };
 		8452C00C29869F500040E1D6 /* TunnelFeverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00B29869F500040E1D6 /* TunnelFeverApp.swift */; };
 		8452C00E29869F500040E1D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C00D29869F500040E1D6 /* ContentView.swift */; };
@@ -100,7 +99,7 @@
 		849964802A73BBC500379915 /* InterstitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499647F2A73BBC500379915 /* InterstitialView.swift */; };
 		849C9C922A6ADF51009D133A /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C9C912A6ADF51009D133A /* PurchaseView.swift */; };
 		84A9AAEF2A5272DE00FB2F8A /* TouchLocatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */; };
-		84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* test-wrapper.mm */; };
+		84C7BF90299957B600B05CA9 /* GameBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84C7BF8F299957B600B05CA9 /* GameBridge.mm */; };
 		84FC56252A4FDF5500FFBA4D /* Cubemap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */; };
 		84FC56262A4FDF5500FFBA4D /* Cubemap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56202A4FDF5400FFBA4D /* Cubemap.vsh */; };
 		84FC56272A4FDF5500FFBA4D /* 2DTexture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 84FC56212A4FDF5400FFBA4D /* 2DTexture.vsh */; };
@@ -360,7 +359,7 @@
 /* Begin PBXFileReference section */
 		25E3F6B67D1AF667EBEE747C /* Pods-TunnelFever.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TunnelFever.release.xcconfig"; path = "Target Support Files/Pods-TunnelFever/Pods-TunnelFever.release.xcconfig"; sourceTree = "<group>"; };
 		6AF860D32DA936F60AB80DC7 /* Pods-TunnelFever.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TunnelFever.debug.xcconfig"; path = "Target Support Files/Pods-TunnelFever/Pods-TunnelFever.debug.xcconfig"; sourceTree = "<group>"; };
-		840257652A71738B0067FE7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		840257652A71738B0067FE7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8402C0352A250B7100E5D2AA /* OpenGLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		8402C0382A250BEF00E5D2AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		AA01B2C3D4E5F6A7B8C9D0E0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -373,7 +372,7 @@
 		8452C01429869F510040E1D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845325E32AB8121C0022616E /* TunnelFever.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelFever.entitlements; sourceTree = "<group>"; };
 		84872FEB2A497E29001781A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		848EF4402A719D0400C55C86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "cpp/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		848EF4402A719D0400C55C86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TunnelFever/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		849962232A73081200379915 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		849963732A732A8600379915 /* firebase_analytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = firebase_analytics.xcframework; sourceTree = "<group>"; };
 		849963742A732A8600379915 /* firebase_storage.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = firebase_storage.xcframework; sourceTree = "<group>"; };
@@ -458,10 +457,8 @@
 		849C9C912A6ADF51009D133A /* PurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
 		84A9AAEE2A5272DE00FB2F8A /* TouchLocatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchLocatingView.swift; sourceTree = "<group>"; };
 		84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TunnelFever-Bridging-Header.h"; sourceTree = "<group>"; };
-		84C7BF8A299956F300B05CA9 /* Test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
-		84C7BF8B299956F300B05CA9 /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
-		84C7BF8E2999578F00B05CA9 /* test-wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-wrapper.h"; sourceTree = "<group>"; };
-		84C7BF8F299957B600B05CA9 /* test-wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "test-wrapper.mm"; sourceTree = "<group>"; };
+		84C7BF8E2999578F00B05CA9 /* GameBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GameBridge.h"; sourceTree = "<group>"; };
+		84C7BF8F299957B600B05CA9 /* GameBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "GameBridge.mm"; sourceTree = "<group>"; };
 		84D0E10E2A2FE50000D23803 /* Project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Project.xcodeproj; path = ../cpp/Project.xcodeproj; sourceTree = "<group>"; };
 		84DAEF3B299CDB80000BCC60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84FC561F2A4FDF5400FFBA4D /* Cubemap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Cubemap.fsh; path = assets/Shaders/Cubemap.fsh; sourceTree = "<group>"; };
@@ -602,13 +599,11 @@
 				84FC56232A4FDF5500FFBA4D /* ShaderPlain.fsh */,
 				84FC56242A4FDF5500FFBA4D /* VS_ShaderPlain.vsh */,
 				849984842A3CE85D00091843 /* native_engine.hpp */,
-				84C7BF8F299957B600B05CA9 /* test-wrapper.mm */,
+				84C7BF8F299957B600B05CA9 /* GameBridge.mm */,
 				84FE8B892A6FEF3D0053C010 /* TunnelFeverConfig.storekit */,
 				84FE8B942A6FF3D30053C010 /* StoreKitTestCertificate.cer */,
-				84C7BF8E2999578F00B05CA9 /* test-wrapper.h */,
+				84C7BF8E2999578F00B05CA9 /* GameBridge.h */,
 				848EF4402A719D0400C55C86 /* GoogleService-Info.plist */,
-				84C7BF8A299956F300B05CA9 /* Test.cpp */,
-				84C7BF8B299956F300B05CA9 /* Test.hpp */,
 				8452C00A29869F500040E1D6 /* TunnelFever */,
 				8452C00929869F500040E1D6 /* Products */,
 				84C7BF89299956F200B05CA9 /* TunnelFever-Bridging-Header.h */,
@@ -1261,10 +1256,9 @@
 			files = (
 				84872FEC2A497E29001781A3 /* AppDelegate.swift in Sources */,
 				84A9AAEF2A5272DE00FB2F8A /* TouchLocatingView.swift in Sources */,
-				843FFA37299BEF9D00813284 /* Test.cpp in Sources */,
 				849964802A73BBC500379915 /* InterstitialView.swift in Sources */,
 				849C9C922A6ADF51009D133A /* PurchaseView.swift in Sources */,
-				84C7BF90299957B600B05CA9 /* test-wrapper.mm in Sources */,
+				84C7BF90299957B600B05CA9 /* GameBridge.mm in Sources */,
 				849964392A73927A00379915 /* AdView.swift in Sources */,
 				8452C00E29869F500040E1D6 /* ContentView.swift in Sources */,
 				8402C0362A250B7100E5D2AA /* OpenGLView.swift in Sources */,
@@ -1437,6 +1431,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/cpp",
 					"$(PROJECT_DIR)/cpp/bullet/src",
+					"$(PROJECT_DIR)/TunnelFeverCPP/stubs",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1491,6 +1486,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/cpp",
 					"$(PROJECT_DIR)/cpp/bullet/src",
+					"$(PROJECT_DIR)/TunnelFeverCPP/stubs",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

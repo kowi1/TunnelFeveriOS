@@ -13,7 +13,7 @@ struct OpenGLView: UIViewRepresentable {
 
     @Binding var gestureLocation: CGPoint
     @Binding var isButtonHidden:Bool
-    let mtestWrapper: testWrapper
+    let mtestWrapper: GameBridge
     
     func makeUIView(context: Context) -> OpenGLUIView {
         if(UIScreen.main.bounds.height<UIScreen.main.bounds.width){
@@ -50,7 +50,7 @@ class OpenGLUIView: UIView{
     private var DocumentDataPath: String?
     private var con: PurchaseView
     
-    private var _test:testWrapper
+    private var _test:GameBridge
    
 
     @Binding var gestureLocation: CGPoint
@@ -62,7 +62,7 @@ class OpenGLUIView: UIView{
     
    
     
-    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:testWrapper,isButtonHidden:Binding<Bool>){
+    init(frame: CGRect,gestureLocation: Binding<CGPoint>,mtestWrapper:GameBridge,isButtonHidden:Binding<Bool>){
          self._gestureLocation = gestureLocation
         self._test=mtestWrapper
         self.con = PurchaseView(mtestWrapper:mtestWrapper)
@@ -97,7 +97,6 @@ class OpenGLUIView: UIView{
         if setupOpenGLContext() {
             setupRenderBuffer()
             setupFrameBuffer()
-            _test.setupGraphics()
             startRenderLoop()
         }
         //if(UIScreen.main.bounds.height>UIScreen.main.bounds.width){

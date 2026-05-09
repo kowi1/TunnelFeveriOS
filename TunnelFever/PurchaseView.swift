@@ -16,10 +16,10 @@ class PurchaseView:NSObject,SKProductsRequestDelegate, SKPaymentTransactionObser
     var product_id:String?;
     var appusername:String?;
     
-   private var _test:testWrapper
-    
+   private var _test:GameBridge
+
     @objc(initPurchaseViewWithWrapper:)
-    init(mtestWrapper:testWrapper){
+    init(mtestWrapper:GameBridge){
         
        self.product_id = "life_heart_572023";
        self.appusername = "dolukowi@gmail.com";
