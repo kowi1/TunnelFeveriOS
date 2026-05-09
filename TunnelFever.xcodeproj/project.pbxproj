@@ -1271,7 +1271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n# Separate build dir per platform so simulator and device libs don't collide\nBUILD_DIR=\"$PROJECT_DIR/TunnelFeverCPP/build-$PLATFORM_NAME\"\n\n# Configure with Ninja Multi-Config using Xcode's SDK and architectures\nif [ ! -f \"$BUILD_DIR/CMakeCache.txt\" ]; then\n  /opt/homebrew/bin/cmake -G \"Ninja Multi-Config\" \\\n    -DCMAKE_OSX_SYSROOT=\"$SDKROOT\" \\\n    -DCMAKE_OSX_ARCHITECTURES=\"$ARCHS\" \\\n    -B \"$BUILD_DIR\" \\\n    -S \"$PROJECT_DIR/TunnelFeverCPP\"\nfi\n\n# Build required targets\n/opt/homebrew/bin/cmake --build \"$BUILD_DIR\" \\\n  --target TunnelFeverCPP BulletDynamics BulletCollision LinearMath \\\n  --config \"$CONFIGURATION\"\n";
+			shellScript = "set -e\n\n# Xcode build phases have a restricted PATH; add Homebrew explicitly\nexport PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nCMAKE=/opt/homebrew/bin/cmake\nNINJA=/opt/homebrew/bin/ninja\n\n# Separate build dir per platform so simulator and device libs don't collide\nBUILD_DIR=\"$PROJECT_DIR/TunnelFeverCPP/build-$PLATFORM_NAME\"\n\n# Configure with Ninja Multi-Config using Xcode's active SDK + architectures\nif [ ! -f \"$BUILD_DIR/CMakeCache.txt\" ]; then\n  \"$CMAKE\" -G \"Ninja Multi-Config\" \\\n    -DCMAKE_MAKE_PROGRAM=\"$NINJA\" \\\n    -DCMAKE_OSX_SYSROOT=\"$SDKROOT\" \\\n    -DCMAKE_OSX_ARCHITECTURES=\"$ARCHS\" \\\n    -B \"$BUILD_DIR\" \\\n    -S \"$PROJECT_DIR/TunnelFeverCPP\"\nfi\n\n# Build required targets\n\"$CMAKE\" --build \"$BUILD_DIR\" \\\n  --target TunnelFeverCPP BulletDynamics BulletCollision LinearMath \\\n  --config \"$CONFIGURATION\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
