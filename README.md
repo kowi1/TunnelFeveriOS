@@ -9,7 +9,7 @@ Before opening the project in Xcode, run the one-time setup script to generate t
 ```
 
 This requires:
-- **CMake** — `brew install cmake`
+- **CMake + Ninja** — `brew install cmake ninja`
 - **Firebase C++ SDK** at `~/firebase_cpp_sdk` (or update `FIREBASE_INCLUDE_DIR` in `TunnelFeverCPP/CMakeLists.txt`)
 
 Then open `TunnelFever.xcworkspace` in Xcode (not the `.xcodeproj`).
