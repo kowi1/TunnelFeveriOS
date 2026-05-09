@@ -888,7 +888,6 @@
 			buildConfigurationList = 8452C01729869F510040E1D6 /* Build configuration list for PBXNativeTarget "TunnelFever" */;
 			buildPhases = (
 				2783C77B503F40160DBD6546 /* [CP] Check Pods Manifest.lock */,
-				A1B2C3D4E5F6A1B2C3D4E5F6 /* Build TunnelFeverCPP */,
 				8452C00429869F500040E1D6 /* Sources */,
 				8452C00529869F500040E1D6 /* Frameworks */,
 				8452C00629869F500040E1D6 /* Resources */,
@@ -1253,27 +1252,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TunnelFever/Pods-TunnelFever-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A1B2C3D4E5F6A1B2C3D4E5F6 /* Build TunnelFeverCPP */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(PROJECT_DIR)/TunnelFeverCPP/CMakeLists.txt",
-			);
-			name = "Build TunnelFeverCPP";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/$(CONFIGURATION)/libTunnelFeverCPP.a",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\n# Xcode build phases have a restricted PATH; add Homebrew explicitly\nexport PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nCMAKE=/opt/homebrew/bin/cmake\nNINJA=/opt/homebrew/bin/ninja\n\n# Separate build dir per platform so simulator and device libs don't collide\nBUILD_DIR=\"$PROJECT_DIR/TunnelFeverCPP/build-$PLATFORM_NAME\"\n\n# Configure with Ninja Multi-Config using Xcode's active SDK + architectures\nif [ ! -f \"$BUILD_DIR/CMakeCache.txt\" ]; then\n  \"$CMAKE\" -G \"Ninja Multi-Config\" \\\n    -DCMAKE_MAKE_PROGRAM=\"$NINJA\" \\\n    -DCMAKE_OSX_SYSROOT=\"$SDKROOT\" \\\n    -DCMAKE_OSX_ARCHITECTURES=\"$ARCHS\" \\\n    -B \"$BUILD_DIR\" \\\n    -S \"$PROJECT_DIR/TunnelFeverCPP\"\nfi\n\n# Build required targets\n\"$CMAKE\" --build \"$BUILD_DIR\" \\\n  --target TunnelFeverCPP BulletDynamics BulletCollision LinearMath \\\n  --config \"$CONFIGURATION\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1463,10 +1441,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/$(CONFIGURATION)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/BulletBuild/BulletDynamics/$(CONFIGURATION)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/BulletBuild/BulletCollision/$(CONFIGURATION)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/BulletBuild/LinearMath/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/BulletBuild/BulletDynamics/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/BulletBuild/BulletCollision/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/BulletBuild/LinearMath/$(CONFIGURATION)",
 				);
 				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1517,10 +1495,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/$(CONFIGURATION)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/BulletBuild/BulletDynamics/$(CONFIGURATION)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/BulletBuild/BulletCollision/$(CONFIGURATION)",
-					"$(PROJECT_DIR)/TunnelFeverCPP/build-$(PLATFORM_NAME)/BulletBuild/LinearMath/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/BulletBuild/BulletDynamics/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/BulletBuild/BulletCollision/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/TunnelFeverCPP/build/BulletBuild/LinearMath/$(CONFIGURATION)",
 				);
 				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = "$(inherited)";

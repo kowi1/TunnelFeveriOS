@@ -1,3 +1,21 @@
+# TunnelFever iOS
+
+## Getting Started
+
+Before opening the project in Xcode, run the one-time setup script to generate the C++ engine Xcode project:
+
+```sh
+./setup.sh
+```
+
+This requires:
+- **CMake** — `brew install cmake`
+- **Firebase C++ SDK** at `~/firebase_cpp_sdk` (or update `FIREBASE_INCLUDE_DIR` in `TunnelFeverCPP/CMakeLists.txt`)
+
+Then open `TunnelFever.xcworkspace` in Xcode (not the `.xcodeproj`).
+
+---
+
 A CMake toolchain file for iOS (+ Catalyst), watchOS, tvOS and macOS development with full simulator support and toggleable options!
 
 ### NEW!
