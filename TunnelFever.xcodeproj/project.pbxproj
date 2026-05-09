@@ -888,6 +888,7 @@
 			buildConfigurationList = 8452C01729869F510040E1D6 /* Build configuration list for PBXNativeTarget "TunnelFever" */;
 			buildPhases = (
 				2783C77B503F40160DBD6546 /* [CP] Check Pods Manifest.lock */,
+				A1B2C3D4E5F6A1B2C3D4E5F6 /* Build TunnelFeverCPP */,
 				8452C00429869F500040E1D6 /* Sources */,
 				8452C00529869F500040E1D6 /* Frameworks */,
 				8452C00629869F500040E1D6 /* Resources */,
@@ -1250,6 +1251,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TunnelFever/Pods-TunnelFever-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1B2C3D4E5F6A1B2C3D4E5F6 /* Build TunnelFeverCPP */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/TunnelFeverCPP/CMakeLists.txt",
+			);
+			name = "Build TunnelFeverCPP";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(PROJECT_DIR)/TunnelFeverCPP/build/$(CONFIGURATION)-$(PLATFORM_NAME)/libTunnelFeverCPP.a",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nBUILD_DIR=\"$PROJECT_DIR/TunnelFeverCPP/build\"\n\n# Generate Xcode project if it doesn't exist yet\nif [ ! -f \"$BUILD_DIR/TunnelFeverCPP.xcodeproj/project.pbxproj\" ]; then\n  cmake -B \"$BUILD_DIR\" -S \"$PROJECT_DIR/TunnelFeverCPP\" -G Xcode\nfi\n\n# Build the static library for the active configuration and platform\nxcodebuild \\\n  -project \"$BUILD_DIR/TunnelFeverCPP.xcodeproj\" \\\n  -target TunnelFeverCPP \\\n  -configuration \"$CONFIGURATION\" \\\n  -sdk \"$PLATFORM_NAME\" \\\n  ONLY_ACTIVE_ARCH=YES \\\n  BUILD_DIR=\"$BUILD_DIR\" \\\n  BUILD_ROOT=\"$BUILD_DIR\" \\\n  SYMROOT=\"$BUILD_DIR\" \\\n  OBJROOT=\"$BUILD_DIR/obj\" \\\n  build 2>&1 | grep -E '^(Build|error:|warning:|note:)' || true\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
