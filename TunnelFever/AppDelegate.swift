@@ -8,10 +8,53 @@
 import Foundation
 import UIKit
 import SwiftUI
+import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
       var window: UIWindow?
      var orientationLock = UIInterfaceOrientationMask.landscape
+
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        setupAudioSession()
+        return true
+    }
+
+    private func setupAudioSession() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            // .ambient: respects the silent switch and mixes with background
+            // music (e.g. user's own playlist).  Use .playback if you want
+            // sounds to ignore the silent switch.
+            try session.setCategory(.ambient, mode: .default)
+            try session.setActive(true)
+        } catch {
+            // Non-fatal — game still works without audio
+        }
+
+        // Resume the session after an interruption (phone call, Siri, etc.)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleAudioInterruption(_:)),
+            name: AVAudioSession.interruptionNotification,
+            object: session
+        )
+    }
+
+    @objc private func handleAudioInterruption(_ notification: Notification) {
+        guard
+            let info = notification.userInfo,
+            let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSession.InterruptionType(rawValue: typeValue)
+        else { return }
+
+        if type == .ended {
+            let options = info[AVAudioSessionInterruptionOptionKey] as? UInt ?? 0
+            if AVAudioSession.InterruptionOptions(rawValue: options).contains(.shouldResume) {
+                try? AVAudioSession.sharedInstance().setActive(true)
+            }
+        }
+    }
      
    
     

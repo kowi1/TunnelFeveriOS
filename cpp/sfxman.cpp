@@ -11,17 +11,29 @@
 #define BUF_SAMPLES_MAX  (SAMPLES_PER_SEC * 5)
 #define DEFAULT_VOLUME   1.0f
 
-// ---- State (all AudioQueue handles touched only on _audioQ serial thread) ----
+// ---- State (AudioQueue handles touched only on _audioQ serial thread) ----
 
-static SfxMan*         _instance  = nullptr;
-static short           _scratch[BUF_SAMPLES_MAX]; // synthesis buffer, game thread only
+static SfxMan*           _instance   = nullptr;
+static short             _scratch[BUF_SAMPLES_MAX];
 static std::atomic<bool> _busy{false};
-static long long       _toneEndMs = 0;
-static AudioQueueRef   _queue     = nullptr;       // owned by _audioQ thread
+static long long         _toneEndMs  = 0;
+static AudioQueueRef     _queue      = nullptr;
 
-// Serial GCD queue — every AudioQueue call goes here, never on the render thread.
-// Lazily created on first PlayTone call so there is no static-init ordering issue.
-static dispatch_queue_t _audioQ = nullptr;
+// Monotonically-increasing generation counter.  Bumped each time a new tone
+// starts.  The AudioQueue callback receives its generation as context so it
+// can tell whether it belongs to the *current* tone before clearing _busy.
+//
+// Why this matters: AudioQueueDispose(q, inImmediate=true) returns every
+// enqueued buffer to its callback synchronously.  If the safety-timeout
+// fires, a new tone is started, and then _playOnAudioThread disposes the
+// old queue, the old callback fires on the audioQ thread — but now _busy
+// already belongs to the new tone.  Without the generation check that old
+// callback would clear _busy mid-play, letting a third tone start and
+// immediately clobber the second via another immediate dispose → glitch.
+static std::atomic<uint32_t> _generation{0};
+
+// Serial GCD queue — every AudioQueue call goes here, never on render thread.
+static dispatch_queue_t _audioQ     = nullptr;
 static dispatch_once_t  _audioQOnce;
 
 static dispatch_queue_t getAudioQ() {
@@ -38,9 +50,13 @@ static long long _nowMs() {
     return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
 }
 
-// Fires on AudioQueue's internal thread after the buffer has been consumed.
-static void _queueCallback(void*, AudioQueueRef, AudioQueueBufferRef) {
-    _busy.store(false, std::memory_order_release);
+// Fires on AudioQueue's own internal thread after the buffer is consumed.
+// ctx carries the generation this queue was created with.
+static void _queueCallback(void* ctx, AudioQueueRef, AudioQueueBufferRef) {
+    uintptr_t callbackGen = reinterpret_cast<uintptr_t>(ctx);
+    // Only clear _busy if no newer tone has since taken ownership.
+    if ((uint32_t)callbackGen == _generation.load(std::memory_order_acquire))
+        _busy.store(false, std::memory_order_release);
 }
 
 static void _fillFmt(AudioStreamBasicDescription* f) {
@@ -64,7 +80,6 @@ SfxMan* SfxMan::GetInstance() {
 SfxMan::SfxMan() : mInitOk(true) {}
 
 bool SfxMan::IsIdle() {
-    // Time-based safety valve — if callback never fires, unlock after deadline.
     if (_busy.load(std::memory_order_acquire) && _nowMs() > _toneEndMs)
         _busy.store(false, std::memory_order_release);
     return !_busy.load(std::memory_order_acquire);
@@ -109,18 +124,22 @@ static void _taper(short* buf, int samples) {
 
 // ---- Background audio task ----
 
-struct AudioCtx { short* pcm; int samples; };
+struct AudioCtx { short* pcm; int samples; uint32_t gen; };
 
 static void _playOnAudioThread(void* vctx) {
     AudioCtx* ctx = static_cast<AudioCtx*>(vctx);
 
-    // Tear down previous queue synchronously (we own it here, no races).
+    // Tear down the previous queue (we own _queue exclusively on this thread).
+    // inImmediate=true returns any enqueued buffers to their callback; the
+    // generation check in _queueCallback prevents those stale callbacks from
+    // touching _busy for the new tone.
     if (_queue) { AudioQueueDispose(_queue, true); _queue = nullptr; }
 
     AudioStreamBasicDescription fmt = {};
     _fillFmt(&fmt);
     AudioQueueRef q;
-    if (AudioQueueNewOutput(&fmt, _queueCallback, nullptr, nullptr, nullptr, 0, &q) != noErr) {
+    void* cbCtx = reinterpret_cast<void*>((uintptr_t)ctx->gen);
+    if (AudioQueueNewOutput(&fmt, _queueCallback, cbCtx, nullptr, nullptr, 0, &q) != noErr) {
         _busy.store(false, std::memory_order_release);
         delete[] ctx->pcm; delete ctx; return;
     }
@@ -153,7 +172,6 @@ static void _playOnAudioThread(void* vctx) {
 void SfxMan::PlayTone(const char* tone) {
     if (!IsIdle()) return;
 
-    // Synthesise entirely on the calling thread — pure arithmetic, well under 1 ms.
     int total = 0;
     int freq = 100, dur = 50, vol_int;
     float amp = DEFAULT_VOLUME;
@@ -182,16 +200,16 @@ void SfxMan::PlayTone(const char* tone) {
     if (total <= 0) return;
     _taper(_scratch, total);
 
-    // Lock the channel immediately on the game thread so back-to-back calls
-    // don't race with the async setup below.
+    // Bump generation before storing _busy=true so the new generation is
+    // visible to any concurrent callback check on the AudioQueue thread.
+    uint32_t gen = _generation.fetch_add(1, std::memory_order_acq_rel) + 1;
+
     _toneEndMs = _nowMs() + (long long)(total * 1000LL / SAMPLES_PER_SEC) + 300LL;
     _busy.store(true, std::memory_order_release);
 
-    // Copy PCM to a heap buffer owned by the async task, then hand it off.
-    // AudioQueueNewOutput / Dispose / Start all run on the serial audio thread —
-    // the render loop never blocks on audio system calls.
     AudioCtx* ctx = new AudioCtx();
     ctx->samples  = total;
+    ctx->gen      = gen;
     ctx->pcm      = new short[total];
     memcpy(ctx->pcm, _scratch, total * sizeof(short));
 
